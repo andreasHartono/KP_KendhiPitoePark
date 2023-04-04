@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\CafeController;
+use App\Http\Controllers\CategoryFoodController;
+use App\Models\Cafe;
+use App\Models\CategoryFood;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('cafes',CafeController::class);
+Route::resource('categories',CategoryFoodController::class);
