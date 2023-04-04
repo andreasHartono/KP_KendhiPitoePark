@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CafeController;
 use App\Http\Controllers\CategoryFoodController;
+use App\Http\Controllers\OrderController;
 use App\Models\Cafe;
 use App\Models\CategoryFood;
 use Illuminate\Support\Facades\Route;
@@ -21,5 +22,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('cafes',CafeController::class);
-Route::resource('categories',CategoryFoodController::class);
+Route::get('add-to-cart/{id}',[CafeController::class,'addToCart']);
+
+Route::resources([
+    'cafes' => CafeController::class,
+    'categories' => CategoryFoodController::class,
+    'order' => OrderController::class 
+]);
+

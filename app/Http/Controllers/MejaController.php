@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cafe;
+use App\Models\Meja;
 use Illuminate\Http\Request;
 
-class CafeController extends Controller
+class MejaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class CafeController extends Controller
      */
     public function index()
     {
-        $cafes = Cafe::all();
-        return view('category.list', compact("cafes"));
+        //
     }
 
     /**
@@ -36,16 +35,16 @@ class CafeController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Meja  $meja
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Meja $meja)
     {
         //
     }
@@ -53,10 +52,10 @@ class CafeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Meja  $meja
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Meja $meja)
     {
         //
     }
@@ -65,43 +64,22 @@ class CafeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Meja  $meja
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Meja $meja)
     {
-        
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Meja  $meja
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Meja $meja)
     {
         //
-    }
-
-    public function addToCart($id)
-    {
-        $food = Cafe::find($id);       
-        $cart = session()->get('cart');
-
-        if (!isset($cart[$id])) {
-            $cart[$id] = [
-                "id" => $id,
-                "name" => $food->name,
-                "quantity" => 1,
-                "price" => $food->price,
-                "image" => $food->picture,
-            ];
-        } else {
-            $cart[$id]['quantity']++;
-        }
- 
-        session()->put('cart', $cart);   
-        
     }
 }

@@ -15,14 +15,12 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->enum('status_order', ['Done','Waiting','Canceled']);
             $table->timestamps();
             $table->unsignedBigInteger('meja_id');
             $table->double('total_price' , 8, 2);
-            $table->bigInteger('cefes_id');
             $table->string('no_order', 5);
-            $table->string('name', 45);
             $table->string('jenis_pembayaran', 45);
             $table->unsignedBigInteger('account_id');
             $table->foreign('meja_id')->references('id')->on('mejas');
