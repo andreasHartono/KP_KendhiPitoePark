@@ -44,9 +44,7 @@ class OrderController extends Controller
         $orders->status_order = "Waiting";
         $orders->meja_id = "1";
         $orders->total_price = 0;
-        $orders->cefes_id = 1;
         $orders->no_order = 9;
-        $orders->name = "XXXXX";
         $orders->jenis_pembayaran = "Cash";
         $orders->acccount_id = 1;
 
