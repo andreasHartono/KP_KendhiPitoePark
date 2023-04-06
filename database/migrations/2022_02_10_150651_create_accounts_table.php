@@ -22,6 +22,7 @@ class CreateAccountsTable extends Migration
             $table->string('name');
             $table->string('address')->nullable();
             $table->string('password');
+            $table->integer('is_admin');
             $table->integer('emoney')->default(0);
             $table->enum('jabatan', ['super admin', 'admin', 'pegawai', 'pelanggan'])->default('pelanggan');
             $table->timestamps();
