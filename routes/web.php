@@ -18,15 +18,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [CafeController::class,'index']);
 
 Route::get('add-to-cart/{id}',[CafeController::class,'addToCart']);
-
+Route::get('cart',[CafeController::class,'cart']);
 Route::resources([
     'cafes' => CafeController::class,
     'categories' => CategoryFoodController::class,
     'order' => OrderController::class 
 ]);
-

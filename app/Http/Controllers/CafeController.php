@@ -15,7 +15,7 @@ class CafeController extends Controller
     public function index()
     {
         $cafes = Cafe::all();
-        return view('category.list', compact("cafes"));
+        return view('menu.index', compact("cafes"));
     }
 
     /**
@@ -84,6 +84,11 @@ class CafeController extends Controller
         //
     }
 
+    public function cart()
+    {
+         return view('menu.cart');
+    }
+
     public function addToCart($id)
     {
         $food = Cafe::find($id);       
@@ -95,13 +100,13 @@ class CafeController extends Controller
                 "name" => $food->name,
                 "quantity" => 1,
                 "price" => $food->price,
-                "image" => $food->picture,
+                "image" => $food->image,
             ];
         } else {
             $cart[$id]['quantity']++;
         }
  
         session()->put('cart', $cart);   
-        
+        return redirect()->back()->with('success','Menu berhasil ditambahkan');
     }
 }

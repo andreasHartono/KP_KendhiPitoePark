@@ -18,6 +18,7 @@ class CreateCafesTable extends Migration
             $table->string("name");
             $table->string('image');
             $table->string('price');
+            $table->string('description');
             $table->string("status")->default("available");
             $table->unsignedBigInteger('account_id');
             $table->foreign('account_id')->references('id')->on('accounts');
