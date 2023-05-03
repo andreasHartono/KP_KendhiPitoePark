@@ -25,7 +25,8 @@ class CreateAccountsTable extends Migration
             $table->integer('is_admin');
             $table->integer('emoney')->default(0);
             $table->enum('jabatan', ['super admin', 'admin', 'pegawai', 'pelanggan'])->default('pelanggan');
-            $table->timestamps();
+            $table->timestamp("created_at")->useCurrent();
+            $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
         });
     }
 

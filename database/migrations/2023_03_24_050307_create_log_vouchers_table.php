@@ -19,7 +19,8 @@ class CreateLogVouchersTable extends Migration
             $table->foreign('account_id')->references('id')->on('accounts');
             $table->string('kode_voucher',10);
             $table->integer('jumlah');
-            $table->timestamps();
+            $table->timestamp("created_at")->useCurrent();
+            $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
         });
     }
 

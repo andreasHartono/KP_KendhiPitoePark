@@ -14,7 +14,9 @@ class OrderDetailsController extends Controller
      */
     public function index()
     {
-        //
+        $orderDetail = OrderDetails::all();
+        dd($orderDetail);
+        return view('menu.index', compact("orderDetail"));
     }
 
     /**
@@ -46,7 +48,9 @@ class OrderDetailsController extends Controller
      */
     public function show(OrderDetails $orderDetails)
     {
-        //
+        $orderDetail = OrderDetails::find();
+        dd($orderDetail);
+        return view('menu.index', compact("cafes"));
     }
 
     /**

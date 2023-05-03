@@ -20,7 +20,8 @@ class CreateOrderDetailsTable extends Migration
             $table->foreign('order_id')->references('id')->on('orders');
             $table->foreign('cafe_id')->references('id')->on('cafes');
             $table->integer('jumlah')->default(1);
-            $table->timestamps();
+            $table->timestamp("created_at")->useCurrent();
+            $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
         });
     }
 

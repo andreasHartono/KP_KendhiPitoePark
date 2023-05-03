@@ -17,12 +17,13 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->text('keterangan')->nullable();
             $table->enum('status_order', ['Done','Waiting','Canceled']);
-            $table->timestamps();
-            $table->unsignedBigInteger('meja_id');
+            $table->timestamp("created_at")->useCurrent();
+            $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
             $table->double('total_price' , 8, 2);
             $table->string('no_order', 5);
             $table->string('jenis_pembayaran', 45);
             $table->unsignedBigInteger('account_id');
+            $table->unsignedBigInteger('meja_id');
             $table->foreign('meja_id')->references('id')->on('mejas');
             $table->foreign('account_id')->references('id')->on('accounts');  
         });

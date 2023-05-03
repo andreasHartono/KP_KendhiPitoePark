@@ -3,6 +3,7 @@
 use App\Http\Controllers\CafeController;
 use App\Http\Controllers\CategoryFoodController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderDetailsController;
 use App\Models\Cafe;
 use App\Models\CategoryFood;
 use Illuminate\Support\Facades\Route;
@@ -25,5 +26,6 @@ Route::get('cart',[CafeController::class,'cart']);
 Route::resources([
     'cafes' => CafeController::class,
     'categories' => CategoryFoodController::class,
-    'order' => OrderController::class 
+    'order' => OrderController::class,
+    'orderdetails' => OrderDetailsController::class
 ]);
