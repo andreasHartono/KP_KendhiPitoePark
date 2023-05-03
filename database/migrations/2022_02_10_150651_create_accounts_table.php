@@ -22,11 +22,13 @@ class CreateAccountsTable extends Migration
             $table->string('name');
             $table->string('address')->nullable();
             $table->string('password');
-            $table->integer('is_admin');
+            $table->integer('is_admin')->default(0);
+
             $table->integer('emoney')->default(0);
-            $table->enum('jabatan', ['super admin', 'admin', 'pegawai', 'pelanggan'])->default('pelanggan');
+            $table->string("jabatan")->default('pelanggan');
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
+            
         });
     }
 

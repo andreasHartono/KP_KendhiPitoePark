@@ -19,6 +19,7 @@ class CreateMejasTable extends Migration
             $table->string('link', 255);
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
+            
         });
     }
 

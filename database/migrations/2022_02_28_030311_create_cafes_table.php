@@ -17,16 +17,18 @@ class CreateCafesTable extends Migration
             $table->id();
             $table->string("name");
             $table->string('image');
-            $table->string('price');
-            $table->string('description');
-            $table->string("status")->default("available");
-            $table->bigInteger('account_id')->unsigned();
-           
-            $table->unsignedBigInteger('category_id');        
-           
+            $table->string('price');            
+            $table->string("status")->default("true");
+            $table->string("message")->nullable();
+            $table->unsignedBigInteger('account_id')->default(1);
+            $table->unsignedBigInteger('category_id');  
             $table->softDeletes();
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
+            $table->string('action', 10)->nullable();
+
+            $table->string('description'); 
+                        
         });
     }
 

@@ -22,7 +22,7 @@ class CafesSeeder extends Seeder
         ];
 
         foreach($cafes as $cafe) {
-            DB::table('cafes')->insert(['name' => $cafe['name'], 'images' => $cafe['image'], 'price' => $cafe['price'], 'description' => $cafe['description'], 'category_id' => $cafe['category_id']]);
+            DB::table('cafes')->insert(['name' => $cafe['name'], 'image' => $cafe['image'], 'price' => $cafe['price'], 'description' => $cafe['description'], 'category_id' => $cafe['category_id']]);
         }
     }
 }
