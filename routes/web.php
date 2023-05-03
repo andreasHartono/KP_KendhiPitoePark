@@ -32,9 +32,17 @@ Route::get('/pembayarancustomer',function() {
 Route::get('/validasipembayaran', function () {
    return view('transaction.validasipembayaran');
 });
+
 Route::resources([
     'cafes' => CafeController::class,
     'categories' => CategoryFoodController::class,
     'order' => OrderController::class,
     'orderdetails' => OrderDetailsController::class
 ]);
+
+Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+
+
+
+
+
