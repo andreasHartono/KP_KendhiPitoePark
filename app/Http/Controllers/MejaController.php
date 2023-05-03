@@ -14,7 +14,9 @@ class MejaController extends Controller
      */
     public function index()
     {
-        //
+        $mejas = Meja::all();
+        dd($mejas);
+        return view('menu.index', compact("mejas"));
     }
 
     /**
