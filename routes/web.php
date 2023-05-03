@@ -26,7 +26,12 @@ Route::get('cart',[CafeController::class,'cart']);
 Route::get('/checkout',function() {
    return view('menu.checkout');
 });
-
+Route::get('/pembayarancustomer',function() {
+   return view('transaction.verifikasipembayaran');
+});
+Route::get('/validasipembayaran', function () {
+   return view('transaction.validasipembayaran');
+});
 Route::resources([
     'cafes' => CafeController::class,
     'categories' => CategoryFoodController::class,

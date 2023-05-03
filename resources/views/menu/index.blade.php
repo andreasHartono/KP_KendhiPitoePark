@@ -32,7 +32,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div><br>
         <div class="row">
             <div class="col-lg-12">
                 <div class="mb-50">
@@ -42,12 +42,12 @@
             @foreach ($cafes as $cafe)
                 <div class="col-lg-4">
                   <div class="card card-1">
-                     <img src="{{ asset('images/'.$cafe->image) }}" alt="menu" class="card-body">
+                     <img src="{{ asset('images/'.$cafe->image) }}" alt="menu" class="card-body card-body-1">
                      <div class="card-body card-body-1">
                         <div class="text-section">
-                           <h4 class="title">{{ $cafe->name }}</h4>
+                           <h4 class="title title-1">{{ $cafe->name }}</h4>
                            <p class="card-text card-text-1">
-                              {{ Str::limit(strtolower($cafe->description), 50) }}
+                              {{ Str::limit(strtolower($cafe->description), 20) }}
                                     <br> Ketersediaan : {{ $cafe->status }}
                            </p>
                         </div>
