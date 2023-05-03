@@ -151,7 +151,7 @@
                                                     <p class="price">Rp.{{ $total }}</p>
                                                 </div>
                                                 <div class="checkout-btn">
-                                                    <a href="cart-page.html" class="main-btn primary-btn-border">View
+                                                    <a href="{{ url('cart') }}" class="main-btn primary-btn-border">View
                                                         Cart</a>
                                                     <a href="#" class="main-btn primary-btn">Checkout</a>
                                                 </div>
@@ -315,7 +315,7 @@
             </div>
     </section>
     <!--====== Footer Style 3 Part Ends ======-->
-
+    @yield('javascript')
     <!--====== Bootstrap 5 js ======-->
     <script src="{{ asset('template/assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('template/assets/js/bootstrap.min.js') }}"></script>

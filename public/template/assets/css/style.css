@@ -19,15 +19,63 @@
 /*==================================================================
                             01.Common css
 ==================================================================*/
+
 /*=====  Common Style =====*/
 @import url("https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900&display=swap");
 body {
+  padding: 1em;
   font-family: "Rubik", sans-serif;
   font-weight: normal;
   font-style: normal;
   color: rgba(0, 0, 0, 0.64);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.card-1 {
+   max-width: 30em;
+   flex-direction: row;
+   box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
+}
+
+.card-1 img {
+   max-width: 25%;
+   margin: auto;
+   padding: 0.5em;
+   border-radius: 0.7em;
+}
+
+.card-body-1 {
+   display: flex;
+   justify-content: space-between;
+}
+
+.text-section {
+   max-width: 60%;
+}
+
+.cta-section {
+   max-width: 40%;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-end;
+   justify-content: space-between;
+}
+
+.cta-section .btn {
+   padding: 0.3em 0.5em;
+}
+
+@media screen and (max-width: 475px) {
+   .card-1 {
+      font-size: 0.9em;
+   }
+}
+
+.price {
+   font-weight: 500;
+  font-size: 16px;
+   color: #59AB6E;
 }
 
 * {
@@ -549,7 +597,7 @@ p {
 }
 
 .bg-primary-4 {
-  background-color: #754FF1;
+  background-color: #59AB6E;
 }
 
 .bg-primary-5 {
@@ -4274,6 +4322,9 @@ p {
 
 .breadcrumbs-style .breadcrumb-right .breadcrumb-list-grid {
   padding-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 767px) {
@@ -6712,6 +6763,8 @@ p {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .reviews-style .reviews-menu .nav::before {

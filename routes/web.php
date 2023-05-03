@@ -22,6 +22,10 @@ Route::get('/', [CafeController::class,'index']);
 
 Route::get('add-to-cart/{id}',[CafeController::class,'addToCart']);
 Route::get('cart',[CafeController::class,'cart']);
+Route::get('/checkout',function() {
+   return view('menu.checkout');
+});
+
 Route::resources([
     'cafes' => CafeController::class,
     'categories' => CategoryFoodController::class,
