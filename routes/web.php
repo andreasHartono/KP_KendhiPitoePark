@@ -32,7 +32,15 @@ Route::get('/pembayarancustomer',function() {
 Route::get('/validasipembayaran', function () {
    return view('transaction.validasipembayaran');
 });
-
+Route::get('/notapembayaran', function () {
+   return view('transaction.notapembayaran');
+});
+Route::get('/lacakpesanan', function () {
+   return view('transaction.lacakpesanan');
+});
+Route::get('/membershiptopup', function () {
+   return view('membership.topup');
+});
 Route::resources([
     'cafes' => CafeController::class,
     'categories' => CategoryFoodController::class,
