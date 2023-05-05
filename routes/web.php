@@ -41,6 +41,9 @@ Route::get('/lacakpesanan', function () {
 Route::get('/membershiptopup', function () {
    return view('membership.topup');
 });
+Route::get('/logins', function () {
+   return view('auth.login');
+});
 Route::resources([
     'cafes' => CafeController::class,
     'categories' => CategoryFoodController::class,
@@ -54,3 +57,7 @@ Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order
 
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
