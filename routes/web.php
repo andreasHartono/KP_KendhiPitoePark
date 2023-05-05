@@ -48,6 +48,9 @@ Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order
 
 
 //TARUK RESOURCE PALING BAWAH
+Route::get('/logins', function () {
+   return view('auth.login');
+});
 Route::resources([
     'cafes' => CafeController::class,
     'categories' => CategoryFoodController::class,
@@ -61,3 +64,7 @@ Route::resources([
 
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
