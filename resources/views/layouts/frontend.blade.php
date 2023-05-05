@@ -263,7 +263,7 @@
                                                 <div class="checkout-btn">
                                                     <a href="{{ url('cart') }}" class="main-btn primary-btn-border">View
                                                         Cart</a>
-                                                    <a href="#" class="main-btn primary-btn">Checkout</a>
+                                                    <a href="{{ url('checkout') }}" class="main-btn primary-btn">Checkout</a>
                                                 </div>
                                             </div>
                                           @endif

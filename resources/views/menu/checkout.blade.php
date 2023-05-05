@@ -1,71 +1,89 @@
 @extends('layouts.frontend')
 @section('content')
-    <div class="container">
-         <div class="card">
-            <div class="checkout-table">
-               <table class="table table-hover">
-                  <thead>
-                        <tr>
-                           <th class=product>Product</th>
-                           <th class=quantity>Quantity</th>
-                           <th class=price>Price</th>
-                        </tr>
-                  </thead>
-                  <tbody>
-                     <tr>
-                        <td class="checkout-product">
-                           <div class="product-cart d-flex">
-                              <div class="product-content media-body">
-                                 <h5 class="title">TEH</h5>
-                              </div>
-                           </div>
-                        </td>
-                        <td class="checkout-quantity">
-                           <div class="product-quantity d-inline-flex">
-                              <input type="text" value="1">
-                           </div>
-                        </td>
-                        <td class="checkout-price">
-                              <p class="price">Rp.10.000</p>
-                        </td>
-                     </tr>
-                  </tbody>
-                  <tfoot>
-                     <tr>
-                        <td>
-                           <p>Tambah Catatan : &nbsp;&nbsp;<a href="#catatan" class="btn btn-outline-success">Catatan</a></p>
-                        </td>
-                     </tr>
-                  </tfoot>
-               </table>
-            </div>
+<div class="container">
+   <div class="card">
+      <div class="checkout-table">
+         <table class="table table-hover">
+            <thead>
+               <tr>
+                  <th class=product>Product</th>
+                  <th class=quantity>Quantity</th>
+                  <th class=price>Price</th>
+               </tr>
+            </thead>
+            <tbody>
+               @if(session('cart'))
+               @foreach(session('cart') as $item)
+               <tr>
+                  <td class="checkout-product">
+                     <div class="product-cart d-flex">
+                        <div class="product-content media-body">
+                           <h5 class="title">{{$item['name']}}</h5>
+                        </div>
+                     </div>
+                  </td>
+                  <td class="checkout-quantity">
+                     <div class="product-quantity d-inline-flex">
+                        <input type="text" value="{{$item['quantity']}}">
+                     </div>
+                  </td>
+                  <td class="checkout-price">
+                     <p class="price">Rp.{{$item['price']}}</p>
+                  </td>
+               </tr>
+               <?php $total += $item['price'];  ?>
+               @endforeach
+
+               @endif
+
+            </tbody>
+            <form action="" method="POST" class="was-validated">
+            <tr>
+                  <td>
+                     <p>Tambah Catatan : &nbsp;&nbsp;<input type="text" class="form-control" placeholder="Catatan tambahan" name="catatan_tambahan"></p>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <p>Nomor Meja : &nbsp;&nbsp;<input type="number" class="form-control" placeholder="1" name="no_meja"></p>
+                     <!-- Kalo nomer meja = 0, kasik javascript keluarin input tanya lokasi -->
+                  </td>
+               </tr>
+            <tfoot>
+               
+            </tfoot>
+         </table>
+      </div>
+   </div>
+   <div class="card">
+      <div class="card-body">
+         <h5 class="card-title">Total Harga</h5><br>
+         <h6 class="card-text"> &nbsp;&nbsp;&nbsp;&nbsp; Rp.{{$total}}</h6><br>
+         <!-- <p class="card-text">Punya Membership &nbsp;&nbsp; <a href="#" class="btn btn-success">Gunakan Member</a> -->
+         </p>
+      </div>
+   </div><br>
+   <div class="card">
+      <div class="card-body">
+         
+         
+            <h5 class="card-title">Nama Customer</h5>
+            {{-- Ada kondisi apakah sudah login atau belum --}}
+            <p class="card-text">Andrian</p><br>
+            <input type="text" class="form-control" placeholder="Nama Anda" required="" nama="nama_customer">
+            <div class="invalid-feedback"></div>
+            
+         </form>
+      </div>
+   </div><br>
+   <div class="card">
+      <div class="card-body">
+      <h5 class="card-title">Metode Pembayaran</h5>
+         <div class="d-grid gap-2">
+            <a class="btn btn-success btn-block" href="#">E-WALLET KENDHI PITOE</a>
+            <a class="btn btn-outline-success btn-block" href="{{url('/pembayarancustomer')}}">TUNAI</a>
          </div>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Rincian Pembayaran</h5><br>
-                <p class="card-text">Total Harga &nbsp;&nbsp;&nbsp;&nbsp; Rp. 15.000,00</p><br>
-                <p class="card-text">Punya Membership &nbsp;&nbsp; <a href="#" class="btn btn-success">Gunakan Member</a>
-                </p>
-            </div>
-        </div><br>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Nama Customer</h5>
-                {{-- Ada kondisi apakah sudah login atau belum --}}
-                <p class="card-text">Andrian</p><br>
-                <form action="" method="POST" class="was-validated">
-                    <input type="text" class="form-control" placeholder="Nama Anda" required="">
-                    <div class="invalid-feedback"></div>
-                </form>
-            </div>
-        </div><br>
-        <div class="card">
-            <div class="card-body">
-                <div class="d-grid gap-2">
-                    <a class="btn btn-success btn-block" href="#">E-WALLET KENDHI PITOE</a>
-                    <a class="btn btn-outline-success btn-block" href="#">TUNAI</a>
-                </div>
-            </div>
-        </div>
-    </div>
+      </div>
+   </div>
+</div>
 @endsection

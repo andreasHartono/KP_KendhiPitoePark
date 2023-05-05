@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Cafe;
 use App\Models\OrderDetails;
 
 class OrderController extends Controller
@@ -16,10 +17,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        // $order = Order::all();
-        // dd($order);
-        // return view('menu.index', compact("order"));
-        
+        $order = Order::all();       
+        return view('menu.index', compact("order"));        
        
     }
 
@@ -41,31 +40,7 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        $cart = session()->get('cart');
-
-        $orders = new Order();
-        $orders->keterangan = "Belum ada";
-        $orders->status_order = "Waiting";
-        $orders->meja_id = "1";
-        $orders->total_price = 0;
-        $orders->no_order = 9;
-        $orders->jenis_pembayaran = "Cash";
-        $orders->acccount_id = 1;
-
-        $orders->save();
-        $totalPrice = 0;
-
-        foreach ($cart as $value) {
-            $od = new OrderDetails();
-            $od->order_id = $orders->id;
-            $od->cafe_id = $value['id'];
-            $od->jumlah = $value['quantity'];
-            $od->save();
-            $totalPrice += ($value['quantity'] * $value['price']);
-
-        }
-        $orders = Order::find($orders->id);
-        $orders->total_price = $totalPrice;
+        
     }
 
     /**
@@ -99,10 +74,7 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        $cart = session()->get('cart');
-        foreach ($cart as $value) {
-            dd($value);
-        }
+        
     }
 
     /**
@@ -118,31 +90,45 @@ class OrderController extends Controller
 
     public function checkout()
     {
-        dd("asd");
+       
         $cart = session()->get('cart');
+        
+        if(is_null($cart))
+        {
+            $msg = "Keranjang masih kosong.";
+            session()->put("msg",$msg);
+            $cafes = Cafe::all();
+            return view('menu.index', compact("cafes"));  
+        }        
+        else
+        {
+            $orders = new Order();
+            $orders->keterangan = "Belum ada";
+            $orders->status_order = "Processing";
+            $orders->meja_id = "1";
+            $orders->total_price = 0;
+            $orders->no_order = 9;
+            $orders->jenis_pembayaran = "Cash";
+            $orders->account_id = 1;
 
-        $orders = new Order();
-        $orders->keterangan = "Belum ada";
-        $orders->status_order = "Waiting";
-        $orders->meja_id = "1";
-        $orders->total_price = 0;
-        $orders->no_order = 9;
-        $orders->jenis_pembayaran = "Cash";
-        $orders->acccount_id = 1;
+            $orders->save();
+            $totalPrice = 0;
 
-        $orders->save();
-        $totalPrice = 0;
+            foreach ($cart as $value) {
+                $od = new OrderDetails();
+                $od->order_id = $orders->id;
+                $od->cafe_id = $value['id'];
+                $od->jumlah = $value['quantity'];
+                $od->save();
+                $totalPrice += ($value['quantity'] * $value['price']);
 
-        foreach ($cart as $value) {
-            $od = new OrderDetails();
-            $od->order_id = $orders->id;
-            $od->cafe_id = $value['id'];
-            $od->jumlah = $value['quantity'];
-            $od->save();
-            $totalPrice += ($value['quantity'] * $value['price']);
-
+            }
+            $orders = Order::find($orders->id);
+            $orders->total_price = $totalPrice;
+            $cart = null;
+            session()->put("cart",$cart);
+            return view('menu.index', compact("order"));  
         }
-        $orders = Order::find($orders->id);
-        $orders->total_price = $totalPrice;
+        
     }
 }

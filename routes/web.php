@@ -32,6 +32,7 @@ Route::get('/pembayarancustomer',function() {
 Route::get('/validasipembayaran', function () {
    return view('transaction.validasipembayaran');
 });
+
 Route::get('/notapembayaran', function () {
    return view('transaction.notapembayaran');
 });
@@ -41,6 +42,12 @@ Route::get('/lacakpesanan', function () {
 Route::get('/membershiptopup', function () {
    return view('membership.topup');
 });
+
+
+Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+
+
+//TARUK RESOURCE PALING BAWAH
 Route::resources([
     'cafes' => CafeController::class,
     'categories' => CategoryFoodController::class,
@@ -48,7 +55,7 @@ Route::resources([
     'orderdetails' => OrderDetailsController::class
 ]);
 
-Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+
 
 
 

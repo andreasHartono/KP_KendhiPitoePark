@@ -88,7 +88,7 @@
                                                         <a href="{{ url('/') }}"
                                                             class="main-btn primary-btn-border">continue
                                                             shopping</a>                                                            
-                                                        <a href="{{ url('/order') }}" class="main-btn primary-btn">Checkout</a>
+                                                        <a href="{{ url('/order/checkout') }}" class="main-btn primary-btn">Checkout</a>
                                                     </div>
                                                 </div>
                                             </td>
