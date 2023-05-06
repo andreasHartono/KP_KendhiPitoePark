@@ -42,6 +42,9 @@ Route::get('/lacakpesanan', function () {
 Route::get('/membershiptopup', function () {
    return view('membership.topup');
 });
+Route::get('/scankasir', function () {
+   return view('kasir.scan');
+});
 
 
 Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
