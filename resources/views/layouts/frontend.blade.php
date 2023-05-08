@@ -320,7 +320,7 @@
     <script src="{{ asset('template/assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('template/assets/js/bootstrap.min.js') }}"></script>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
     <!--====== Jquery js ======-->
     <script src="{{ asset('template/assets/js/vendor/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('template/assets/js/vendor/modernizr-3.7.1.min.js') }}"></script>
