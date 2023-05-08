@@ -13,7 +13,10 @@ class QrCodeController extends Controller
      */
     public function index()
     {
-        return view('qrcode');
+        $cart = session()->get("cart");
+        $cartJson = json_encode($cart);
+       
+        return view('/transaction.verifikasipembayaran',["cart"=>$cartJson]);
     }
 
     /**

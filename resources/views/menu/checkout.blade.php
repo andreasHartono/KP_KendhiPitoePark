@@ -81,7 +81,7 @@
       <h5 class="card-title">Metode Pembayaran</h5>
          <div class="d-grid gap-2">
             <a class="btn btn-success btn-block" href="#">E-WALLET KENDHI PITOE</a>
-            <a class="btn btn-outline-success btn-block" href="{{url('/pembayarancustomer')}}">TUNAI</a>
+            <a class="btn btn-outline-success btn-block" href="{{url('/qrcode')}}">TUNAI</a>
          </div>
       </div>
    </div>

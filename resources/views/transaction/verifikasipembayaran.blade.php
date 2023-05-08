@@ -17,7 +17,8 @@
          </div>
          <div class="card-body">
             <h3 class="card-text heading-3">
-               INI TEMPAT QR CODE
+               {{$cart}}
+               {!! QrCode::size(300)->generate($cart) !!}
             </h3>
          </div>
          <div class="card-footer">

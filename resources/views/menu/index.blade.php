@@ -33,7 +33,7 @@
         <div class="col-lg-12">
             <div class="mb-50">
                 <h3 class="heading-4 font-weight-700">Seluruh Makanan dan Minuman</h3>
-
+                
                 <?php
                 // if(!is_null(session("msg")))
                 // {

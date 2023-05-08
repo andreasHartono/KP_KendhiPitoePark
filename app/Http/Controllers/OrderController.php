@@ -90,7 +90,7 @@ class OrderController extends Controller
 
     public function checkout()
     {
-       
+        
         $cart = session()->get('cart');
         
         if(is_null($cart))

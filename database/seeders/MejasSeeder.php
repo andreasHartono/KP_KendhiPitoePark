@@ -16,7 +16,8 @@ class MejasSeeder extends Seeder
     {
         $mejas = [
             ['no_meja' => '1','link' => 'www.google1.com'], 
-            ['no_meja' => '2','link' => 'www.google2.com'],         
+            ['no_meja' => '2','link' => 'www.google2.com'], 
+            ['no_meja' => '3','link' => 'www.google3.com'],        
                
         ];
 

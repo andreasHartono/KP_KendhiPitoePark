@@ -15,9 +15,12 @@ class CafesSeeder extends Seeder
     public function run()
     {
         $cafes = [
-            ['name' => 'Nasi Goreng', 'image'=>'123.jpg','price'=>'10000','description'=>'Pedas','category_id'=>1],
-            ['name' => 'Es Teh', 'image'=>'123.jpg','price'=>'10000','description'=>'Pedas','category_id'=>2],
-            ['name' => 'Pisang Goreng', 'image'=>'123.jpg','price'=>'10000','description'=>'Pedas','category_id'=>3],
+            ['name' => 'Nasi Goreng', 'image'=>'nasigoreng.jpg','price'=>'15000','description'=>'Pedas','category_id'=>1],
+            ['name' => 'Es Teh', 'image'=>'esteh.jpg','price'=>'6000','description'=>'Dengan Madu','category_id'=>2],
+            ['name' => 'Pisang Goreng', 'image'=>'pisanggoreng.jpg','price'=>'10000','description'=>'Berisi 3 pisang','category_id'=>3],
+            ['name' => 'Mie Goreng', 'image'=>'miegoreng.jpg','price'=>'15000','description'=>'Pedas Manis','category_id'=>1],
+            ['name' => 'Es jeruk', 'image'=>'esteh.jpg','price'=>'8000','description'=>'Manis dan Kecut','category_id'=>2],
+            ['name' => 'Tempe Goreng', 'image'=>'tempegoreng.jpg','price'=>'10000','description'=>'Berisi 5 tempe','category_id'=>3],
             
         ];
 
