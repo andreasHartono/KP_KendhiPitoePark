@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [CafeController::class,'index']);
+Route::get('/', [CafeController::class,'index'])->name("index");
 
 Route::get('add-to-cart/{id}',[CafeController::class,'addToCart']);
 Route::get('cart',[CafeController::class,'cart']);

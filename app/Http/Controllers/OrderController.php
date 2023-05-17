@@ -18,9 +18,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::all();       
-        return view('menu.index', compact("order"));        
-       
+        $order = Order::all();
+        return view('menu.index', compact("order"));
     }
 
     /**
@@ -41,7 +40,6 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        
     }
 
     /**
@@ -75,7 +73,6 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        
     }
 
     /**
@@ -86,32 +83,29 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        
     }
 
     public function toCheckout(Request $request)
     {
-    //    dd("asd");
-    //    $text = $request->input("cartOrder");
-    //    error_log('Some message here.');
-       return "123";     
-       
+        //    dd("asd");
+        //    $text = $request->input("cartOrder");
+        //    error_log('Some message here.');
+        // For a route with the following URI: profile/{id}
+
+        return redirect()->route('index');
     }
 
     public function checkout()
     {
-        
+
         $cart = session()->get('cart');
-        
-        if(is_null($cart))
-        {
+
+        if (is_null($cart)) {
             $msg = "Keranjang masih kosong.";
-            session()->put("msg",$msg);
+            session()->put("msg", $msg);
             $cafes = Cafe::all();
-            return view('menu.index', compact("cafes"));  
-        }        
-        else
-        {
+            return view('menu.index', compact("cafes"));
+        } else {
             $orders = new Order();
             $orders->keterangan = "Belum ada";
             $orders->status_order = "Processing";
@@ -131,14 +125,12 @@ class OrderController extends Controller
                 $od->jumlah = $value['quantity'];
                 $od->save();
                 $totalPrice += ($value['quantity'] * $value['price']);
-
             }
             $orders = Order::find($orders->id);
             $orders->total_price = $totalPrice;
             $cart = null;
-            session()->put("cart",$cart);
-            return view('menu.index', compact("order"));  
+            session()->put("cart", $cart);
+            return view('menu.index', compact("order"));
         }
-        
     }
 }
