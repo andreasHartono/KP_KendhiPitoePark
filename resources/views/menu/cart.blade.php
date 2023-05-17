@@ -35,9 +35,10 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th class=product>Product</th>
-                                            <th class=quantity>Quantity</th>
-                                            <th class=price>Price</th>
+                                            <th class=product>Menu yang Dipesan</th>
+                                             <th class=price>Harga Per Menu</th>
+                                             <th class=quantity>Jumlah yang Dipesan</th>
+                                             <th class=price>Sub Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -58,6 +59,9 @@
                                                             </h5>
                                                         </div>
                                                     </div>
+                                                </td>
+                                                 <td class="checkout-price">
+                                                    <p class="price">Rp.{{ $details['price'] }}</p>
                                                 </td>
                                                 <td class="checkout-quantity">
                                                     <div class="product-quantity d-inline-flex">

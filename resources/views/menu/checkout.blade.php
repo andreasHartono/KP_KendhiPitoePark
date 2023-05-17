@@ -6,9 +6,10 @@
          <table class="table table-hover">
             <thead>
                <tr>
-                  <th class=product>Product</th>
-                  <th class=quantity>Quantity</th>
-                  <th class=price>Price</th>
+                  <th class=product>Menu yang Dipesan</th>
+                  <th class=price>Harga Per Menu</th>
+                  <th class=quantity>Jumlah yang Dipesan</th>
+                  <th class=price>Sub Total</th>
                </tr>
             </thead>
             <tbody>
@@ -22,13 +23,16 @@
                         </div>
                      </div>
                   </td>
+                  <td class="checkout-price">
+                     <p class="price">Rp.{{$item['price']}}</p>
+                  </td>
                   <td class="checkout-quantity">
                      <div class="product-quantity d-inline-flex">
-                        <input type="text" value="{{$item['quantity']}}">
+                        <input type="text" value="{{ $item['quantity'] }}">
                      </div>
                   </td>
                   <td class="checkout-price">
-                     <p class="price">Rp.{{$item['price']}}</p>
+                     <p class="price">Rp.{{$item['price'] * $item['quantity']}}</p>
                   </td>
                </tr>
                <?php $total += $item['price'];  ?>

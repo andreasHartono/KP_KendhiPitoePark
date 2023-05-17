@@ -17,9 +17,10 @@
                <table class="table table-hover">
                   <thead>
                         <tr>
-                           <th class=product>Product</th>
-                           <th class=quantity>Quantity</th>
-                           <th class=price>Price</th>
+                           <th class=product>Menu yang Dipesan</th>
+                           <th class=price>Harga Per Menu</th>
+                           <th class=quantity>Jumlah yang Dipesan</th>
+                           <th class=price>Sub Total</th>
                         </tr>
                   </thead>
                   <tbody>
@@ -30,6 +31,9 @@
                                  <h5 class="title">TEH</h5>
                               </div>
                            </div>
+                        </td>
+                        <td class="checkout-price">
+                              <p class="price">Rp.15.000</p>
                         </td>
                         <td class="checkout-quantity">
                            <div class="product-quantity d-inline-flex">
@@ -51,7 +55,11 @@
                 <p class="card-text">Harga Tunai &nbsp;&nbsp;&nbsp;&nbsp;Rp. 20.000</p>
                 <p class="card-text">Harga Kembali  &nbsp;&nbsp;&nbsp;&nbsp;Rp. 5.000</p><br>
                 <a href="#" class="btn btn-success btn-block">Download Struk</a>
+                <a href="#" class="btn btn-outline-success btn-block">Cetak Struk</a>
             </div>
         </div><br>
+        <div class="card-body">
+            <h4 class="card-title heading-3">Terima Kasih Telah Berkunjung Di Kendhi Pitoe Park</h4><br>
+         </div>
     </div>
 @endsection

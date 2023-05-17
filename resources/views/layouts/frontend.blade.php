@@ -125,6 +125,9 @@
                                                                         </div>
                                                                      </div>
                                                                   </td>
+                                                                  <td class="checkout-price">
+                                                                     <p class="price">Rp.{{ $details['price'] }}</p>
+                                                                  </td>
                                                                   <td class="checkout-quantity">
                                                                      <div class="product-quantity d-inline-flex">
                                                                         <button type="button" id="sub" class="sub">
@@ -234,6 +237,9 @@
                                                                               </ul>
                                                                         </div>
                                                                      </div>
+                                                                  </td>
+                                                                  <td class="checkout-price">
+                                                                     <p class="price">Rp.{{ $details['price'] }}</p>
                                                                   </td>
                                                                   <td class="checkout-quantity">
                                                                      <div class="product-quantity d-inline-flex">
