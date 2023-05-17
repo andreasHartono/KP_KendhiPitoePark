@@ -7,6 +7,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Cafe;
 use App\Models\OrderDetails;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -85,7 +86,16 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        
+    }
+
+    public function toCheckout(Request $request)
+    {
+    //    dd("asd");
+    //    $text = $request->input("cartOrder");
+    //    error_log('Some message here.');
+       return "123";     
+       
     }
 
     public function checkout()

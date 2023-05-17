@@ -12,7 +12,7 @@
                </tr>
             </thead>
             <tbody>
-               @if(session('cart'))
+               <!-- @if(session('cart')) -->
                @foreach(session('cart') as $item)
                <tr>
                   <td class="checkout-product">
@@ -33,8 +33,7 @@
                </tr>
                <?php $total += $item['price'];  ?>
                @endforeach
-
-               @endif
+               <!-- @endif -->
 
             </tbody>
             <form action="" method="POST" class="was-validated">

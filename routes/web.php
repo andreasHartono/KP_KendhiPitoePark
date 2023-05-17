@@ -45,10 +45,11 @@ Route::get('/membershiptopup', function () {
 });
 Route::get('/scankasir', function () {
    return view('kasir.scan');
-});
+})->name("scankasir");
 
 
 Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+Route::get('/order/toCheckout', [OrderController::class, 'toCheckout'])->name('order.toCheckout');
 
 
 //TARUK RESOURCE PALING BAWAH

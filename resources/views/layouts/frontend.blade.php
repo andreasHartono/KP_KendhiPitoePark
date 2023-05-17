@@ -79,7 +79,7 @@
                         <div class="col-6">
                             <!-- desktop logo Start -->
                             <div class="mobile-logo text-center">
-                                <a href="/"><img width="110px" height="110px" src="{{ asset('template/assets/images/pitoe.png') }}" alt="Logo"></a>
+                                <a href="{{url('/')}}"><img width="110px" height="110px" src="{{ asset('template/assets/images/pitoe.png') }}" alt="Logo"></a>
                             </div>
                             <!-- desktop logo Ends -->
                         </div>

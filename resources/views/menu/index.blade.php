@@ -48,7 +48,7 @@
         @foreach ($cafes as $cafe)
         <div class="col-lg-4">
             <div class="card card-1">
-                <img src="{{ asset('images/'.$cafe->image) }}" alt="menu" class="card-body card-body-1">
+                <img src="{{ asset('assets/images/menu/'.$cafe->image) }}" alt="menu" class="card-body card-body-1">
                 <div class="card-body card-body-1">
                     <div class="text-section">
                         <h4 class="title title-1">{{ $cafe->name }}</h4>
