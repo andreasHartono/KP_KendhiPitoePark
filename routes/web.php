@@ -32,7 +32,7 @@ Route::get('/pembayarancustomer',function() {
 });
 Route::get('/validasipembayaran', function () {
    return view('transaction.validasipembayaran');
-});
+})->name('validasipembayaran');
 
 Route::get('/notapembayaran', function () {
    return view('transaction.notapembayaran');
@@ -49,7 +49,7 @@ Route::get('/scankasir', function () {
 
 
 Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
-Route::get('/order/toCheckout', [OrderController::class, 'toCheckout'])->name('order.toCheckout');
+Route::get('/order/validasiPembayaran', [OrderController::class, 'validasiPembayaran'])->name('validasiPembayaran');
 
 
 //TARUK RESOURCE PALING BAWAH

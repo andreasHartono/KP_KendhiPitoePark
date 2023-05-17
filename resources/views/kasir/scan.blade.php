@@ -15,25 +15,16 @@
         </div>
     </div><br>
 </div>
-<button id="tes">Haha</button>
+<a href="{{ route('validasiPembayaran') }}"><button id="tes">Anggep bisa Scan</button></a>
 @endsection
 @section('javascript')
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
+
     $('#tes').on('click', function() {
-       
-        $.ajax({
-            type: 'GET',
-            url: "{{route('order.toCheckout')}}",
-            data: {
-                _token: '{{ csrf_token() }}',
-            },
-            success: function(response) {
-                
-                alert("test")
-            }
-        });
+
+        
     });
 
 
@@ -44,7 +35,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{route('order.toCheckout')}}",
+            url: "{{route('validasiPembayaran')}}",
             data: {
                 _token: '{{ csrf_token() }}',
                 cartOrder: decodedText
