@@ -85,14 +85,11 @@ class OrderController extends Controller
     {
     }
 
-    public function toCheckout(Request $request)
+    public function validasiPembayaran(Request $request)
     {
-        //    dd("asd");
-        //    $text = $request->input("cartOrder");
-        //    error_log('Some message here.');
-        // For a route with the following URI: profile/{id}
-
-        return redirect()->route('index');
+        $cart = session()->get('cart');      
+       
+        return view('transaction.validasipembayaran', compact("cart"));        
     }
 
     public function checkout()
@@ -130,7 +127,7 @@ class OrderController extends Controller
             $orders->total_price = $totalPrice;
             $cart = null;
             session()->put("cart", $cart);
-            return view('menu.index', compact("order"));
+            
         }
     }
 }
