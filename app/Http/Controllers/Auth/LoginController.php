@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /*
+   /*
     |--------------------------------------------------------------------------
     | Login Controller
     |--------------------------------------------------------------------------
@@ -19,24 +20,23 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+   use AuthenticatesUsers;
+   /**
+    * Where to redirect users after login.
+    *
+    * @var string
+    */
+   protected $redirectTo = '/';
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+   /**
+    * Create a new controller instance.
+    *
+    * @return void
+    */
+   public function __construct()
+   {
+      $this->middleware('guest')->except('logout');
+   }
 
    /**
     * Handle an authentication attempt.
@@ -48,17 +48,22 @@ class LoginController extends Controller
    {
       $credentials = $request->validate([
          'username' => ['required'],
-         'password' => ['required'],
+         'password' => ['required']
       ]);
 
       if (Auth::attempt($credentials)) {
          $request->session()->regenerate();
-
          return redirect()->intended('/');
       }
 
-      return back()->withErrors([
-         'username' => 'Login Gagal',
-      ]);
+      return back()->with('loginError', 'Login Gagal Username atau Password Salah');
+   }
+
+   public function logout(Request $request)
+   {
+      Auth::logout();
+      request()->session()->invalidate();
+      $request->session()->regenerate();
+      return redirect('/login');
    }
 }

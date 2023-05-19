@@ -5,7 +5,7 @@ use App\Http\Controllers\CategoryFoodController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailsController;
 use App\Http\Controllers\QrCodeController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Models\Cafe;
 use App\Models\CategoryFood;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('/login', [LoginController::class,'authenticate']);
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/account/login', [LoginController::class,'authenticate']);
 Route::get('/', [CafeController::class,'index'])->name("index");
 
 Route::get('add-to-cart/{id}',[CafeController::class,'addToCart']);

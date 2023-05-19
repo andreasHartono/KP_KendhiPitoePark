@@ -20,7 +20,7 @@
                 <img src="{{ asset('template/assets/images/pitoe.png') }}" alt="logo" height="300" width="300">
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('login') }}">
+                <form method="POST" action="{{ url('account/login/') }}">
                   @csrf  
                   <div class="input-group mb-3">
                         <input required type="text" name="username"
