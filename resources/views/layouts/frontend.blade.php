@@ -94,7 +94,7 @@
                                 <div class="navbar-cart-dropdown">
                                     <div class="checkout-style-2">
                                         <div class="checkout-header d-flex justify-content-between">
-                                            <h6 class="title">Shopping Cart</h6>
+                                            <h6 class="title">Daftar Pesanan Sementara</h6>
                                         </div>
                                           @if(session('cart'))
                                             <div class="checkout-table">
@@ -207,7 +207,7 @@
                                     <div class="navbar-cart-dropdown">
                                         <div class="checkout-style-2">
                                             <div class="checkout-header d-flex justify-content-between">
-                                                <h6 class="title">Shopping Cart</h6>
+                                                <h6 class="title">Daftar Pesanan Sementara</h6>
                                             </div>
                                           @if(session('cart'))
                                             <div class="checkout-table">
