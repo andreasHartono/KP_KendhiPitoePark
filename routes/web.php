@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryFoodController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailsController;
 use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Models\Cafe;
 use App\Models\CategoryFood;
@@ -21,16 +22,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/account/login', [LoginController::class,'authenticate']);
-Route::get('/', [CafeController::class,'index'])->name("index");
+Route::get('/login', [AccountController::class, 'index'])->name('login');
+Route::post('/login_detail', [AccountController::class, 'authenticate']);
+Route::post('/logout', [AccountController::class, 'logout']);
+Route::get('/register', [AccountController::class, 'indexRegister'])->name('register');
+Route::post('/register_detail', [AccountController::class, 'create']);
 
-Route::get('add-to-cart/{id}',[CafeController::class,'addToCart']);
-Route::get('cart',[CafeController::class,'cart']);
-Route::get('/checkout',function() {
+Route::get('/', [CafeController::class, 'index'])->name("index");
+
+Route::get('add-to-cart/{id}', [CafeController::class, 'addToCart']);
+Route::get('cart', [CafeController::class, 'cart']);
+Route::get('/checkout', function () {
    return view('menu.checkout');
 });
-Route::get('/pembayarancustomer',function() {
+Route::get('/pembayarancustomer', function () {
    return view('transaction.verifikasipembayaran');
 });
 Route::get('/validasipembayaran', function () {
@@ -60,20 +65,13 @@ Route::get('/logins', function () {
    return view('auth.login');
 });
 Route::resources([
-    'cafes' => CafeController::class,
-    'categories' => CategoryFoodController::class,
-    'order' => OrderController::class,
-    'orderdetails' => OrderDetailsController::class,
-    'qrcode'=> QrCodeController::class,
+   'cafes' => CafeController::class,
+   'categories' => CategoryFoodController::class,
+   'order' => OrderController::class,
+   'orderdetails' => OrderDetailsController::class,
+   'qrcode' => QrCodeController::class,
 ]);
 
+//Auth::routes();
 
-
-
-
-
-
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

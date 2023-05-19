@@ -17,7 +17,7 @@
             <img src="{{ asset('template/assets/images/pitoe.png') }}" alt="logo" height="300" width="300">
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('register') }}">
+            <form method="POST" action="{{ url('register_detail') }}">
                 @csrf
                 <div class="input-group mb-3">
                         <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"

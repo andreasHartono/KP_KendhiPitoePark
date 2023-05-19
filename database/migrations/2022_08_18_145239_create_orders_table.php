@@ -31,7 +31,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('meja_id')->references('id')->on('mejas'); 
             
             $table->unsignedBigInteger('account_id');                       
-            $table->foreign('account_id')->references('id')->on('accounts'); 
+            $table->foreign('account_id')->references('id')->on('users'); 
              
         });
     }
