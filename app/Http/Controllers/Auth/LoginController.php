@@ -54,11 +54,11 @@ class LoginController extends Controller
       if (Auth::attempt($credentials)) {
          $request->session()->regenerate();
 
-         return redirect()->intended('kasir');
+         return redirect()->intended('/');
       }
 
       return back()->withErrors([
-         'email' => 'The provided credentials do not match our records.',
+         'username' => 'Login Gagal',
       ]);
    }
 }

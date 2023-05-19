@@ -20,52 +20,37 @@
             <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="input-group mb-3">
-                    <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('Username') }}</label>
-
-                    <div class="col-md-6">
                         <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
-                            name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+                           placeholder="silahkan isi username" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus >
 
                         @error('username')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                    </div>
                 </div>
                 <div class="input-group mb-3">
-                    <label for="phone" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
-
-                    <div class="col-md-6">
                         <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror"
-                            name="phone" value="{{ old('phone') }}" required autocomplete="phone">
+                            name="phone" value="{{ old('phone') }}" required autocomplete="phone" placeholder="silahkan isi nomor telepon anda">
 
                         @error('phone')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                    </div>
                 </div>
                 <div class="input-group mb-3">
-                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Full Name') }}</label>
-
-                    <div class="col-md-6">
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                            name="name" value="{{ old('name') }}" required autocomplete="name">
+                            name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="silahkan isi nama lengkap anda">
 
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                    </div>
                 </div>
                 <div class="input-group mb-3">
-                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="silahkan isi password anda"
                             name="password" required autocomplete="new-password">
 
                         @error('password')
@@ -73,16 +58,10 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                    </div>
                 </div>
                 <div class="input-group mb-3">
-                    <label for="password-confirm"
-                        class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                    <div class="col-md-6">
                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                            required autocomplete="new-password">
-                    </div>
+                            required autocomplete="new-password" placeholder="silahkan konfirmasi password anda">
                 </div>
                 <div class="row">
                     <div class="col-12">

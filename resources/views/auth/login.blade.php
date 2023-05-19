@@ -1,5 +1,6 @@
 
  @extends('layouts.auth')
+ @section('title') Login @endsection
  @section('content')
  @if(session()->has('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -19,8 +20,9 @@
                 <img src="{{ asset('template/assets/images/pitoe.png') }}" alt="logo" height="300" width="300">
             </div>
             <div class="card-body">
-                <form action="{{ url('login') }}" method="post">
-                    <div class="input-group mb-3">
+                <form method="POST" action="{{ route('login') }}">
+                  @csrf  
+                  <div class="input-group mb-3">
                         <input required type="text" name="username"
                             class="form-control @error('name') is-invalid @enderror " id="name"
                             placeholder="Silahkan Isikan Username" value="{{ old('username') }}">
@@ -32,7 +34,6 @@
                         <input required type="password" name="password"
                             class="form-control @error('password') is-invalid @enderror" id="password"
                             placeholder="Password">
-                        <label for="floatingPassword">Password</label>
                         @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -55,7 +56,7 @@
                 </div>
                 <!-- /.social-auth-links -->
                 <p class="mb-0">
-                    <a href="#" class="text-center">Register a new membership</a>
+                    <a href="{{ url('register')}}" class="btn btn-block btn-outline-secondary">Register a new membership</a>
                 </p>
             </div>
             <!-- /.card-body -->
