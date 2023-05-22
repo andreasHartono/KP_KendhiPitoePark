@@ -32,7 +32,7 @@
                      </div>
                   </td>
                   <td class="checkout-price">
-                     <p class="price">Rp.{{$item['price'] * $item['quantity']}}</p>
+                     <p clzass="price">Rp.{{$item['price'] * $item['quantity']}}</p>
                   </td>
                </tr>
                <?php $total += $item['price'];  ?>

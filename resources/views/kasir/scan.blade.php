@@ -15,7 +15,7 @@
         </div>
     </div><br>
 </div>
-<a href="{{ route('validasiPembayaran') }}"><button id="tes">Anggep bisa Scan</button></a>
+<a href="{{ route('validasipembayaran') }}"><button id="tes">Anggep bisa Scan</button></a>
 @endsection
 @section('javascript')
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
@@ -35,7 +35,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{route('validasiPembayaran')}}",
+            url: "{{route('validasipembayaran')}}",
             data: {
                 _token: '{{ csrf_token() }}',
                 cartOrder: decodedText

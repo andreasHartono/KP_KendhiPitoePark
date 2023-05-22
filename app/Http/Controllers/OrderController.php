@@ -127,7 +127,7 @@ class OrderController extends Controller
             $orders->total_price = $totalPrice;
             $cart = null;
             session()->put("cart", $cart);
-            
+            return view('cafes.index');
         }
     }
 }
