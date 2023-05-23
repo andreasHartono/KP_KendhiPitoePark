@@ -33,7 +33,7 @@ Route::get('/', [CafeController::class, 'index'])->name("index");
 
 Route::get('add-to-cart/{id}', [CafeController::class, 'addToCart']);
 Route::get('cart', [CafeController::class, 'cart']);
-// Route::get('/checkout', [QrCodeController::class, 'index'])->name("CheckoutQR");
+Route::post('/checkout_tunai', [QrCodeController::class, 'index'])->name("checkout_tunai");
 Route::get('/checkout', function () {
    return view('menu.checkout');
 })->name('checkout');
@@ -77,7 +77,7 @@ Route::resources([
    'categories' => CategoryFoodController::class,
    'order' => OrderController::class,
    'orderdetails' => OrderDetailsController::class,
-   'qrcode' => QrCodeController::class,
+   
 ]);
 
 Auth::routes();

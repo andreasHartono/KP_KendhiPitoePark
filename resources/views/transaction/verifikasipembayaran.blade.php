@@ -3,11 +3,13 @@
    <div class="container">
       <div class="card">
          <div class="card-body">
-            <h4 class="card-title heading-6">No Meja &nbsp;&nbsp;&nbsp; : 1 </h4><br>
-            <h4 class="card-title heading-6">Nama Customer : Guest</h4><br>
-            <h4 class="card-title heading-6">Total Harga &nbsp;&nbsp; : Rp. 10.000,00</h4><br>
-            <h4 class="card-title heading-6">ID Transaksi : 08414912421</h4>
+            <h4 class="card-title heading-6">No Meja &nbsp;&nbsp;&nbsp; : {{ $_POST['no_meja'] }} </h4><br>
+            <h4 class="card-title heading-6">Nama Customer : {{ $_POST['nama_customer'] }}</h4><br>
+            <h4 class="card-title heading-6">Total Harga &nbsp;&nbsp; : {{ $_POST['total_price'] }}</h4><br>
+            <!-- <h4 class="card-title heading-6">ID Transaksi : 08414912421</h4> -->
          </div>
+         
+         
       </div><br>
       <div class="card">
          <div class="card-header">

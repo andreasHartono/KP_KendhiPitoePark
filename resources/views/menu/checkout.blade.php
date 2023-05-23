@@ -40,21 +40,7 @@
                <!-- @endif -->
 
             </tbody>
-            <form action="" method="POST" class="was-validated">
-               <tr>
-                  <td>
-                     <p>Tambah Catatan : &nbsp;&nbsp;<input type="text" class="form-control" placeholder="Catatan tambahan" name="catatan_tambahan"></p>
-                  </td>
-               </tr>
-               <tr>
-                  <td>
-                     <p>Nomor Meja : &nbsp;&nbsp;<input type="number" class="form-control" placeholder="1" name="no_meja"></p>
-                     <!-- Kalo nomer meja = 0, kasik javascript keluarin input tanya lokasi -->
-                  </td>
-               </tr>
-               <tfoot>
 
-               </tfoot>
          </table>
       </div>
    </div>
@@ -69,28 +55,40 @@
    <div class="card">
       <div class="card-body">
 
+         <form action="{{route('checkout_tunai')}}" method="POST" class="was-validated">
+            <h5 class="card-title">Nama Customer</h5>
+            <input name="_token" value="{{ csrf_token() }}" type="hidden">
+            <input name="total_price" value="{{$total}}" type="hidden" id="total_price">
+            @auth
+            <p class="card-text">{{ Auth::user()->name }}</p><br>
+            @endauth
+            @guest
+            <input type="text" class="form-control" placeholder="Tulis Nama Anda" name="nama_customer" id="nama_customer"> 
+            @endguest
+           
+            
+            
+            <br>
+            <p>Tambah Catatan : &nbsp;&nbsp;<input type="text" class="form-control" placeholder="Catatan tambahan" name="catatan_tambahan" id="catatan_tambahan"></p>
+            <br>
+            <p>Nomor Meja : &nbsp;&nbsp;<input type="number" class="form-control" value="1" name="no_meja" id="no_meja"></p>
+            <!-- Kalo nomer meja = 0, kasik javascript keluarin input tanya lokasi -->
 
-         <h5 class="card-title">Nama Customer</h5>
-         @auth
-         <p class="card-text">{{ Auth::user()->name }}</p><br>
-         @endauth
-         
-         @guest
-         <input type="text" class="form-control" placeholder="Ketik Nama Anda" required="" nama="nama_customer">
-         @endguest
-         <div class="invalid-feedback"></div>
 
-         </form>
+
+
       </div>
    </div><br>
    <div class="card">
       <div class="card-body">
          <h5 class="card-title">Metode Pembayaran</h5>
-         <div class="d-grid gap-2">
-            <a class="btn btn-success btn-block" href="#">E-WALLET KENDHI PITOE</a>
-            <a class="btn btn-outline-success btn-block" href="{{url('/qrcode')}}">TUNAI</a>
+         <div class="d-grid gap-2">            
+            <a class=" btn btn-success btn-block" href="#">E-WALLET KENDHI PITOE</a>
+            <input class="btn btn-outline-success btn-block" type="submit" value="TUNAI">
          </div>
+         </form>
       </div>
    </div>
+
 </div>
 @endsection
