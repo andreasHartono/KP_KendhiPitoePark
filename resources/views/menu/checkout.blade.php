@@ -41,7 +41,7 @@
 
             </tbody>
             <form action="" method="POST" class="was-validated">
-            <tr>
+               <tr>
                   <td>
                      <p>Tambah Catatan : &nbsp;&nbsp;<input type="text" class="form-control" placeholder="Catatan tambahan" name="catatan_tambahan"></p>
                   </td>
@@ -52,9 +52,9 @@
                      <!-- Kalo nomer meja = 0, kasik javascript keluarin input tanya lokasi -->
                   </td>
                </tr>
-            <tfoot>
-               
-            </tfoot>
+               <tfoot>
+
+               </tfoot>
          </table>
       </div>
    </div>
@@ -68,20 +68,24 @@
    </div><br>
    <div class="card">
       <div class="card-body">
+
+
+         <h5 class="card-title">Nama Customer</h5>
+         @auth
+         <p class="card-text">{{ Auth::user()->name }}</p><br>
+         @endauth
          
-         
-            <h5 class="card-title">Nama Customer</h5>
-            {{-- Ada kondisi apakah sudah login atau belum --}}
-            <p class="card-text">Andrian</p><br>
-            <input type="text" class="form-control" placeholder="Nama Anda" required="" nama="nama_customer">
-            <div class="invalid-feedback"></div>
-            
+         @guest
+         <input type="text" class="form-control" placeholder="Ketik Nama Anda" required="" nama="nama_customer">
+         @endguest
+         <div class="invalid-feedback"></div>
+
          </form>
       </div>
    </div><br>
    <div class="card">
       <div class="card-body">
-      <h5 class="card-title">Metode Pembayaran</h5>
+         <h5 class="card-title">Metode Pembayaran</h5>
          <div class="d-grid gap-2">
             <a class="btn btn-success btn-block" href="#">E-WALLET KENDHI PITOE</a>
             <a class="btn btn-outline-success btn-block" href="{{url('/qrcode')}}">TUNAI</a>

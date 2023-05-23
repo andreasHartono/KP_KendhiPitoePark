@@ -89,10 +89,10 @@
                                                         <p class="price">Rp.{{ $total }}</p>
                                                     </div>
                                                     <div class="single-btn">
-                                                        <a href="{{ url('/') }}"
+                                                        <a href="{{ route('index') }}"
                                                             class="main-btn primary-btn-border">continue
                                                             shopping</a>                                                            
-                                                        <a href="{{ url('/order/checkout') }}" class="main-btn primary-btn">Checkout</a>
+                                                        <a href="{{ route('checkout') }}" class="main-btn primary-btn">Checkout</a>
                                                     </div>
                                                 </div>
                                             </td>

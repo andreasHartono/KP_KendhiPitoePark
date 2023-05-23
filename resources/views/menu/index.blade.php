@@ -12,17 +12,17 @@
                     </a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                    <a id="home-tab" data-toggle="tab" href="{{ url('categories/3') }}" role="tab" aria-controls="home" aria-selected="false">
                         Minuman<br>
                     </a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                    <a class="active" id="profile-tab" data-toggle="tab" href="{{ url('categories/2') }}" role="tab" aria-controls="profile" aria-selected="false">
                         Makanan<br>Ringan
                     </a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a id="specifications-tab" data-toggle="tab" href="#specifications" role="tab" aria-controls="specifications" aria-selected="false">
+                    <a id="specifications-tab" data-toggle="tab" href="{{ url('categories/1') }}" role="tab" aria-controls="specifications" aria-selected="false">
                         Makanan<br>Berat
                     </a>
                 </li>

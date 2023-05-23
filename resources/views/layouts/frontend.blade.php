@@ -90,76 +90,76 @@
                                     <img src="{{ asset('template/assets/images/icon-svg/cart-1.svg') }}" alt="Icon">
                                     <span class="icon-text text-style-1">1</span>
                                 </a>
-    
+
                                 <div class="navbar-cart-dropdown">
                                     <div class="checkout-style-2">
                                         <div class="checkout-header d-flex justify-content-between">
                                             <h6 class="title">Daftar Pesanan Sementara</h6>
                                         </div>
-                                          @if(session('cart'))
-                                            <div class="checkout-table">
-                                                <table class="table">
-                                                    <tbody>
-                                                      
-                                                         @foreach (session('cart') as $id => $details)
-                                                            @php
-                                                                $total += $details['price'] * $details['quantity'];
-                                                            @endphp
-                                                            <tr>
-                                                                  <td class="checkout-product">
-                                                                     <div class="product-cart d-flex">
-                                                                        <div class="product-thumb">
-                                                                              <img src="{{ asset('images/'.$details['image']) }}" alt="Product"/>
-                                                                        </div>
-                                                                        <div class="product-content media-body">
-                                                                              <h5 class="title">
-                                                                                 <a href="product-details-page.html">{{ $details['name'] }}</a>
-                                                                              </h5>
-                                                                              <ul>
-                                                                                 <li>
-                                                                                    <a class="delete" href="javascript:void(0)">
-                                                                                          <i class="mdi mdi-delete"></i>
-                                                                                    </a>
-                                                                                 </li>
-                                                                              </ul>
-                                                                        </div>
-                                                                     </div>
-                                                                  </td>
-                                                                  <td class="checkout-price">
-                                                                     <p class="price">Rp.{{ $details['price'] }}</p>
-                                                                  </td>
-                                                                  <td class="checkout-quantity">
-                                                                     <div class="product-quantity d-inline-flex">
-                                                                        <button type="button" id="sub" class="sub">
-                                                                              <i class="mdi mdi-minus"></i>
-                                                                        </button>
-                                                                        <input type="text" value="{{ $details['quantity'] }}">
-                                                                        <button type="button" id="add" class="add">
-                                                                              <i class="mdi mdi-plus"></i>
-                                                                        </button>
-                                                                     </div>
-                                                                  </td>
-                                                                  <td class="checkout-price">
-                                                                     <p class="price">Rp.{{ $details['price'] * $details['quantity'] }}</p>
-                                                                  </td>
-                                                            </tr>
-                                                         @endforeach
-                                                    </tbody>
-                                                </table>
+                                        @if(session('cart'))
+                                        <div class="checkout-table">
+                                            <table class="table">
+                                                <tbody>
+
+                                                    @foreach (session('cart') as $id => $details)
+                                                    @php
+                                                    $total += $details['price'] * $details['quantity'];
+                                                    @endphp
+                                                    <tr>
+                                                        <td class="checkout-product">
+                                                            <div class="product-cart d-flex">
+                                                                <div class="product-thumb">
+                                                                    <img src="{{ asset('images/'.$details['image']) }}" alt="Product" />
+                                                                </div>
+                                                                <div class="product-content media-body">
+                                                                    <h5 class="title">
+                                                                        <a href="product-details-page.html">{{ $details['name'] }}</a>
+                                                                    </h5>
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a class="delete" href="javascript:void(0)">
+                                                                                <i class="mdi mdi-delete"></i>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="checkout-price">
+                                                            <p class="price">Rp.{{ $details['price'] }}</p>
+                                                        </td>
+                                                        <td class="checkout-quantity">
+                                                            <div class="product-quantity d-inline-flex">
+                                                                <button type="button" id="sub" class="sub">
+                                                                    <i class="mdi mdi-minus"></i>
+                                                                </button>
+                                                                <input type="text" value="{{ $details['quantity'] }}">
+                                                                <button type="button" id="add" class="add">
+                                                                    <i class="mdi mdi-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                        <td class="checkout-price">
+                                                            <p class="price">Rp.{{ $details['price'] * $details['quantity'] }}</p>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="checkout-footer">
+                                            <div class="checkout-sub-total d-flex justify-content-between">
+                                                <p class="value">Subtotal Price:</p>
+                                                <p class="price">Rp.{{ $total }}</p>
                                             </div>
-    
-                                            <div class="checkout-footer">
-                                                <div class="checkout-sub-total d-flex justify-content-between">
-                                                    <p class="value">Subtotal Price:</p>
-                                                    <p class="price">Rp.{{ $total }}</p>
-                                                </div>
-                                                <div class="checkout-btn">
-                                                    <a href="{{ url('cart') }}" class="main-btn primary-btn-border">View
-                                                        Cart</a>
-                                                    <a href="#" class="main-btn primary-btn">Checkout</a>
-                                                </div>
+                                            <div class="checkout-btn">
+                                                <a href="{{ url('cart') }}" class="main-btn primary-btn-border">View
+                                                    Cart</a>
+                                                <a href="#" class="main-btn primary-btn">Checkout</a>
                                             </div>
-                                          @endif
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -171,13 +171,13 @@
                 </div>
                 <!-- navbar mobile Start -->
             </div>
-    
+
             <div class="navbar-container navbar-sidebar-7">
                 <!-- navbar close  Ends -->
                 <div class="navbar-close d-lg-none">
                     <a class="close-mobile-menu-7" href="javascript:void(0)"><i class="mdi mdi-close"></i></a>
                 </div>
-    
+
                 <!-- main navbar Start -->
                 <div class="navbar-wrapper">
                     <div class="container-lg">
@@ -190,9 +190,14 @@
                             <!-- navbar menu Start -->
                             <div class="navbar-menu">
                                 <ul class="main-menu">
-                                    <li><a href="category.html">Minuman</a></li>
-                                    <li><a href="category.html">Makanan Berat</a></li>
-                                    <li><a href="category.html">Makanan Ringan</a></li>
+                                    <li><a href="{{ url('/') }}">Semua</a></li>
+                                    <li><a href="{{ url('categories/3') }}">Minuman</a></li>
+                                    <li><a href="{{ url('categories/1') }}">Makanan Berat</a></li>
+                                    <li><a href="{{ url('categories/2') }}">Makanan Ringan</a></li>
+                                </ul>
+
+                                <ul>
+
                                 </ul>
                             </div>
                             <!-- navbar menu Ends -->
@@ -203,64 +208,71 @@
                                         <img src="{{ asset('template/assets/images/icon-svg/cart-1.svg') }}" alt="Icon">
                                         <span class="icon-text text-style-1">1</span>
                                     </a>
-    
+                                    @auth
+                                    Hello, {{ Auth::user()->name }}
+                                    <a href="{{ route('logout') }}">Logout</a>
+                                    @endauth
+
+                                    @guest
+                                    <a href=" {{ route('login') }}">Hello, Guest. Click here to login or signup</a>
+                                    @endguest
                                     <div class="navbar-cart-dropdown">
                                         <div class="checkout-style-2">
                                             <div class="checkout-header d-flex justify-content-between">
                                                 <h6 class="title">Daftar Pesanan Sementara</h6>
                                             </div>
-                                          @if(session('cart'))
+                                            @if(session('cart'))
                                             <div class="checkout-table">
                                                 <table class="table">
                                                     <tbody>
-                                                      
-                                                         @foreach (session('cart') as $id => $details)
-                                                            @php
-                                                                $total += $details['price'] * $details['quantity'];
-                                                            @endphp
-                                                            <tr>
-                                                                  <td class="checkout-product">
-                                                                     <div class="product-cart d-flex">
-                                                                        <div class="product-thumb">
-                                                                              <img src="{{ asset('images/'.$details['image']) }}" alt="Product"/>
-                                                                        </div>
-                                                                        <div class="product-content media-body">
-                                                                              <h5 class="title">
-                                                                                 <a href="product-details-page.html">{{ $details['name'] }}</a>
-                                                                              </h5>
-                                                                              <ul>
-                                                                                 <li>
-                                                                                    <a class="delete" href="javascript:void(0)">
-                                                                                          <i class="mdi mdi-delete"></i>
-                                                                                    </a>
-                                                                                 </li>
-                                                                              </ul>
-                                                                        </div>
-                                                                     </div>
-                                                                  </td>
-                                                                  <td class="checkout-price">
-                                                                     <p class="price">Rp.{{ $details['price'] }}</p>
-                                                                  </td>
-                                                                  <td class="checkout-quantity">
-                                                                     <div class="product-quantity d-inline-flex">
-                                                                        <button type="button" id="sub" class="sub">
-                                                                              <i class="mdi mdi-minus"></i>
-                                                                        </button>
-                                                                        <input type="text" value="{{ $details['quantity'] }}">
-                                                                        <button type="button" id="add" class="add">
-                                                                              <i class="mdi mdi-plus"></i>
-                                                                        </button>
-                                                                     </div>
-                                                                  </td>
-                                                                  <td class="checkout-price">
-                                                                     <p class="price">Rp.{{ $details['price'] * $details['quantity'] }}</p>
-                                                                  </td>
-                                                            </tr>
-                                                         @endforeach
+
+                                                        @foreach (session('cart') as $id => $details)
+                                                        @php
+                                                        $total += $details['price'] * $details['quantity'];
+                                                        @endphp
+                                                        <tr>
+                                                            <td class="checkout-product">
+                                                                <div class="product-cart d-flex">
+                                                                    <div class="product-thumb">
+                                                                        <img src="{{ asset('images/'.$details['image']) }}" alt="Product" />
+                                                                    </div>
+                                                                    <div class="product-content media-body">
+                                                                        <h5 class="title">
+                                                                            <a href="product-details-page.html">{{ $details['name'] }}</a>
+                                                                        </h5>
+                                                                        <ul>
+                                                                            <li>
+                                                                                <a class="delete" href="javascript:void(0)">
+                                                                                    <i class="mdi mdi-delete"></i>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td class="checkout-price">
+                                                                <p class="price">Rp.{{ $details['price'] }}</p>
+                                                            </td>
+                                                            <td class="checkout-quantity">
+                                                                <div class="product-quantity d-inline-flex">
+                                                                    <button type="button" id="sub" class="sub">
+                                                                        <i class="mdi mdi-minus"></i>
+                                                                    </button>
+                                                                    <input type="text" value="{{ $details['quantity'] }}">
+                                                                    <button type="button" id="add" class="add">
+                                                                        <i class="mdi mdi-plus"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                            <td class="checkout-price">
+                                                                <p class="price">Rp.{{ $details['price'] * $details['quantity'] }}</p>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
-    
+
                                             <div class="checkout-footer">
                                                 <div class="checkout-sub-total d-flex justify-content-between">
                                                     <p class="value">Subtotal Price:</p>
@@ -272,7 +284,7 @@
                                                     <a href="{{ url('checkout') }}" class="main-btn primary-btn">Checkout</a>
                                                 </div>
                                             </div>
-                                          @endif
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -290,7 +302,7 @@
 
     <!--====== Product Style 7 Part Start ======-->
     <section class="product-wrapper pt-100 pb-100">
-      @yield('content')
+        @yield('content')
     </section>
 
     <!--====== Product Style 7 Part Ends ======-->
@@ -307,14 +319,14 @@
                             </a>
                         </div>
                         <h5 class="heading-5 text-center mt-30">Follow Us</h5>
-                        <ul class="footer-follow text-center">    
+                        <ul class="footer-follow text-center">
                             <li><a href="javascript:void(0)"><i class="lni lni-instagram-original"></i></a></li>
                             <li><a href="javascript:void(0)"><i class="lni lni-whatsapp"></i></a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-   
+
             <div class="footer-copyright text-center">
                 <p>Developed by Universitas Surabaya & <a href="https://graygrids.com/" rel="nofollow" target="_blank">GrayGrids</a>. Basesd on <a href="https://ecommercehtml.com/" rel="nofollow" target="_blank">eCommerceHTML</a>
                 </p>

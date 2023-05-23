@@ -28,6 +28,30 @@ class LoginController extends Controller
     */
    protected $redirectTo = '/';
 
+   public function redirectTo()
+   {
+
+      $role = Auth::user()->jabatan;
+
+      switch ($role) {
+         case 'owner':
+            return '/';
+            break;
+
+         case 'pegawai':
+            return '/';
+            break;
+
+         case 'pelanggan':
+            return '/';
+            break;
+
+         default:
+            return '/';
+            break;
+      }
+   }
+
    /**
     * Create a new controller instance.
     *

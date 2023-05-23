@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cafe;
 use App\Models\CategoryFood;
+use Database\Seeders\CafesSeeder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryFoodController extends Controller
 {
@@ -48,7 +51,8 @@ class CategoryFoodController extends Controller
      */
     public function show($id)
     {
-        //
+        $cafes= Cafe::where("category_id",$id)->get();
+        return view('menu.index', compact("cafes"));        
     }
 
     /**

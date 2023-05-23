@@ -9,6 +9,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Models\Cafe;
 use App\Models\CategoryFood;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AccountController::class, 'index'])->name('login');
 Route::post('/login_detail', [AccountController::class, 'authenticate']);
-Route::post('/logout', [AccountController::class, 'logout']);
+Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
 Route::get('/register', [AccountController::class, 'indexRegister'])->name('register');
 Route::post('/register_detail', [AccountController::class, 'create']);
 
@@ -32,9 +33,10 @@ Route::get('/', [CafeController::class, 'index'])->name("index");
 
 Route::get('add-to-cart/{id}', [CafeController::class, 'addToCart']);
 Route::get('cart', [CafeController::class, 'cart']);
+// Route::get('/checkout', [QrCodeController::class, 'index'])->name("CheckoutQR");
 Route::get('/checkout', function () {
    return view('menu.checkout');
-});
+})->name('checkout');
 Route::get('/pembayarancustomer', function () {
    return view('transaction.verifikasipembayaran');
 });
@@ -56,7 +58,7 @@ Route::get('/scankasir', function () {
 })->name("scankasir");
 
 
-Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('checkout_order');
 Route::get('/order/validasipembayaran', [OrderController::class, 'validasipembayaran'])->name('validasipembayaran');
 
 
@@ -64,6 +66,13 @@ Route::get('/order/validasipembayaran', [OrderController::class, 'validasipembay
 Route::get('/logins', function () {
    return view('auth.login');
 });
+
+
+
+Route::middleware(['auth'])->group(function(){
+
+});
+
 Route::resources([
    'cafes' => CafeController::class,
    'categories' => CategoryFoodController::class,
@@ -72,6 +81,6 @@ Route::resources([
    'qrcode' => QrCodeController::class,
 ]);
 
-//Auth::routes();
+Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
