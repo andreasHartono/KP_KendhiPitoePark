@@ -17,7 +17,7 @@
         <!-- /.login-logo -->
         <div class="card card-outline">
             <div class="card-header text-center">
-                <img src="{{ asset('template/assets/images/pitoe.png') }}" alt="logo" height="300" width="300">
+                <img src="{{ asset('template/assets/images/pitoe.png') }}" alt="logo" height="200" width="200">
             </div>
             <div class="card-body">
                 <form method="POST" action="{{ url('login_detail') }}">
