@@ -40,15 +40,15 @@
                <!-- @endif -->
 
             </tbody>
-            <form action="" method="POST" class="was-validated">
+            <form action="{{route('checkout_tunai')}}" method="GET" class="was-validated">
                <tr>
                   <td>
-                     <p>Tambah Catatan : &nbsp;&nbsp;<input type="text" class="form-control" placeholder="Catatan tambahan" name="catatan_tambahan"></p>
+                     <p>Tambah Catatan : &nbsp;&nbsp;<input type="text" class="form-control" placeholder="Catatan tambahan" name="catatan_tambahan" id="catatan_tambahan"></p>
                   </td>
                </tr>
                <tr>
                   <td>
-                     <p>Nomor Meja : &nbsp;&nbsp;<input type="number" class="form-control" placeholder="1" name="no_meja"></p>
+                     <p>Nomor Meja : &nbsp;&nbsp;<input type="number" class="form-control" placeholder="1" name="no_meja"  id="no_meja"></p>
                      <!-- Kalo nomer meja = 0, kasik javascript keluarin input tanya lokasi -->
                   </td>
                </tr>
@@ -76,21 +76,22 @@
          @endauth
          
          @guest
-         <input type="text" class="form-control" placeholder="Ketik Nama Anda" required="" nama="nama_customer">
+         <input type="text" class="form-control" placeholder="Ketik Nama Anda" required="" nama="nama_customer"  id="nama_customer">
          @endguest
          <div class="invalid-feedback"></div>
 
-         </form>
+         
       </div>
    </div><br>
    <div class="card">
       <div class="card-body">
          <h5 class="card-title">Metode Pembayaran</h5>
          <div class="d-grid gap-2">
-            <a class="btn btn-success btn-block" href="#">E-WALLET KENDHI PITOE</a>
-            <a class="btn btn-outline-success btn-block" href="{{url('/qrcode')}}">TUNAI</a>
+           <a class="btn btn-success btn-block" href="#"> <input type="submit">E-WALLET KENDHI PITOE</a>
+            <a class="btn btn-outline-success btn-block" href="{{route('checkout_tunai')}}">TUNAI</a>
          </div>
       </div>
    </div>
+   </form>
 </div>
 @endsection

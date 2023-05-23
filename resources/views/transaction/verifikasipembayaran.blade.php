@@ -8,6 +8,7 @@
             <h4 class="card-title heading-6">Total Harga &nbsp;&nbsp; : Rp. 10.000,00</h4><br>
             <h4 class="card-title heading-6">ID Transaksi : 08414912421</h4>
          </div>
+         <?php echo "Namanya : ".$_GET['nama_customer']; ?>
       </div><br>
       <div class="card">
          <div class="card-header">
