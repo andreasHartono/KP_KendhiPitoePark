@@ -68,7 +68,6 @@ Route::get('/logins', function () {
 });
 
 
-
 Route::middleware(['auth'])->group(function(){
 
 });

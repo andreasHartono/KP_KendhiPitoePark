@@ -351,7 +351,7 @@
             </div>
 
             <div class="footer-copyright text-center">
-                <p>Developed by Universitas Surabaya & <a href="https://graygrids.com/" rel="nofollow"
+                <p>Developed by Kendhi Pitoe Park Universitas Surabaya & <a href="https://graygrids.com/" rel="nofollow"
                         target="_blank">GrayGrids</a>. Basesd on <a href="https://ecommercehtml.com/" rel="nofollow"
                         target="_blank">eCommerceHTML</a>
                 </p>
