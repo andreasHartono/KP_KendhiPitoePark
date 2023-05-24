@@ -13,36 +13,40 @@
         <div class="card">
             <h5 class="card-header">Item yang Dipesan</h5>
             <div class="checkout-table">
-               <table class="table table-hover">
-                  <thead>
+                <table class="table table-hover">
+                    <thead>
                         <tr>
-                           <th class=product>Product</th>
-                           <th class=quantity>Quantity</th>
-                           <th class=price>Price</th>
+                            <th class=product>Menu yang Dipesan</th>
+                            <th class=price>Harga Per Menu</th>
+                            <th class=quantity>Jumlah yang Dipesan</th>
+                            <th class=price>Sub Total</th>
                         </tr>
-                  </thead>
-                  <tbody>
-                     <tr>
-                        <td class="checkout-product">
-                           <div class="product-cart d-flex">
-                              <div class="product-content media-body">
-                                 <h5 class="title">TEH</h5>
-                              </div>
-                           </div>
-                        </td>
-                        <td class="checkout-quantity">
-                           <div class="product-quantity d-inline-flex">
-                              <input type="text" value="1">
-                           </div>
-                        </td>
-                        <td class="checkout-price">
-                              <p class="price">Rp.15.000</p>
-                        </td>
-                     </tr>
-                  </tbody>
-               </table>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="checkout-product">
+                                <div class="product-cart d-flex">
+                                    <div class="product-content media-body">
+                                        <h5 class="title">TEH</h5>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="checkout-price">
+                                <p class="price">Rp.15.000</p>
+                            </td>
+                            <td class="checkout-quantity">
+                                <div class="product-quantity d-inline-flex">
+                                    <input type="text" value="1">
+                                </div>
+                            </td>
+                            <td class="checkout-price">
+                                <p class="price">Rp.15.000</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-         </div>
+        </div>
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Rincian Pembayaran</h5><br>
