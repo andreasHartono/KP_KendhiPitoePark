@@ -18,7 +18,6 @@
 @section('content')
    <div class="row">
         <div class="col-md-3">
-
             <!-- Profile Image -->
             <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
@@ -33,7 +32,7 @@
                             <b>Menu Terjual Per Hari</b> <a class="float-right">20 Menu</a>
                         </li>
                         <li class="list-group-item">
-                            <b>Terakhir Login</b> <a class="float-right">24 Mei 2023 15:37:23</a>
+                            <b>Terakhir Aktif</b> <a class="float-right">24 Mei 2023 15:37:23</a>
                         </li>
                     </ul>
                     <a href="#" class="btn btn-warning btn-block"><b>Ganti Password</b></a>
@@ -50,12 +49,9 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                     <strong><i class="fas fa-book mr-1"></i> Nomor Telepon</strong>
-                    <p class="text-muted">084912421841</p>
-                    <hr>
+                    <p class="text-muted">084912421841</p><hr>
                     <strong><i class="fas fa-map-marker-alt mr-1"></i> Lokasi</strong>
-                    <p class="text-muted">Selotapak Trawas</p>
-                    <hr>
-                    <strong><i class="fas fa-pencil-alt mr-1"></i></strong>
+                    <p class="text-muted">Selotapak Trawas</p><hr>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -85,7 +81,7 @@
                                         <label for="inputEmail" class="col-sm-2 col-form-label">Nomor Telepon</label>
                                         <div class="col-sm-10">
                                             <input type="tel" class="form-control" id="inputTelepon"
-                                                placeholder="Inputkan Perubaahan Nomor Telepon Anda">
+                                                placeholder="Inputkan Perubahan Nomor Telepon Anda">
                                         </div>
                                     </div>
                                     <div class="form-group row">

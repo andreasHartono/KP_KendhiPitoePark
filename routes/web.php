@@ -59,6 +59,9 @@ Route::get('/kasirewallet', function () {
 Route::get('/profilkasir', function () {
    return view('kasir.profilkasir');
 });
+Route::get('/profilpelanggan', function () {
+   return view('guest.profilpelanggan');
+});
 
 Route::get('/scankasir', function () {
    return view('kasir.scan');
