@@ -53,6 +53,13 @@ Route::get('/lacakpesanan', function () {
 Route::get('/membershiptopup', function () {
    return view('membership.topup');
 });
+Route::get('/kasirewallet', function () {
+   return view('kasir.ewallet');
+});
+Route::get('/profilkasir', function () {
+   return view('kasir.profilkasir');
+});
+
 Route::get('/scankasir', function () {
    return view('kasir.scan');
 })->name("scankasir");
