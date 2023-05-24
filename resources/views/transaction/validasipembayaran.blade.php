@@ -32,14 +32,17 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="checkout-quantity">
-                                    <div class="product-quantity d-inline-flex">
-                                        <input type="text" value="{{ $item['quantity'] }}">
-                                    </div>
-                                </td>
                                 <td class="checkout-price">
                                     <p class="price">Rp.{{ $item['price'] }}</p>
                                 </td>
+                                <td class="checkout-quantity">
+                                   <div class="product-quantity d-inline-flex">
+                                      <input type="text" value="{{ $item['quantity'] }}">
+                                    </div>
+                                 </td>
+                                 <td class="checkout-price">
+                                     <p class="price">Rp.{{ $item['price'] * $item['quantity'] }}</p>
+                                 </td>
                             </tr>
                             <?php $total += $item['price'] * $item['quantity']; ?>
                         @endforeach
