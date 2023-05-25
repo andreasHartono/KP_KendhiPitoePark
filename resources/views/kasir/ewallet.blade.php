@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 @section('title')
-   E-Wallet
+    E-Wallet
 @endsection
 @section('content-header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0"> Kendi Pitoe Kasir <small>Kendhi Pitoe E-Wallet</small></h1>
+            <h1 class="m-0"> Kendi Pitoe Cafe | <small>Kendhi Pitoe E-Wallet</small></h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -16,13 +16,14 @@
     </div><!-- /.row -->
 @endsection
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title"><b>KENDHI PITOE WALLET<b></h4><br><br>
                 <h4 class="card-title"><b>Apabila Ada Pengunjung membeli kode top up</b></h4><br><br>
-                <p class="card-text"><b>1. Klik Tombol BUAT KODE TOP UP</b></p>
-                <p class="card-text"><b>2. Tunggu hingga muncul KODE TOP UP dan tunjukkan kepada Pengunjung</b></p>
+                <p class="card-text"><b>1. Masukkan Nominal Top Up Misal : 10000</b></p>
+                <p class="card-text"><b>2. Klik Tombol BUAT KODE TOP UP</b></p>
+                <p class="card-text"><b>3. Tunggu hingga muncul KODE TOP UP dan tunjukkan kepada Pengunjung</b></p>
             </div>
         </div><br>
         <div class="card">
@@ -30,6 +31,8 @@
                 <h4 class="card-title">TOP UP KENDHI PITOE WALLET</h4><br>
                 <form action="#" method="POST" class="was-validated">
                     <div class="mb-3">
+                        <input type="number" name="nominaltopup" class="form-control" id="inputNominal"
+                            placeholder="Masukkan Nominal Top Up misal : 10000">
                         {{-- <div class="invalid-feedback"></div>    --}}
                         <button class="btn btn-success btn-block">BUAT KODE TOP UP</button>
                     </div>

@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pegawai | @yield('title')</title>
-   <!--====== Favicon Icon ======-->
+    <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="{{ asset('template/assets/images/pitoe.png') }}" type="image/png">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -86,13 +86,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                              <i class="nav-icon fas fa-wallet text-warning"></i>
+                                <i class="nav-icon fas fa-wallet text-warning"></i>
                                 <p>KENDHI PITOE Wallet</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                              <i class="nav-icon fas fa-qrcode text-info"></i>
+                                <i class="nav-icon fas fa-qrcode text-info"></i>
                                 <p>Scan Pembayaran</p>
                             </a>
                         </li>
@@ -111,7 +111,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                              <i class="nav-icon fas fa-wallet text-warning"></i>
+                                <i class="nav-icon fas fa-wallet text-warning"></i>
                                 <p>KENDHI PITOE Wallet</p>
                             </a>
                         </li>
@@ -119,6 +119,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="#" class="nav-link">
                                 <i class="nav-icon far fa-folder-open text-success"></i>
                                 <p>Rekap Semua Penjualan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-user text-primary"></i>
+                                <p>Data Pegawai</p>
                             </a>
                         </li>
                     </ul>
@@ -131,19 +137,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
-                <div class="container">
+                <div class="container-fluid">
                     @yield('content-header')
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
 
             <!-- Main content -->
-            <div class="content">
-                <div class="container">
+            <section class="content">
+                <div class="container-fluid">
                     @yield('content')
                     <!-- /.row -->
                 </div><!-- /.container-fluid -->
-            </div>
+            </section>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
@@ -163,10 +169,43 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="{{ asset('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('admin/dist/js/demo.js') }}"></script>
+    <!-- Page specific script -->
+    <script>
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
 </body>
 
 </html>

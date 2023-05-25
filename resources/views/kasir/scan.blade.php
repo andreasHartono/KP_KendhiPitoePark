@@ -5,7 +5,7 @@
 @section('content-header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0"> Kendi Pitoe Kasir <small>Scan Pembayaran</small></h1>
+            <h1 class="m-0"> Kendi Pitoe Cafe | <small>Scan Pembayaran</small></h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -16,7 +16,7 @@
     </div><!-- /.row -->
 @endsection
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="card">
             <div class="card-body">
                 <div id="reader" width="600px"></div>

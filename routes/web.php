@@ -56,9 +56,17 @@ Route::get('/membershiptopup', function () {
 Route::get('/kasirewallet', function () {
    return view('kasir.ewallet');
 });
-Route::get('/profilkasir', function () {
-   return view('kasir.profilkasir');
+Route::get('/profilkasirowner', function () {
+   return view('owner.profil');
 });
+
+Route::get('/rekapkasir', function () {
+   return view('kasir.rekappenjualan');
+});
+Route::get('/datapegawai', function () {
+   return view('owner.datapegawai');
+});
+
 Route::get('/profilpelanggan', function () {
    return view('guest.profilpelanggan');
 });
@@ -78,8 +86,7 @@ Route::get('/logins', function () {
 });
 
 
-Route::middleware(['auth'])->group(function(){
-
+Route::middleware(['auth'])->group(function () {
 });
 
 Route::resources([
@@ -87,7 +94,7 @@ Route::resources([
    'categories' => CategoryFoodController::class,
    'order' => OrderController::class,
    'orderdetails' => OrderDetailsController::class,
-   
+
 ]);
 
 Auth::routes();
