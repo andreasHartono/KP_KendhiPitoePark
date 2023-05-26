@@ -34,9 +34,11 @@ Route::get('/', [CafeController::class, 'index'])->name("index");
 Route::get('add-to-cart/{id}', [CafeController::class, 'addToCart']);
 Route::get('cart', [CafeController::class, 'cart']);
 Route::post('/checkout_tunai', [QrCodeController::class, 'index'])->name("checkout_tunai");
+
 Route::get('/checkout', function () {
    return view('menu.checkout');
 })->name('checkout');
+
 Route::get('/pembayarancustomer', function () {
    return view('transaction.verifikasipembayaran');
 });
@@ -75,10 +77,50 @@ Route::get('/datapegawai', function () {
 
 Route::get('/profilpelanggan', function () {
    return view('guest.profilpelanggan');
+
+
+
+
+Route::middleware(['auth'])->group(function(){
+
+   Route::get('/pegawai', function () {
+      return view('layouts.admin');
+   })->name('pegawai');
+
+   Route::get('/topupewallet', function () {
+      return view('kasir.ewallet');
+   })->name('topup_ewallet');
+   
+   
+   Route::get('/profilpegawai', function () {
+      return view('kasir.profilkasir');
+   })->name("profil_pegawai");
+   
+   Route::get('/profilowner', function () {
+      return view('owner.profil');
+   })->name("profil_owner");
+
+   Route::get('/notapembayaran', function () {
+      return view('transaction.notapembayaran');
+   });
+   
+   Route::get('/lacakpesanan', function () {
+      return view('transaction.lacakpesanan');
+   });
+   
+   Route::get('/membershiptopup', function () {
+      return view('membership.topup');
+   });
+   
+   Route::get('/profilpelanggan', function () {
+      return view('guest.profilpelanggan');
+   })->name('profil_pelanggan');
+   
 });
 Route::get('/designnota', function () {
    return view('transaction.invoicedesign');
 });
+
 
 Route::get('/scankasir', function () {
    return view('kasir.scan');
@@ -98,6 +140,7 @@ Route::get('/logins', function () {
 Route::middleware(['auth'])->group(function () {
 });
 
+
 Route::resources([
    'cafes' => CafeController::class,
    'categories' => CategoryFoodController::class,
@@ -106,6 +149,3 @@ Route::resources([
 
 ]);
 
-Auth::routes();
-
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -62,19 +62,17 @@
             @auth
             <p class="card-text">{{ Auth::user()->name }}</p><br>
             @endauth
+
             @guest
             <input type="text" class="form-control" placeholder="Tulis Nama Anda" name="nama_customer" id="nama_customer"> 
             @endguest
-           
-            
+                       
             
             <br>
             <p>Tambah Catatan : &nbsp;&nbsp;<input type="text" class="form-control" placeholder="Catatan tambahan" name="catatan_tambahan" id="catatan_tambahan"></p>
             <br>
             <p>Nomor Meja : &nbsp;&nbsp;<input type="number" class="form-control" value="1" name="no_meja" id="no_meja"></p>
             <!-- Kalo nomer meja = 0, kasik javascript keluarin input tanya lokasi -->
-
-
 
 
       </div>

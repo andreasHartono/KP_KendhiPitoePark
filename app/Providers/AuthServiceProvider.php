@@ -27,6 +27,14 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('update-post','App/Policies/PostPolicy@update');
 
+        Gate::define('pegawai', function ($user) {
+            return $user->jabatan == 'pegawai';
+        });
+
+        Gate::define('owner', function ($user) {
+            return $user->jabatan == 'owner';
+        });
+
         //
     }
 }

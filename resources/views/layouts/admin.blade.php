@@ -74,13 +74,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Nama Kasir / Owner</a>
+                        <a href="#" class="d-block">{{ Auth::user()->name }} ({{ Auth::user()->jabatan }})</a>
                     </div>
                 </div>
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
+                        @can('pegawai')
                         <li class="nav-header">MENU PEGAWAI</li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -106,6 +107,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <p>Rekap MakananKU</p>
                             </a>
                         </li>
+                        @endcan
+                        @can("owner")
                         <li class="nav-header">MENU PEMILIK</li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
