@@ -56,12 +56,18 @@ Route::get('/membershiptopup', function () {
 Route::get('/kasirewallet', function () {
    return view('kasir.ewallet');
 });
+Route::get('/ownerewallet', function () {
+   return view('owner.ewallet');
+});
 Route::get('/profilkasirowner', function () {
    return view('owner.profil');
 });
 
 Route::get('/rekapkasir', function () {
    return view('kasir.rekappenjualan');
+});
+Route::get('/rekappenjualanowner', function () {
+   return view('owner.reportpenjualan');
 });
 Route::get('/datapegawai', function () {
    return view('owner.datapegawai');

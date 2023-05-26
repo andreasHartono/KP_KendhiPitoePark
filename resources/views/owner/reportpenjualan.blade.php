@@ -22,6 +22,7 @@
             <h3 class="card-title">Rekap Hari Kamis, 25 Mei 2023 04:04:23 PM</h3>
         </div>
         <div class="card-body">
+            <b>Nama Pegawai</b> : <b>Agus</b><br>
             <b>Total Transaksi Selesai</b> : <b>22</b> Transaksi<br>
             <b>Total Makanan Terjual</b> : <b>21</b>Makanan<br>
             <b>Total Minuman Terjual</b> : <b>20</b> Minuman<br>
@@ -37,13 +38,14 @@
     <!-- /.card -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Rekap Hari Kamis, 25 Mei 2023 04:04:23 PM</h3>
+            <h3 class="card-title">Rekap Hari Kamis, 25 Mei 2023 09:15:23 PM</h3>
         </div>
         <div class="card-body">
-            <b>Total Transaksi Selesai</b> : <b>22</b> Transaksi<br>
-            <b>Total Makanan Terjual</b> : <b>21</b> Makanan<br>
-            <b>Total Minuman Terjual</b> : <b>20</b> Minuman<br>
-            <b>Total Pendapatan </b> : <b>Rp. 375.000</b><br>
+            <b>Nama Pegawai</b> : <b>Budi</b><br>
+            <b>Total Transaksi Selesai</b> : <b>21</b> Transaksi<br>
+            <b>Total Makanan Terjual</b> : <b>23</b> Makanan<br>
+            <b>Total Minuman Terjual</b> : <b>15</b> Minuman<br>
+            <b>Total Pendapatan </b> : <b>Rp. 300.000</b><br>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -84,11 +86,17 @@
                                  <td>Rp. 50.000</td>
                               </tr>
                            </tbody>
+                           <tfoot>
+                              <tr>
+                                 <th colspan="4" class="text-right">Grand Total</th>
+                                 <td>Rp. 50.000</td>
+                              </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                <div class="modal-footer justify-content-end">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                 </div>
             </div>
             <!-- /.modal-content -->

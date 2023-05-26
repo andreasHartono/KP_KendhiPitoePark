@@ -69,7 +69,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th>Nama Menu</th>
@@ -88,11 +88,17 @@
                                     <td>Rp. 50.000</td>
                                 </tr>
                             </tbody>
+                            <tfoot>
+                              <tr>
+                                 <th colspan="4" class="text-right">Grand Total</th>
+                                 <td>Rp. 50.000</td>
+                              </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                <div class="modal-footer justify-content-end">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                 </div>
             </div>
             <!-- /.modal-content -->
