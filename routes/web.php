@@ -76,6 +76,9 @@ Route::get('/datapegawai', function () {
 Route::get('/profilpelanggan', function () {
    return view('guest.profilpelanggan');
 });
+Route::get('/designnota', function () {
+   return view('transaction.invoicedesign');
+});
 
 Route::get('/scankasir', function () {
    return view('kasir.scan');
