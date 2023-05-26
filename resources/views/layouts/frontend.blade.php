@@ -336,7 +336,7 @@
     <!--====== Product Style 7 Part Ends ======-->
 
     <!--====== Footer Style 3 Part Start ======-->
-    <section class="footer-style-3 pt-100 pb-100">
+    <section class="footer-style-3 pt-50 pb-50">
         <div class="container">
             <div class="footer-top">
                 <div class="row justify-content-center">
