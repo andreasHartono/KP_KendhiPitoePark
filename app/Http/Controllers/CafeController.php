@@ -15,7 +15,8 @@ class CafeController extends Controller
     public function index()
     {
         $cafes = Cafe::all();
-        return view('menu.index', compact("cafes"));
+        $title = 'Semua Menu';
+        return view('menu.index', compact("cafes","title"));
     }
 
     /**

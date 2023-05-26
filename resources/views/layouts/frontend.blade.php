@@ -37,6 +37,9 @@
     <!--====== Style CSS ======-->
     <link rel="stylesheet" href="{{ asset('template/assets/css/style.css') }}">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -167,7 +170,8 @@
                                                     <a href="{{ url('cart') }}"
                                                         class="main-btn primary-btn-border">View
                                                         Cart</a>
-                                                    <a href="{{ route('checkout') }}" class="main-btn primary-btn">Checkout</a>
+                                                    <a href="{{ route('checkout') }}"
+                                                        class="main-btn primary-btn">Checkout</a>
                                                 </div>
                                             </div>
                                         @endif
@@ -203,17 +207,19 @@
                             <div class="navbar-menu">
                                 <ul class="main-menu">
                                     @guest
-                                        <a class="btn btn-success"
-                                            href=" {{ route('login') }}"><img src="{{ asset('template/assets/images/person-circle.svg') }}"
-                                            alt="Icon">&nbsp;&nbsp;Silahkan
+                                        <a class="btn btn-success" href=" {{ route('login') }}"><img
+                                                src="{{ asset('template/assets/images/person-circle.svg') }}"
+                                                alt="Icon">&nbsp;&nbsp;Silahkan
                                             Login atau Register</a>
                                     @endguest
                                     @auth
-                                       <li><p>Selamat Datang di Kendhi Pitoe, {{ Auth::user()->name }}</p></li>
-                                       <li><a href="{{ url('profile') }}">Profil</a></li>
-                                       <li><a href="{{ url('lacakpesanan') }}">Lacak Pesanan saya</a></li>
-                                       <li><a href="{{ url('membershiptopup') }}">Kendhi Pitoe E-Wallet</a></li>
-                                       <li><a href="{{ url('logout') }}">Logout</a></li>  
+                                        <li>
+                                            <p>Selamat Datang di Kendhi Pitoe, {{ Auth::user()->name }}</p>
+                                        </li>
+                                        <li><a href="{{ url('profile') }}">Profil</a></li>
+                                        <li><a href="{{ url('lacakpesanan') }}">Lacak Pesanan saya</a></li>
+                                        <li><a href="{{ url('membershiptopup') }}">Kendhi Pitoe E-Wallet</a></li>
+                                        <li><a href="{{ url('logout') }}">Logout</a></li>
                                     @endauth
                                 </ul>
                             </div>
@@ -351,9 +357,9 @@
             </div>
 
             <div class="footer-copyright text-center">
-                <p>Developed by Kendhi Pitoe Park Universitas Surabaya & <a href="https://graygrids.com/" rel="nofollow"
-                        target="_blank">GrayGrids</a>. Basesd on <a href="https://ecommercehtml.com/" rel="nofollow"
-                        target="_blank">eCommerceHTML</a>
+                <p>Developed by Kendhi Pitoe Park Universitas Surabaya & <a href="https://graygrids.com/"
+                        rel="nofollow" target="_blank">GrayGrids</a>. Basesd on <a href="https://ecommercehtml.com/"
+                        rel="nofollow" target="_blank">eCommerceHTML</a>
                 </p>
             </div>
     </section>
@@ -389,7 +395,9 @@
 
     <!--====== Main js ======-->
     <script src="{{ asset('template/assets/js/count-up.min.js') }}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+    </script>
     <!--====== Main js ======-->
     <script src="{{ asset('template/assets/js/main.js') }}"></script>
 

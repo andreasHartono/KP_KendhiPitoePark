@@ -52,7 +52,12 @@ class CategoryFoodController extends Controller
     public function show($id)
     {
         $cafes= Cafe::where("category_id",$id)->get();
-        return view('menu.index', compact("cafes"));        
+        $titles= DB::table('category_food')->where('id',$id)->value('name');
+        $title='';
+        if($titles == 'Makanan Berat') $title = 'Makanan Berat';
+        else if($titles == 'Makanan Ringan') $title = 'Makanan Ringan';
+        else if($titles ==  'Minuman') $title = 'Minuman';
+        return view('menu.index', compact("cafes", "title"));        
     }
 
     /**
