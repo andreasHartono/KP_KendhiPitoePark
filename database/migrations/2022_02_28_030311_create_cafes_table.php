@@ -20,7 +20,7 @@ class CreateCafesTable extends Migration
             $table->string('price');            
             $table->string("status")->default("true");
             $table->string("message")->nullable();
-            $table->unsignedBigInteger('account_id')->default(1);
+            $table->unsignedBigInteger('id_pemilik_menu')->default(1);
             $table->unsignedBigInteger('category_id');  
             $table->softDeletes();
             $table->timestamp("created_at")->useCurrent();

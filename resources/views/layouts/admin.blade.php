@@ -46,7 +46,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <ul class="navbar-nav ml-auto">
                 <!-- Messages Dropdown Menu -->
                 <li class="nav-item">
-                    <a class="nav-link btn btn-outline-warning" href="#">LOGOUT</a>
+                    <a class="nav-link btn btn-outline-warning" href="{{ route('logout') }}">LOGOUT</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -81,22 +81,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        @can('pegawai')
-                        <li class="nav-header">MENU PEGAWAI</li>
+                        <li class="nav-header">MENU</li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('profil_owner') }}" class="nav-link">
                                 <i class="nav-icon fas fa-person-booth"></i>
-                                <p class="text">Profil Pegawai</p>
+                                <p class="text">Profil</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('topup_ewallet') }}" class="nav-link">
                                 <i class="nav-icon fas fa-wallet text-warning"></i>
                                 <p>KENDHI PITOE Wallet</p>
                             </a>
                         </li>
+                        @can('pegawai')
+                       
+                                            
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('scan_kasir') }}" class="nav-link">
                                 <i class="nav-icon fas fa-qrcode text-info"></i>
                                 <p>Scan Pembayaran</p>
                             </a>
@@ -108,32 +110,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                         </li>
                         @endcan
-                        @can("owner")
-                        <li class="nav-header">MENU PEMILIK</li>
+                        @can("owner")                                                                 
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-person-booth"></i>
-                                <p class="text">Profil Pemilik</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-wallet text-warning"></i>
-                                <p>KENDHI PITOE Wallet</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('report_penjualan') }}" class="nav-link">
                                 <i class="nav-icon far fa-folder-open text-success"></i>
                                 <p>Rekap Semua Penjualan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('data_pegawai') }}" class="nav-link">
                                 <i class="nav-icon far fa-user text-primary"></i>
                                 <p>Data Pegawai</p>
                             </a>
                         </li>
+                        @endcan
+                        
+                        
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

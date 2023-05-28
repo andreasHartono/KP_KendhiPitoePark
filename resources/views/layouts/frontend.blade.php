@@ -114,7 +114,7 @@
                                                                 <td class="checkout-product">
                                                                     <div class="product-cart d-flex">
                                                                         <div class="product-thumb">
-                                                                            <img src="{{ asset('images/' . $details['image']) }}"
+                                                                            <img src="{{ asset('assets/images/menu/' . $details['image'] ) }}"
                                                                                 alt="Product" />
                                                                         </div>
                                                                         <div class="product-content media-body">
@@ -216,9 +216,9 @@
                                         <li>
                                             <p>Selamat Datang di Kendhi Pitoe, {{ Auth::user()->name }}</p>
                                         </li>
-                                        <li><a href="{{ url('profile') }}">Profil</a></li>
-                                        <li><a href="{{ url('lacakpesanan') }}">Lacak Pesanan saya</a></li>
-                                        <li><a href="{{ url('membershiptopup') }}">Kendhi Pitoe E-Wallet</a></li>
+                                        <li><a href="{{ route('profil_pelanggan') }}">Profil</a></li>
+                                        <li><a href="{{ route('lacak_pesanan') }}">Lacak Pesanan saya</a></li>
+                                        <li><a href="{{ route('pelanggan_topup') }}">Kendhi Pitoe E-Wallet</a></li>
                                         <li><a href="{{ url('logout') }}">Logout</a></li>
                                     @endauth
                                 </ul>

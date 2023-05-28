@@ -14,22 +14,22 @@ class CreateAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('accounts', function (Blueprint $table) {
-            $table->softDeletes();
-            $table->id();
-            $table->string('username');
-            $table->string('phone');
-            $table->string('name');
-            $table->string('address')->nullable();
-            $table->string('password');
-            $table->integer('is_admin')->default(0);
+        // Schema::create('accounts', function (Blueprint $table) {
+        //     $table->softDeletes();
+        //     $table->id();
+        //     $table->string('username');
+        //     $table->string('phone');
+        //     $table->string('name');
+        //     $table->string('address')->nullable();
+        //     $table->string('password');
+        //     $table->integer('is_admin')->default(0);
 
-            $table->integer('emoney')->default(0);
-            $table->string("jabatan")->default('pelanggan');
-            $table->timestamp("created_at")->useCurrent();
-            $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
+        //     $table->integer('emoney')->default(0);
+        //     $table->string("jabatan")->default('pelanggan');
+        //     $table->timestamp("created_at")->useCurrent();
+        //     $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
             
-        });
+        // });
     }
 
     /**

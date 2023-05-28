@@ -32,14 +32,13 @@ class LoginController extends Controller
    {
 
       $role = Auth::user()->jabatan;
-
       switch ($role) {
          case 'owner':
-            return '/';
+            return '/pegawai';
             break;
 
          case 'pegawai':
-            return '/';
+            return '/pegawai';
             break;
 
          case 'pelanggan':

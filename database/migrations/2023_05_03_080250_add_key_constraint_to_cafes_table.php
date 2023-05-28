@@ -14,7 +14,7 @@ class AddKeyConstraintToCafesTable extends Migration
     public function up()
     {
         Schema::table('cafes', function (Blueprint $table) {
-            $table->foreign('account_id')->references('id')->on('users');
+            $table->foreign('id_pemilik_menu')->references('id')->on('users');
             $table->foreign('category_id')->references('id')->on('category_food'); 
         });
     }

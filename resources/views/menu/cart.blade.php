@@ -50,7 +50,7 @@
                                                 <td class="checkout-product">
                                                     <div class="product-cart d-flex">
                                                         <div class="product-thumb">
-                                                            <img src="{{ asset('images/' . $details['image']) }}"
+                                                            <img src="{{ asset('assets/images/menu/' . $details['image']) }}"
                                                                 alt="Product" height="150px" width="150px" />
                                                         </div>
                                                         <div class="product-content media-body">

@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title heading-4">KENDHI PITOE WALLET</h4><br>
-                <h4 class="card-title heading-6"><b>Rp. 150.000</b></h4><br>
+                <h4 class="card-title heading-6"><b>Rp. {{ Auth::user()->emoney }}</b></h4><br>
             </div>
         </div><br>
         <div class="card">

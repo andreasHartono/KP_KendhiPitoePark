@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Cafe;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -87,9 +88,19 @@ class OrderController extends Controller
 
     public function validasiPembayaran(Request $request)
     {
-        $cart = session()->get('cart');      
+        $cart = session()->get('cart'); 
+        dd($cart);     
        
         return view('transaction.validasipembayaran', compact("cart"));        
+    }
+
+    public function goToQR()
+    {
+        $cart = session()->get("cart");
+        $cart['id_pelanggan'] = Auth::user()->id;
+        $cartJson = json_encode($cart);
+       
+        return view('/transaction.verifikasipembayaran',["cart"=>$cartJson]);
     }
 
     public function checkout()

@@ -26,8 +26,8 @@
                         <img class="profile-user-img img-fluid img-circle"
                             src="{{ asset('admin/dist/img/user4-128x128.jpg') }}" alt="User profile picture">
                     </div>
-                    <h3 class="profile-username text-center">Nama : Pak Iwan</h3>
-                    <p class="text-muted text-center">Sebagai : Pemilik</p>
+                    <h3 class="profile-username text-center">Nama : {{ Auth::user()->name }}</h3>
+                    <p class="text-muted text-center">Sebagai : {{ Auth::user()->jabatan }}</p>
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
                             <b>Terakhir Aktif</b> <a class="float-right">24 Mei 2023 15:37:23</a>
@@ -47,9 +47,9 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                     <strong><i class="fas fa-book mr-1"></i> Nomor Telepon</strong>
-                    <p class="text-muted">084912421841</p><hr>
+                    <p class="text-muted">{{ Auth::user()->phone }}</p><hr>
                     <strong><i class="fas fa-map-marker-alt mr-1"></i> Lokasi</strong>
-                    <p class="text-muted">Selotapak Trawas</p><hr>
+                    <p class="text-muted">{{ Auth::user()->address }}</p><hr>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -72,20 +72,20 @@
                                         <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="inputName"
-                                                placeholder="Inputkan Perubahan Nama Anda">
+                                                placeholder="{{ Auth::user()->name }}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputEmail" class="col-sm-2 col-form-label">Nomor Telepon</label>
                                         <div class="col-sm-10">
                                             <input type="tel" class="form-control" id="inputTelepon"
-                                                placeholder="Inputkan Perubahan Nomor Telepon Anda">
+                                                placeholder="{{ Auth::user()->phone }}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputAlamat" class="col-sm-2 col-form-label">Alamat</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" id="inputAlamat" placeholder="Alamat"></textarea>
+                                            <textarea class="form-control" id="inputAlamat" placeholder="{{ Auth::user()->address }}"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">

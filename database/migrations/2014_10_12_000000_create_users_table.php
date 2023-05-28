@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
          $table->string('name');
          $table->string('address')->nullable();
          $table->string('password');
-         $table->integer('is_admin')->default(0);
+        //  $table->integer('is_admin')->default(0);
 
          $table->integer('emoney')->default(0);
          $table->string("jabatan")->default('pelanggan');

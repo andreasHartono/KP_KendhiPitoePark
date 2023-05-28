@@ -6,9 +6,9 @@
                 Profile Pelanggan
             </div>
             <div class="card-body">
-                <h4 class="card-title heading-6">Nama Pelanggan : Agung</h4><br>
-                <h4 class="card-title heading-6">Nomor Telepon : 02489128414</h4><br>
-                <h4 class="card-title heading-6">Alamat Pelanggan : Surabaya</h4><br>
+                <h4 class="card-title heading-6">Nama Pelanggan : {{ Auth::user()->name }}</h4><br>
+                <h4 class="card-title heading-6">Nomor Telepon : {{ Auth::user()->phone }}</h4><br>
+                <h4 class="card-title heading-6">Alamat Pelanggan : {{ Auth::user()->address }}</h4><br>
             </div>
         </div><br>
         <div class="card-header p-2">
@@ -25,20 +25,20 @@
                                 <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="inputName"
-                                        placeholder="Inputkan Perubahan Nama Anda">
+                                        placeholder="{{ Auth::user()->name }}">
                                 </div>
                             </div><br>
                             <div class="form-group row">
                                 <label for="inputEmail" class="col-sm-2 col-form-label">Nomor Telepon</label>
                                 <div class="col-sm-10">
                                     <input type="tel" class="form-control" id="inputTelepon"
-                                        placeholder="Inputkan Perubahan Nomor Telepon Anda">
+                                        placeholder="{{ Auth::user()->phone }}">
                                 </div>
                             </div><br>
                             <div class="form-group row">
                                 <label for="inputAlamat" class="col-sm-2 col-form-label">Alamat</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" id="inputAlamat" placeholder="Alamat"></textarea>
+                                    <textarea class="form-control" id="inputAlamat" placeholder="{{ Auth::user()->address }}"></textarea>
                                 </div>
                             </div><br>
                             <div class="form-group row">
