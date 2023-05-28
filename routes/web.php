@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderDetailsController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\EWalletController;
 use App\Models\Cafe;
 use App\Models\CategoryFood;
 use Illuminate\Support\Facades\Auth;
@@ -52,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
       return view('transaction.verifikasipembayaran');
    });
 
+   Route::get('/ewallet/isiewallet', [EWalletController::class, 'isiEwallet'])->name('isi_ewallet');
 
    // Route::get('/validasipembayaran', function () {
    //    return view('transaction.validasipembayaran');
@@ -134,6 +136,7 @@ Route::get('/scankasir', function () {
 })->name("scan_kasir");
 
 
+
 Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('checkout_order');
 Route::get('/order/validasipembayaran', [OrderController::class, 'validasipembayaran'])->name('validasi_pembayaran');
 
@@ -150,5 +153,6 @@ Route::resources([
    'categories' => CategoryFoodController::class,
    'order' => OrderController::class,
    'orderdetails' => OrderDetailsController::class,
+   'ewallet' => EWalletController::class
 
 ]);

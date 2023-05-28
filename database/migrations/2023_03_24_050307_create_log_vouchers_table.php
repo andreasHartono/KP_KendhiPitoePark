@@ -17,8 +17,10 @@ class CreateLogVouchersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_pembuat'); 
             $table->foreign('id_pembuat')->references('id')->on('users');
+            $table->foreign('id_pembeli')->references('id')->on('users');
             $table->string('kode_voucher',10);
             $table->integer('jumlah');
+            $table->timestamp('terpakai')->default(null);
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
         });
