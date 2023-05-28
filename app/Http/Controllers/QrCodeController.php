@@ -16,7 +16,7 @@ class QrCodeController extends Controller
         $cart = session()->get("cart");
         $cartJson = json_encode($cart);
        
-        return view('/transaction.verifikasipembayaran',["cart"=>$cartJson]);
+        return redirect(route('validasi_pembayaran'),["cart"=>$cartJson]);
     }
 
     /**

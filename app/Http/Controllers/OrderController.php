@@ -88,8 +88,7 @@ class OrderController extends Controller
 
     public function validasiPembayaran(Request $request)
     {
-        $cart = session()->get('cart'); 
-        dd($cart);     
+        $cart = session()->get('cart');     
        
         return view('transaction.validasipembayaran', compact("cart"));        
     }

@@ -135,7 +135,7 @@ Route::get('/scankasir', function () {
 
 
 Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('checkout_order');
-Route::get('/order/validasipembayaran', [OrderController::class, 'validasipembayaran'])->name('validasipembayaran');
+Route::get('/order/validasipembayaran', [OrderController::class, 'validasipembayaran'])->name('validasi_pembayaran');
 
 
 //TARUK RESOURCE PALING BAWAH
