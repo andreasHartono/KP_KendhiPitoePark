@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ewallet;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -16,16 +17,40 @@ class EWalletController extends Controller
      */
     public function index()
     {
-        $rekapVoucherTopUp = DB::table('log_vouchers')
-        ->select('log_vouchers.*', 'pembuat.name as name_pembuat', 'pembeli.name as name_pembeli', 'pembeli.phone as phone_pembeli')
-        ->join('users as pembeli','pembeli.id','=','log_vouchers.id_pembuat')
-        ->join('users as pembuat','pembuat.id','=','log_vouchers.id_pembeli')
-        ->get();
+        // $rekapVoucherTopUp = DB::table('log_vouchers')
+        // ->select('log_vouchers.*', 'pembuat.name as name_pembuat', 'pembeli.name as name_pembeli', 'pembeli.phone as phone_pembeli')
+        // ->join('users as pembeli','pembeli.id','=','log_vouchers.id_pembeli')
+        // ->join('users as pembuat','pembuat.id','=','log_vouchers.id_pembuat')
+        // ->get();
 
-        // RAW SQL QUERY udah bener, tapi kok cuman dapet 1??
-        //SELECT lv.*, pembuat.name as name_pembuat, pembeli.name as name_pembeli FROM log_vouchers as lv INNER JOIN users AS pembuat ON pembuat.id = lv.id_pembuat INNER JOIN users AS pembeli ON pembeli.id = lv.id_pembeli GROUP BY lv.id;
+        // // RAW SQL QUERY udah bener, tapi kok cuman dapet 1??
+        // //SELECT lv.*, pembuat.name as name_pembuat, pembeli.name as name_pembeli FROM log_vouchers as lv INNER JOIN users AS pembuat ON pembuat.id = lv.id_pembuat INNER JOIN users AS pembeli ON pembeli.id = lv.id_pembeli GROUP BY lv.id;
 
-        return view('kasir.ewallet', compact("rekapVoucherTopUp"));
+        // return view('kasir.ewallet', compact("rekapVoucherTopUp"));
+
+        $kode = '123';
+
+        $voucherTopUp = Ewallet::where([['kode_voucher', "=" , $kode],["terpakai",'=',null]])->get()[0];  
+        
+        if($voucherTopUp != null) 
+        {            
+            $nominal = $voucherTopUp->jumlah;   
+            $id = $voucherTopUp->id;              
+            
+            $voucher = EWallet::find($id);
+            $voucher->id_pembeli = Auth::user()->id;
+            $voucher->terpakai = now();
+            $voucher->save();
+            
+            $user = User::find(Auth::user()->id);
+            $user->emoney += $nominal;
+            $user->save();
+
+            return ["message"=>"OK","emoney_now"=>$user->emoney,"nominal"=>$nominal];
+        }
+        
+        return ["message"=>"Kode sudah terpakai!","nominal"=>0];
+            
              
     }
 
@@ -115,43 +140,30 @@ class EWalletController extends Controller
         //
     }
 
-    public function generateKode(Request $request)
-    {
-        $id_pembuat = Auth::user()->id;
-        $seed = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
-        $kodeRand = '';
-        foreach (array_rand($seed, 6) as $k) $kodeRand .= $seed[$k];
-        $nominal = $request['nominal'];
-
-        $voucherTopUp = new Ewallet;
-        $voucherTopUp->id_pembuat = $id_pembuat;
-        $voucherTopUp->kode_voucher = $kodeRand;
-        $voucherTopUp->jumlah = $nominal;
-        $voucherTopUp->save();
-
-        return $kodeRand;
-    }
-
     public function isiEwallet(Request $request)
     {
         $kode = $request['kode'];
-        // return ['message'=>$kode];
-        $voucherTopUp = Ewallet::where('kode_voucher', $kode);  
-        if($voucherTopUp->get('terpakai') == null)
-        {
-            $nominal = $voucherTopUp->get('jumlah');   
-            $id = $voucherTopUp->get('id');       
+
+        $voucherTopUp = Ewallet::where([['kode_voucher', "=" , $kode],["terpakai",'=',null]])->get()[0];  
+        
+        if($voucherTopUp != null) 
+        {            
+            $nominal = $voucherTopUp->jumlah;   
+            $id = $voucherTopUp->id;              
             
-            $voucher = EWallet::find($id)->first();;
+            $voucher = EWallet::find($id);
             $voucher->id_pembeli = Auth::user()->id;
             $voucher->terpakai = now();
-            $voucher->save();        
+            $voucher->save();
+            
+            $user = User::find(Auth::user()->id);
+            $user->emoney += $nominal;
+            $user->save();
 
-            return ["message"=>"OK","nominal"=>$nominal];
-        }
-        else{
-            return ["message"=>"Kode sudah terpakai!","nominal"=>0];
+            return ["message"=>"OK","emoney_now"=>$user->emoney,"nominal"=>$nominal];
         }
         
+        return ["message"=>"Kode sudah terpakai!","nominal"=>0];
+                
     }
 }
