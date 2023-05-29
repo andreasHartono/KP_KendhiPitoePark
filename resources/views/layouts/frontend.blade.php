@@ -344,14 +344,9 @@
                         <div class="footer-logo text-center">
                             <a href="/">
                                 <img height="150px" width="150px"
-                                    src="{{ asset('template/assets/images/pitoe.png') }}" alt="">
+                                    src="{{ asset('template/assets/images/pitoe.png') }}" alt="logo footer">
                             </a>
                         </div>
-                        <h5 class="heading-5 text-center mt-30">Follow Us</h5>
-                        <ul class="footer-follow text-center">
-                            <li><a href="javascript:void(0)"><i class="lni lni-instagram-original"></i></a></li>
-                            <li><a href="javascript:void(0)"><i class="lni lni-whatsapp"></i></a></li>
-                        </ul>
                     </div>
                 </div>
             </div>

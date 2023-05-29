@@ -125,7 +125,9 @@ Route::middleware(['auth'])->group(function () {
       return view('pelanggan.profilpelanggan');
    })->name('profil_pelanggan');
 });
-
+Route::get('/historypemesanan', function () {
+   return view('pelanggan.history');
+});
 Route::get('/designnota', function () {
    return view('transaction.invoicedesign');
 });
