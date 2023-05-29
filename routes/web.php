@@ -129,6 +129,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/designnota', function () {
    return view('transaction.invoicedesign');
 });
+Route::get('/designnotadapur', function () {
+   return view('transaction.invoicedapur');
+});
 
 
 Route::get('/scankasir', function () {
