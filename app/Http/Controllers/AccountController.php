@@ -32,7 +32,27 @@ class AccountController extends Controller
 
       if (Auth::attempt($credentials)) {
          $request->session()->regenerate();
-         return redirect()->intended('/');
+         
+         $role = Auth::user()->jabatan;
+
+         switch ($role) {
+            case 'owner':
+               return redirect()->intended('/pegawai');
+               break;
+
+            case 'pegawai':
+               return redirect()->intended('/pegawai');
+               break;
+
+            case 'pelanggan':
+               return redirect()->intended('/');
+               break;
+
+            default:
+            return redirect()->intended('/');
+               break;
+         }
+         
       }
 
       return back()->with('loginError', 'Login Gagal Username atau Password Salah');

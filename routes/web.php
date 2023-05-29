@@ -63,10 +63,6 @@ Route::middleware(['auth'])->group(function () {
       return view('pelanggan.lacakpesanan');
    })->name("lacak_pesanann");
 
-   Route::get('/kasirewallet', function () {
-      return view('kasir.ewallet');
-   });
-
    Route::get('/rekappenjualanpegawai', function () {
       return view('kasir.rekappenjualan');
    })->name('rekap_pegawai');
@@ -84,11 +80,7 @@ Route::middleware(['auth'])->group(function () {
       return view('layouts.admin');
    })->name('pegawai');
 
-   Route::get('/topupewallet', function () {
-      return view('kasir.ewallet');
-   })->name('topup_ewallet');
-
-   Route::get('/logewallet', function () {
+    Route::get('/logewallet', function () {
       return view('owner.ewallet');
    })->name('log_ewallet');
 

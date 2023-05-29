@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ewallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EWalletController extends Controller
 {
@@ -15,7 +16,17 @@ class EWalletController extends Controller
      */
     public function index()
     {
-        
+        $rekapVoucherTopUp = DB::table('log_vouchers')
+        ->select('log_vouchers.*', 'pembuat.name as name_pembuat', 'pembeli.name as name_pembeli', 'pembeli.phone as phone_pembeli')
+        ->join('users as pembeli','pembeli.id','=','log_vouchers.id_pembuat')
+        ->join('users as pembuat','pembuat.id','=','log_vouchers.id_pembeli')
+        ->get();
+
+        // RAW SQL QUERY udah bener, tapi kok cuman dapet 1??
+        //SELECT lv.*, pembuat.name as name_pembuat, pembeli.name as name_pembeli FROM log_vouchers as lv INNER JOIN users AS pembuat ON pembuat.id = lv.id_pembuat INNER JOIN users AS pembeli ON pembeli.id = lv.id_pembeli GROUP BY lv.id;
+
+        return view('kasir.ewallet', compact("rekapVoucherTopUp"));
+             
     }
 
     /**
@@ -102,6 +113,23 @@ class EWalletController extends Controller
     public function destroy(Ewallet $ewallet)
     {
         //
+    }
+
+    public function generateKode(Request $request)
+    {
+        $id_pembuat = Auth::user()->id;
+        $seed = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
+        $kodeRand = '';
+        foreach (array_rand($seed, 6) as $k) $kodeRand .= $seed[$k];
+        $nominal = $request['nominal'];
+
+        $voucherTopUp = new Ewallet;
+        $voucherTopUp->id_pembuat = $id_pembuat;
+        $voucherTopUp->kode_voucher = $kodeRand;
+        $voucherTopUp->jumlah = $nominal;
+        $voucherTopUp->save();
+
+        return $kodeRand;
     }
 
     public function isiEwallet(Request $request)

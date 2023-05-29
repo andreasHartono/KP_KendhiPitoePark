@@ -216,6 +216,7 @@
                                         <li>
                                             <p>Selamat Datang di Kendhi Pitoe, {{ Auth::user()->name }}</p>
                                         </li>
+                                        
                                         <li><a href="{{ route('profil_pelanggan') }}">Profil</a></li>
                                         <li><a href="{{ route('lacak_pesanan') }}">Lacak Pesanan saya</a></li>
                                         <li><a href="{{ route('pelanggan_topup') }}">Kendhi Pitoe E-Wallet</a></li>
