@@ -88,44 +88,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <p class="text">Profil</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('topup_ewallet') }}" class="nav-link">
-                                <i class="nav-icon fas fa-wallet text-warning"></i>
-                                <p>KENDHI PITOE Wallet</p>
-                            </a>
-                        </li>
                         @can('pegawai')
-                       
-                                            
-                        <li class="nav-item">
-                            <a href="{{ route('scan_kasir') }}" class="nav-link">
-                                <i class="nav-icon fas fa-qrcode text-info"></i>
-                                <p>Scan Pembayaran</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-folder-open text-success"></i>
-                                <p>Rekap MakananKU</p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="{{ route('topup_ewallet') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-wallet text-warning"></i>
+                                    <p>KENDHI PITOE Wallet</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('scan_kasir') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-qrcode text-info"></i>
+                                    <p>Scan Pembayaran</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon far fa-folder-open text-success"></i>
+                                    <p>Rekap MakananKU</p>
+                                </a>
+                            </li>
                         @endcan
-                        @can("owner")                                                                 
-                        <li class="nav-item">
-                            <a href="{{ route('report_penjualan') }}" class="nav-link">
-                                <i class="nav-icon far fa-folder-open text-success"></i>
-                                <p>Rekap Semua Penjualan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('data_pegawai') }}" class="nav-link">
-                                <i class="nav-icon far fa-user text-primary"></i>
-                                <p>Data Pegawai</p>
-                            </a>
-                        </li>
+                        @can('owner')
+                            <li class="nav-item">
+                                <a href="{{ route('log_ewallet') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-wallet text-warning"></i>
+                                    <p>KENDHI PITOE Wallet</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('report_penjualan') }}" class="nav-link">
+                                    <i class="nav-icon far fa-folder-open text-success"></i>
+                                    <p>Rekap Semua Penjualan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('data_pegawai') }}" class="nav-link">
+                                    <i class="nav-icon far fa-user text-primary"></i>
+                                    <p>Data Pegawai</p>
+                                </a>
+                            </li>
                         @endcan
-                        
-                        
+
+
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

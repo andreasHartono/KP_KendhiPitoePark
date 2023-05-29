@@ -32,10 +32,6 @@ Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
 Route::get('/register', [AccountController::class, 'indexRegister'])->name('register');
 Route::post('/register_detail', [AccountController::class, 'create']);
 
-
-
-
-
 Route::middleware(['auth'])->group(function () {
 
    // HALAMAN PELANGGAN
@@ -67,15 +63,9 @@ Route::middleware(['auth'])->group(function () {
       return view('pelanggan.lacakpesanan');
    })->name("lacak_pesanann");
 
-
-
-
-
-
    Route::get('/kasirewallet', function () {
       return view('kasir.ewallet');
    });
-
 
    Route::get('/rekappenjualanpegawai', function () {
       return view('kasir.rekappenjualan');
@@ -90,8 +80,6 @@ Route::middleware(['auth'])->group(function () {
       return view('owner.datapegawai');
    })->name("data_pegawai");
 
-
-
    Route::get('/pegawai', function () {
       return view('layouts.admin');
    })->name('pegawai');
@@ -100,6 +88,9 @@ Route::middleware(['auth'])->group(function () {
       return view('kasir.ewallet');
    })->name('topup_ewallet');
 
+   Route::get('/logewallet', function () {
+      return view('owner.ewallet');
+   })->name('log_ewallet');
 
    Route::get('/profilpegawai', function () {
       return view('kasir.profilkasir');

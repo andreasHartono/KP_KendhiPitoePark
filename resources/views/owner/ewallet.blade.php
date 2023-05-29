@@ -66,6 +66,10 @@
                             <td>0812914914</td>
                             <td><span class="bg-success">Sudah Digunakan</span></td>
                         </tr>
+                        <!-- Kalo data kosong -->
+                        {{-- <tr> 
+                            <td colspan="5" class="text-center">Belum ada data Voucher Kendhi Pitoe E-Wallet</span></td>
+                        </tr> --}}
                     </tbody>
                 </table>
             </div>
