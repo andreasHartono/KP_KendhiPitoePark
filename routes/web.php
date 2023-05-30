@@ -51,9 +51,7 @@ Route::middleware(['auth'])->group(function () {
 
    Route::get('/ewallet/isiewallet', [EWalletController::class, 'isiEwallet'])->name('isi_ewallet');
 
-   // Route::get('/validasipembayaran', function () {
-   //    return view('transaction.validasipembayaran');
-   // })->name('validasipembayaran');
+
 
    Route::get('/notapembayaran', function () {
       return view('transaction.notapembayaran');
