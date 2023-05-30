@@ -110,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         @endcan
                         @can('owner')
                             <li class="nav-item">
-                                <a href="{{ route('log_ewallet') }}" class="nav-link">
+                                <a href="{{ route('ewallet.index') }}" class="nav-link">
                                     <i class="nav-icon fas fa-wallet text-warning"></i>
                                     <p>KENDHI PITOE Wallet</p>
                                 </a>
