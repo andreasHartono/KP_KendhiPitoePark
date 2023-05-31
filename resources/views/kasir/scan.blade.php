@@ -3,6 +3,7 @@
 Kasir
 @endsection
 @section('content-header')
+
 <div class="row mb-2">
     <div class="col-sm-6">
         <h1 class="m-0"> Kendi Pitoe Cafe | <small>Scan Pembayaran</small></h1>
@@ -37,20 +38,20 @@ Kasir
         </div>
     </div><br>
 </div>
+<div id="all_content">
+</div>
 @endsection
 @section('javascript')
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
     $('#tes').on('click', function() {
-        
+
     });
 
     function onScanSuccess(decodedText, decodedResult) {
         // handle the scanned code as you like, for example:
         console.log(`Code matched = ${decodedText}`, decodedResult);
-
-        alert("64")
 
         $.ajax({
             type: 'GET',
@@ -60,8 +61,7 @@ Kasir
                 cartOrder: decodedText
             },
             success: function(response) {
-                alert(response);
-                alert("test")
+                $('#all_content').html = response.msg;
             }
         });
     }

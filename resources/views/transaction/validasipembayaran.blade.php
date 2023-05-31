@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title heading-6">No Meja &nbsp;&nbsp;&nbsp; : 1 </h4><br>
-                <h4 class="card-title heading-6">Nama Customer : {{ $cart['id_pelanggan'] }}</h4><br>
+                <h4 class="card-title heading-6">Nama Customer : {{ $pelanggan->name }}</h4><br>
                 <h4 class="card-title heading-6">Total Harga &nbsp;&nbsp; : Rp. 15.000,00</h4><br>
                 <h4 class="card-title heading-6">ID Transaksi : 08414912421</h4>
             </div>
@@ -23,28 +23,28 @@
                     </thead>
                     <tbody>
                         <?php $total = 0; ?>
-                        @foreach ($cart as $item)
+                        @foreach ($jsonCart as $item)
                             <tr>
                                 <td class="checkout-product">
                                     <div class="product-cart d-flex">
                                         <div class="product-content media-body">
-                                            <h5 class="title">{{ $item['name'] }}</h5>
+                                            <h5 class="title">{{ $item->name }}</h5>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="checkout-price">
-                                    <p class="price">Rp.{{ $item['price'] }}</p>
+                                    <p class="price">Rp.{{ $item->price }}</p>
                                 </td>
                                 <td class="checkout-quantity">
                                    <div class="product-quantity d-inline-flex">
-                                      <input type="text" value="{{ $item['quantity'] }}">
+                                      <input type="text" value="{{ $item->quantity }}">
                                     </div>
                                  </td>
                                  <td class="checkout-price">
-                                     <p class="price">Rp.{{ $item['price'] * $item['quantity'] }}</p>
+                                     <p class="price">Rp.{{ $item->price * $item->quantity }}</p>
                                  </td>
                             </tr>
-                            <?php $total += $item['price'] * $item['quantity']; ?>
+                            <?php $total += $item->price * $item->quantity; ?>
                         @endforeach
                     </tbody>
                 </table>

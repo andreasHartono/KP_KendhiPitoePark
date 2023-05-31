@@ -19,8 +19,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::all();
-        return view('menu.index', compact("order"));
+        $cart = '{"1":{"id":"1","name":"Nasi Goreng","quantity":2,"price":"15000","image":"nasigoreng.jpg"},"2":{"id":"2","name":"Es Teh","quantity":2,"price":"6000","image":"esteh.jpg"},"4":{"id":"4","name":"Mie Goreng","quantity":1,"price":"15000","image":"miegoreng.jpg"},"5":{"id":"5","name":"Es jeruk","quantity":1,"price":"8000","image":"esteh.jpg"},"3":{"id":"3","name":"Pisang Goreng","quantity":1,"price":"10000","image":"pisanggoreng.jpg"},"6":{"id":"6","name":"Tempe Goreng","quantity":1,"price":"10000","image":"tempegoreng.jpg"},"id_pelanggan":4}';
+        $jsonCart = json_decode($cart);
+        $id_pelanggan = $jsonCart->id_pelanggan;
+        unset($jsonCart->id_pelanggan);
+        
+        return view('transaction.validasipembayaran', compact(["jsonCart",'id_pelanggan']));
+      
     }
 
     /**
@@ -88,18 +93,25 @@ class OrderController extends Controller
 
     public function validasiPembayaran(Request $request)
     {
-        $cart = session()->get('cart');     
-       
-        return view('transaction.validasipembayaran', compact("cart"));        
+        $cart = $request['cartOrder'];
+        $jsonCart = json_decode($cart);
+        $pelanggan = $jsonCart->pelanggan;
+        unset($jsonCart->pelanggan);
+
+        return view('transaction.validasipembayaran', compact(["jsonCart",'pelanggan']));        
     }
 
     public function goToQR()
     {
         $cart = session()->get("cart");
-        $cart['id_pelanggan'] = Auth::user()->id;
+        $cart['pelanggan'] = ["name"=>Auth::user()->name,"id"=>Auth::user()->id];
         $cartJson = json_encode($cart);
+        
+        return response()->json(array(
+            'status' => 'oke',
+            'msg' => view('/transaction.verifikasipembayaran', compact('cartJson'))->render()
+        ), 200);
        
-        return view('/transaction.verifikasipembayaran',["cart"=>$cartJson]);
     }
 
     public function checkout()

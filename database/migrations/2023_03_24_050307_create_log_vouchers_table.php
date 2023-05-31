@@ -16,7 +16,7 @@ class CreateLogVouchersTable extends Migration
         Schema::create('log_vouchers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_pembuat'); 
-            $table->unsignedBigInteger('id_pembeli'); 
+            $table->unsignedBigInteger('id_pembeli')->default(null);
             $table->foreign('id_pembuat')->references('id')->on('users');
             $table->foreign('id_pembeli')->references('id')->on('users');
             $table->string('kode_voucher',10);
