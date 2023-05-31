@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderDetailsController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\EWalletController;
+use App\Http\Controllers\MejaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -58,35 +59,6 @@ Route::middleware(['auth'])->group(function () {
       return view('pelanggan.lacakpesanan');
    })->name("lacak_pesanann");
 
-   Route::get('/rekappenjualanpegawai', function () {
-      return view('kasir.rekappenjualan');
-   })->name('rekap_pegawai');
-
-   Route::get('/rekappenjualanowner', function () {
-      return view('owner.reportpenjualan');
-   })->name('report_penjualan');
-
-
-   Route::get('/datapegawai', function () {
-      return view('owner.datapegawai');
-   })->name("data_pegawai");
-
-   Route::get('/pegawai', function () {
-      return view('layouts.admin');
-   })->name('pegawai');
-
-    Route::get('/logewallet', function () {
-      return view('owner.ewallet');
-   })->name('log_ewallet');
-
-   Route::get('/profilpegawai', function () {
-      return view('kasir.profilkasir');
-   })->name("profil_pegawai");
-
-   Route::get('/profilowner', function () {
-      return view('owner.profil');
-   })->name("profil_owner");
-
    Route::get('/notapembayaran', function () {
       return view('transaction.notapembayaran');
    });
@@ -102,6 +74,36 @@ Route::middleware(['auth'])->group(function () {
    Route::get('/profilpelanggan', function () {
       return view('pelanggan.profilpelanggan');
    })->name('profil_pelanggan');
+
+   // pegawai
+   Route::get('/rekappenjualanpegawai', function () {
+      return view('kasir.rekappenjualan');
+   })->name('rekap_pegawai');
+
+   Route::get('/rekappenjualanowner', function () {
+      return view('owner.reportpenjualan');
+   })->name('report_penjualan');
+
+   Route::get('/datapegawai', function () {
+      return view('owner.datapegawai');
+   })->name("data_pegawai");
+
+   Route::get('/profilpegawai', function () {
+      return view('kasir.profilkasir');
+   })->name("profil_pegawai");
+
+   Route::get('/pegawai', function () {
+      return view('layouts.admin');
+   })->name('pegawai');
+
+   Route::get('/profilowner', function () {
+      return view('owner.profil');
+   })->name("profil_owner");
+
+   Route::get('/qrcodemeja', [MejaController::class, 'index'])->name('meja.index');
+   Route::post('/buatlinkmeja', [MejaController::class, 'store'])->name('meja.store');
+   Route::get('generateqrcode/{id}', [MejaController::class, 'generate'])->name('meja.generate');
+   Route::get('/kendhipitoe/{hash}', [MejaController::class, 'generateSignedUrl'])->name('meja.generateUrl');
 });
 Route::get('/historypemesanan', function () {
    return view('pelanggan.history');

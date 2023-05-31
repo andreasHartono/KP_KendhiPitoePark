@@ -127,6 +127,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <p>Data Pegawai</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('meja.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-wallet text-info"></i>
+                                    <p>Data Meja dan Generate QR Code Meja</p>
+                                </a>
+                            </li>
                         @endcan
 
 
