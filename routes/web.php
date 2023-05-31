@@ -62,9 +62,12 @@ Route::middleware(['auth'])->group(function () {
       return view('kasir.rekappenjualan');
    })->name('rekap_pegawai');
 
-   Route::get('/rekappenjualanowner', function () {
-      return view('owner.reportpenjualan');
-   })->name('report_penjualan');
+   Route::get('/rekappenjualanowner', [OrderController::class,'report_penjualan'])->name('report_penjualan');
+   Route::get('/rekappenjualanowner_detail', [OrderController::class,'report_penjualan_detil'])->name('report_penjualan_detil');
+
+   // Route::get('/rekappenjualanowner', function () {
+   //    return view('owner.reportpenjualan');
+   // })->name('report_penjualan');
 
 
    Route::get('/datapegawai', function () {

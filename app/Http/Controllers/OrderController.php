@@ -9,6 +9,7 @@ use App\Models\Cafe;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use PHPUnit\Util\Json;
 use Svg\Tag\Rect;
 
@@ -21,13 +22,14 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $cart = '{"1":{"id":"1","name":"Nasi Goreng","quantity":1,"price":"15000","image":"nasigoreng.jpg"},"2":{"id":"2","name":"Es Teh","quantity":2,"price":"6000","image":"esteh.jpg"},"4":{"id":"4","name":"Mie Goreng","quantity":1,"price":"15000","image":"miegoreng.jpg"},"pelanggan":{"name":"Budi Pelanggan 1","id":4}}';
-        session()->put("scanCartOrder", $cart);       
-        $jsonCart = json_decode($cart);
-        $pelanggan = $jsonCart->pelanggan;       
-        unset($jsonCart->pelanggan);
+        // $cart = '{"1":{"id":"1","name":"Nasi Goreng","quantity":1,"price":"15000","image":"nasigoreng.jpg"},"2":{"id":"2","name":"Es Teh","quantity":2,"price":"6000","image":"esteh.jpg"},"4":{"id":"4","name":"Mie Goreng","quantity":1,"price":"15000","image":"miegoreng.jpg"},"pelanggan":{"name":"Budi Pelanggan 1","id":4}}';
+        // session()->put("scanCartOrder", $cart);       
+        // $jsonCart = json_decode($cart);
+        // $pelanggan = $jsonCart->pelanggan;       
+        // unset($jsonCart->pelanggan);
         
-        return view('transaction.validasipembayaran', compact(["jsonCart",'pelanggan']));
+        // return view('transaction.validasipembayaran', compact(["jsonCart",'pelanggan']));
+        
       
     }
 
@@ -157,9 +159,35 @@ class OrderController extends Controller
             }
             $orders = Order::find($orders->id);
             $orders->total_price = $totalPrice;
+            $orders->save();
             $cart = null;
             session()->put("scanCartOrder", $cart);
             return redirect()->route('index');
         }
+    }
+
+    public function report_penjualan()
+    {
+        $orderData = DB::table('orders as od')
+                        ->select("od.*",'u.name as pegawai_name',)
+                        ->leftJoin('users as u','od.id_pegawai_kasir','=','u.id')
+                        ->where('od.created_at', 'like', '%'.date("Y-m-d").'%')
+                        ->get();
+        $total = DB::table("orders")->sum("total_price");                   
+                  
+
+        return view('owner.reportpenjualan',compact(['orderData','total']));
+    }
+
+    public function report_penjualan_detil(Request $request)
+    {
+        $orderDataDetil = DB::table('order_details')
+                        ->select('order_details.order_id', 'cafes.name', 'cafes.price', 'category_food.name as category_name','order_details.jumlah')
+                        ->leftJoin('cafes','order_details.cafe_id','=','cafes.id')
+                        ->leftJoin('category_food','cafes.category_id','=','category_food.id')
+                        ->where("order_details.order_id" , '=',$request['orderId'])
+                        ->get();
+
+        return $orderDataDetil;
     }
 }
