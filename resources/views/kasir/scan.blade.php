@@ -61,7 +61,8 @@ Kasir
                 cartOrder: decodedText
             },
             success: function(response) {
-                $('#all_content').html = response.msg;
+                alert(response);
+                
             }
         });
     }

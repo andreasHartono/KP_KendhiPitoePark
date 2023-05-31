@@ -9,6 +9,7 @@ use App\Models\Cafe;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\Util\Json;
 use Svg\Tag\Rect;
 
 class OrderController extends Controller
@@ -96,12 +97,16 @@ class OrderController extends Controller
     public function validasiPembayaran(Request $request)
     {
         $cart = $request['cartOrder'];
+        session()->put("scanCartOrder", $cart);       
         $jsonCart = json_decode($cart);
-        session()->put("scanCartOrder", $jsonCart);
-        $pelanggan = $jsonCart->pelanggan;
+        $pelanggan = $jsonCart->pelanggan;       
         unset($jsonCart->pelanggan);
 
-        return view('transaction.validasipembayaran', compact(["jsonCart",'pelanggan']));        
+        return response()->json(array(
+            'jsonCart' => $jsonCart,
+            'pelanggan' => $pelanggan,
+            'msg' => view('transaction.validasipembayaran', compact(["jsonCart",'pelanggan']))->render()
+        ), 200);   
     }
 
     public function goToQR()
