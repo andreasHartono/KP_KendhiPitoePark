@@ -88,19 +88,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <p class="text">Profil</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                                <a href="{{ route('scan_kasir') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-qrcode text-info"></i>
+                                    <p>Scan Pembayaran</p>
+                                </a>
+                            </li>
                         @can('pegawai')
                             <li class="nav-item">
                                 <a href="{{ route('ewallet.index') }}" class="nav-link">
                                     <i class="nav-icon fas fa-wallet text-warning"></i>
                                     <p>KENDHI PITOE Wallet</p>
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('scan_kasir') }}" class="nav-link">
-                                    <i class="nav-icon fas fa-qrcode text-info"></i>
-                                    <p>Scan Pembayaran</p>
-                                </a>
-                            </li>
+                            </li>                            
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon far fa-folder-open text-success"></i>

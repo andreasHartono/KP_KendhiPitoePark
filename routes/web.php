@@ -59,6 +59,35 @@ Route::middleware(['auth'])->group(function () {
       return view('pelanggan.lacakpesanan');
    })->name("lacak_pesanann");
 
+   Route::get('/rekappenjualanpegawai', function () {
+      return view('kasir.rekappenjualan');
+   })->name('rekap_pegawai');
+
+   Route::get('/rekappenjualanowner', function () {
+      return view('owner.reportpenjualan');
+   })->name('report_penjualan');
+
+
+   Route::get('/datapegawai', function () {
+      return view('owner.datapegawai');
+   })->name("data_pegawai");
+
+   Route::get('/pegawai', function () {
+      return view('layouts.admin');
+   })->name('pegawai');
+
+    Route::get('/logewallet', function () {
+      return view('owner.ewallet');
+   })->name('log_ewallet');
+
+   Route::get('/profilpegawai', function () {
+      return view('kasir.profilkasir');
+   })->name("profil_pegawai");
+
+   Route::get('/profilowner', function () {
+      return view('owner.profil');
+   })->name("profil_owner");
+
    Route::get('/notapembayaran', function () {
       return view('transaction.notapembayaran');
    });
