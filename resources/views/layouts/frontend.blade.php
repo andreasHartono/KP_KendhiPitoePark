@@ -39,11 +39,13 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-
+        
 </head>
 
 <body>
-
+    @php
+        $total = 0;
+    @endphp
     <!--====== Preloader Part Start ======-->
     <div class="preloader">
         <div class="loader">
@@ -113,46 +115,33 @@
                                                             <tr>
                                                                 <td class="checkout-product">
                                                                     <div class="product-cart d-flex">
-                                                                        <div class="product-thumb">
-                                                                            <img src="{{ asset('assets/images/menu/' . $details['image'] ) }}"
-                                                                                alt="Product" />
-                                                                        </div>
                                                                         <div class="product-content media-body">
-                                                                            <h5 class="title">
-                                                                                <a
-                                                                                    href="product-details-page.html">{{ $details['name'] }}</a>
+                                                                            <h5 class="title">{{ $details['name'] }}
                                                                             </h5>
-                                                                            <ul>
-                                                                                <li>
-                                                                                    <a class="delete"
-                                                                                        href="javascript:void(0)">
-                                                                                        <i class="mdi mdi-delete"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
                                                                         </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="checkout-price">
-                                                                    <p class="price">Rp.{{ $details['price'] }}</p>
-                                                                </td>
-                                                                <td class="checkout-quantity">
-                                                                    <div class="product-quantity d-inline-flex">
-                                                                        <button type="button" id="sub"
-                                                                            class="sub">
-                                                                            <i class="mdi mdi-minus"></i>
-                                                                        </button>
-                                                                        <input type="text"
-                                                                            value="{{ $details['quantity'] }}">
-                                                                        <button type="button" id="add"
-                                                                            class="add">
-                                                                            <i class="mdi mdi-plus"></i>
-                                                                        </button>
                                                                     </div>
                                                                 </td>
                                                                 <td class="checkout-price">
                                                                     <p class="price">
-                                                                        Rp.{{ $details['price'] * $details['quantity'] }}
+                                                                        Rp.{{ number_format($details['price']) }}</p>
+                                                                </td>
+                                                                <td class="checkout-quantity">
+                                                                    <div class="product-quantity d-inline-flex">
+                                                                        {{-- <button type="button" id="sub"
+                                                                            class="sub">
+                                                                            <i class="mdi mdi-minus"></i>
+                                                                        </button> --}}
+                                                                        <input type="text"
+                                                                            value="{{ $details['quantity'] }}">
+                                                                        {{-- <button type="button" id="add"
+                                                                            class="add">
+                                                                            <i class="mdi mdi-plus"></i>
+                                                                        </button> --}}
+                                                                    </div>
+                                                                </td>
+                                                                <td class="checkout-price">
+                                                                    <p class="price">
+                                                                        Rp.{{ number_format($details['price'] * $details['quantity']) }}
                                                                     </p>
                                                                 </td>
                                                             </tr>
@@ -163,8 +152,8 @@
 
                                             <div class="checkout-footer">
                                                 <div class="checkout-sub-total d-flex justify-content-between">
-                                                    <p class="value">Subtotal Price:</p>
-                                                    <p class="price">Rp.{{ $total }}</p>
+                                                    <p class="value">Grand Total :</p>
+                                                    <p class="price">Rp.{{ number_format($total) }}</p>
                                                 </div>
                                                 <div class="checkout-btn">
                                                     <a href="{{ url('cart') }}"
@@ -216,7 +205,7 @@
                                         <li>
                                             <p>Selamat Datang di Kendhi Pitoe, {{ Auth::user()->name }}</p>
                                         </li>
-                                        
+
                                         <li><a href="{{ route('profil_pelanggan') }}">Profil</a></li>
                                         <li><a href="{{ route('lacak_pesanan') }}">Lacak Pesanan saya</a></li>
                                         <li><a href="{{ route('pelanggan_topup') }}">Kendhi Pitoe E-Wallet</a></li>
@@ -250,48 +239,34 @@
                                                                 <tr>
                                                                     <td class="checkout-product">
                                                                         <div class="product-cart d-flex">
-                                                                            <div class="product-thumb">
-                                                                                <img src="{{ asset('images/' . $details['image']) }}"
-                                                                                    alt="Product" />
-                                                                            </div>
                                                                             <div class="product-content media-body">
                                                                                 <h5 class="title">
-                                                                                    <a
-                                                                                        href="product-details-page.html">{{ $details['name'] }}</a>
-                                                                                </h5>
-                                                                                <ul>
-                                                                                    <li>
-                                                                                        <a class="delete"
-                                                                                            href="javascript:void(0)">
-                                                                                            <i
-                                                                                                class="mdi mdi-delete"></i>
-                                                                                        </a>
-                                                                                    </li>
-                                                                                </ul>
+                                                                                    {{ $details['name'] }}</h5>
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="checkout-price">
-                                                                        <p class="price">Rp.{{ $details['price'] }}
-                                                                        </p>
-                                                                    </td>
-                                                                    <td class="checkout-quantity">
-                                                                        <div class="product-quantity d-inline-flex">
-                                                                            <button type="button" id="sub"
-                                                                                class="sub">
-                                                                                <i class="mdi mdi-minus"></i>
-                                                                            </button>
-                                                                            <input type="text"
-                                                                                value="{{ $details['quantity'] }}">
-                                                                            <button type="button" id="add"
-                                                                                class="add">
-                                                                                <i class="mdi mdi-plus"></i>
-                                                                            </button>
                                                                         </div>
                                                                     </td>
                                                                     <td class="checkout-price">
                                                                         <p class="price">
-                                                                            Rp.{{ $details['price'] * $details['quantity'] }}
+                                                                            Rp.{{ number_format($details['price']) }}
+                                                                        </p>
+                                                                    </td>
+                                                                    <td class="checkout-quantity">
+                                                                        <div class="product-quantity d-inline-flex">
+                                                                            {{-- <button type="button" id="sub"
+                                                                                class="sub">
+                                                                                <i class="mdi mdi-minus"></i>
+                                                                            </button> --}}
+                                                                            <input type="text"
+                                                                                value="{{ $details['quantity'] }}">
+                                                                            {{-- <button type="button" id="add"
+                                                                                class="add">
+                                                                                <i class="mdi mdi-plus"></i>
+                                                                            </button> --}}
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="checkout-price">
+                                                                        <p class="price">
+                                                                            Rp.{{ number_format($details['price'] * $details['quantity']) }}
                                                                         </p>
                                                                     </td>
                                                                 </tr>
@@ -302,8 +277,8 @@
 
                                                 <div class="checkout-footer">
                                                     <div class="checkout-sub-total d-flex justify-content-between">
-                                                        <p class="value">Subtotal Price:</p>
-                                                        <p class="price">Rp.{{ $total }}</p>
+                                                        <p class="value">Grand Total:</p>
+                                                        <p class="price">Rp.{{ number_format($total) }}</p>
                                                     </div>
                                                     <div class="checkout-btn">
                                                         <a href="{{ url('cart') }}"
@@ -361,11 +336,11 @@
     </section>
     <!--====== Footer Style 3 Part Ends ======-->
     @yield('javascript')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>>
     <!--====== Bootstrap 5 js ======-->
     <script src="{{ asset('template/assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('template/assets/js/bootstrap.min.js') }}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
     <!--====== Jquery js ======-->
     <script src="{{ asset('template/assets/js/vendor/jquery-3.5.1.min.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -396,7 +371,6 @@
     </script>
     <!--====== Main js ======-->
     <script src="{{ asset('template/assets/js/main.js') }}"></script>
-
 </body>
 
 </html>

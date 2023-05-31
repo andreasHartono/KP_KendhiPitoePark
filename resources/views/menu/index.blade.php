@@ -12,8 +12,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="btn {{ $title === 'Semua Menu' ? 'btn-success' : '' }}"
-                            href="{{ url('/') }}">Semua Menu</a>
+                        <a class="btn {{ $title === 'Semua Menu' ? 'btn-success' : '' }}" href="{{ url('/') }}">Semua
+                            Menu</a>
                         <a class="btn {{ $title === 'Makanan Berat' ? 'btn-success' : '' }}"
                             href="{{ url('categories/1') }}">Makanan Berat</a>
                         <a class="btn {{ $title === 'Makanan Ringan' ? 'btn-success' : '' }}"
@@ -49,12 +49,22 @@
                                 <h4 class="title title-1">{{ $cafe->name }}</h4>
                                 <p class="card-text card-text-1">
                                     {{ Str::limit(strtolower($cafe->description), 20) }}
-                                    <br> Ketersediaan : {{ $cafe->status }}
+                                    <br> Ketersediaan :
+                                    @if ($cafe->status == true)
+                                        Tersedia
+                                    @else
+                                        Tidak Tersedia
+                                    @endif
                                 </p>
                             </div>
                             <div class="cta-section">
-                                <div class="price">Rp. {{ $cafe->price }}</div>
-                                <a href="{{ url('add-to-cart/' . $cafe->id) }}" class="btn btn-success">
+                                <div class="price">Rp. {{ number_format($cafe->price) }}</div>
+                                <input type="hidden" name="idMenu" id="idmenu" value="{{ $cafe->id }}">
+                                {{-- <button id="btnaddcart" class="btn btn-success">
+                                    <img src="{{ asset('template/assets/images/icon-svg/cart-4.svg') }}" alt="">
+                                    Pesan Sekarang
+                                </button> --}}
+                                <a href="{{ route('addToCart', ['id' => $cafe->id]) }}" class="btn btn-success">
                                     <img src="{{ asset('template/assets/images/icon-svg/cart-4.svg') }}" alt="">
                                     Pesan Sekarang
                                 </a>
@@ -66,4 +76,8 @@
 
         </div>
     </div>
+@endsection
+@section('javascript')
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 @endsection

@@ -17,7 +17,7 @@
             </div>
             <div class="card-body">
                 <h3 class="card-text heading-3">
-                    {!! QrCode::size(300)->generate($cart) !!}
+                    {!! QrCode::size(300)->merge('template/assets/images/pitoe.png')->generate($cart) !!}
                 </h3>
             </div>
             <div class="card-footer">

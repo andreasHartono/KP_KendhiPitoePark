@@ -108,6 +108,6 @@ class CafeController extends Controller
         }
  
         session()->put('cart', $cart);   
-        return redirect()->back()->with('success','Menu berhasil ditambahkan');
+        return redirect()->back()->with('success','Menu '.$cart[$id]['name'].' berhasil ditambahkan');
     }
 }

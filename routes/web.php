@@ -6,10 +6,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailsController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\EWalletController;
-use App\Models\Cafe;
-use App\Models\CategoryFood;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +34,7 @@ Route::middleware(['auth'])->group(function () {
    // HALAMAN PELANGGAN
    Route::get('/', [CafeController::class, 'index'])->name("index");
 
-   Route::get('add-to-cart/{id}', [CafeController::class, 'addToCart']);
+   Route::get('add-to-cart/{id}', [CafeController::class, 'addToCart'])->name('addToCart');
    Route::get('cart', [CafeController::class, 'cart']);
    Route::post('/checkout_tunai', [OrderController::class, 'goToQR'])->name("checkout_tunai");
 

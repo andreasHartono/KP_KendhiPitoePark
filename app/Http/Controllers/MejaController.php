@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Meja;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class MejaController extends Controller
 {
@@ -18,6 +19,30 @@ class MejaController extends Controller
         dd($mejas);
         return view('menu.index', compact("mejas"));
     }
+
+   public function generate($id)
+   {
+      $meja = Meja::findOrFail($id);
+      $meja->link = md5($id);
+      $meja->save();
+      $qrcode = QrCode::size(400)
+               ->format('png')
+               ->merge('template/assets/images/pitoe.png')
+               ->errorCorrection('M') 
+               ->generate(route('order.generate', ['hash' => $meja->link]));
+      // return response()->streamDownload(
+      //    function () {
+      //       echo QrCode::size(200)
+      //          ->format('png')
+      //          ->generate(route('order.generate', ['hash' => $meja->link]));
+      //    },
+      //    'qr-code.png',
+      //    [
+      //       'Content-Type' => 'image/png',
+      //    ]
+      // );
+      return view('qrcode.detail', compact('qrcode'));
+   }
 
     /**
      * Show the form for creating a new resource.
