@@ -9,6 +9,7 @@ use App\Models\Cafe;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Svg\Tag\Rect;
 
 class OrderController extends Controller
 {
@@ -19,12 +20,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $cart = '{"1":{"id":"1","name":"Nasi Goreng","quantity":2,"price":"15000","image":"nasigoreng.jpg"},"2":{"id":"2","name":"Es Teh","quantity":2,"price":"6000","image":"esteh.jpg"},"4":{"id":"4","name":"Mie Goreng","quantity":1,"price":"15000","image":"miegoreng.jpg"},"5":{"id":"5","name":"Es jeruk","quantity":1,"price":"8000","image":"esteh.jpg"},"3":{"id":"3","name":"Pisang Goreng","quantity":1,"price":"10000","image":"pisanggoreng.jpg"},"6":{"id":"6","name":"Tempe Goreng","quantity":1,"price":"10000","image":"tempegoreng.jpg"},"id_pelanggan":4}';
+        $cart = '{"1":{"id":"1","name":"Nasi Goreng","quantity":1,"price":"15000","image":"nasigoreng.jpg"},"2":{"id":"2","name":"Es Teh","quantity":2,"price":"6000","image":"esteh.jpg"},"4":{"id":"4","name":"Mie Goreng","quantity":1,"price":"15000","image":"miegoreng.jpg"},"pelanggan":{"name":"Budi Pelanggan 1","id":4}}';
+        session()->put("scanCartOrder", $cart);       
         $jsonCart = json_decode($cart);
-        $id_pelanggan = $jsonCart->id_pelanggan;
-        unset($jsonCart->id_pelanggan);
+        $pelanggan = $jsonCart->pelanggan;       
+        unset($jsonCart->pelanggan);
         
-        return view('transaction.validasipembayaran', compact(["jsonCart",'id_pelanggan']));
+        return view('transaction.validasipembayaran', compact(["jsonCart",'pelanggan']));
       
     }
 
@@ -95,6 +97,7 @@ class OrderController extends Controller
     {
         $cart = $request['cartOrder'];
         $jsonCart = json_decode($cart);
+        session()->put("scanCartOrder", $jsonCart);
         $pelanggan = $jsonCart->pelanggan;
         unset($jsonCart->pelanggan);
 
@@ -114,16 +117,17 @@ class OrderController extends Controller
        
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
-
-        $cart = session()->get('cart');
+        $cartScanOrder = session()->get('scanCartOrder');
+        $cart = json_decode($cartScanOrder);
+        $pelanggan = $cart->pelanggan;
+        unset($cart->pelanggan);       
 
         if (is_null($cart)) {
             $msg = "Keranjang masih kosong.";
-            session()->put("msg", $msg);
-            $cafes = Cafe::all();
-            return view('menu.index', compact("cafes"));
+            session()->put("msg", $msg);              
+            return redirect()->route('index');
         } else {
             $orders = new Order();
             $orders->keterangan = "Belum ada";
@@ -132,24 +136,25 @@ class OrderController extends Controller
             $orders->total_price = 0;
             $orders->no_order = 9;
             $orders->jenis_pembayaran = "Cash";
-            $orders->account_id = 1;
+            $orders->id_pegawai_kasir = Auth::user()->id;
 
             $orders->save();
             $totalPrice = 0;
-
+           
             foreach ($cart as $value) {
+                
                 $od = new OrderDetails();
                 $od->order_id = $orders->id;
-                $od->cafe_id = $value['id'];
-                $od->jumlah = $value['quantity'];
+                $od->cafe_id = $value->id;
+                $od->jumlah = $value->quantity;
                 $od->save();
-                $totalPrice += ($value['quantity'] * $value['price']);
+                $totalPrice += ($value->quantity * $value->price);
             }
             $orders = Order::find($orders->id);
             $orders->total_price = $totalPrice;
             $cart = null;
-            session()->put("cart", $cart);
-            return view('cafes.index');
+            session()->put("scanCartOrder", $cart);
+            return redirect()->route('index');
         }
     }
 }

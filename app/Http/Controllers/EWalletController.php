@@ -33,7 +33,7 @@ class EWalletController extends Controller
       ->get();
       $kode = '123';
       $voucherTopUp = Ewallet::where([['kode_voucher', "=", $kode], ["terpakai", '=', null]])->get()[0];
-
+      
       if ($voucherTopUp != null) {
          $nominal = $voucherTopUp->jumlah;
          $id = $voucherTopUp->id;
