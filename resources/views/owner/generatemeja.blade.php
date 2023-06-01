@@ -38,7 +38,7 @@
                             <tr>
                                 <th scope="col">No.Meja</th>
                                 <th scope="col">Link</th>
-                                <th scope="col">QR code Meja</th>
+                                <th scope="col">Generate QR code Meja</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -17,15 +17,12 @@
 @endsection
 @section('content')
     <div class="container">
-        <div class="row mt-5 text-center">
-           {{-- <img src="data:image/png;base64,{!! base_encode($qrcode) !!}" /> --}}
-           
-        </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
                   <div class="card-body d-flex justify-content-center">
-                     {!! $qrcode !!}
+                     <img src="data:image/png;base64,{!! base64_encode($qrcode) !!}" />
+                     {{-- {!! $qrcode !!} --}}
                   </div>
                     <div class="card-footer">
                         <a href="#" class="btn btn-success btn-block">Print QR Code Meja</a>

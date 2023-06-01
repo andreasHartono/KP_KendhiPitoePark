@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Meja;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MejaController extends Controller
 {
@@ -25,26 +26,27 @@ class MejaController extends Controller
       $meja = Meja::findOrFail($id);
       $meja->link = md5($id);
       $meja->save();
-      $qrcode = QrCode::size(400)
-         ->merge('\public\template\assets\images\pitoe.png')
+      $qrcode = QrCode::size(300)
+         ->format('png')
+         ->merge(public_path('images/pitoe.png'), 0.5, true)
          ->errorCorrection('M')
          ->generate(route('meja.generateUrl', ['hash' => $meja->link]));
-      
-         return view('owner.qrcodemeja', compact('qrcode'));
-      }
-      // buat print qr code nya
-      // return response()->streamDownload(
-      //    function () {
-      //       echo QrCode::size(200)
-      //          ->format('png')
-      //          ->generate(route('order.generate', ['hash' => $meja->link]));
-      //    },
-      //    'qr-code.png',
-      //    [
-      //       'Content-Type' => 'image/png',
-      //    ]
-      // );
-      public function generateSignedUrl(string $hash)
+
+      return view('owner.qrcodemeja', compact('qrcode'));
+   }
+   // buat print qr code nya
+   // return response()->streamDownload(
+   //    function () {
+   //       echo QrCode::size(200)
+   //          ->format('png')
+   //          ->generate(route('order.generate', ['hash' => $meja->link]));
+   //    },
+   //    'qr-code.png',
+   //    [
+   //       'Content-Type' => 'image/png',
+   //    ]
+   // );
+   public function generateSignedUrl(string $hash)
    {
       $mejaModel = Meja::where('link', $hash)->firstOrFail();
       $hashCode = md5(random_bytes(8));
@@ -52,7 +54,11 @@ class MejaController extends Controller
       return redirect(route('order.index', ['hash' => $hashCode]));
    }
 
-   
+   // public function printQRCode($qrcode)
+   // {
+   //    $pdf = Pdf::loadView('owner.qrcodemeja', $qrcode);
+   //    return $pdf->download('qrcodemeja.pdf');
+   // }
    /**
     * Show the form for creating a new resource.
     *
