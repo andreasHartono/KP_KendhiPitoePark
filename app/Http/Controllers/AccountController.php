@@ -37,19 +37,19 @@ class AccountController extends Controller
 
          switch ($role) {
             case 'owner':
-               return redirect()->intended('/pegawai');
+               return redirect()->route('pegawai');
                break;
 
             case 'pegawai':
-               return redirect()->intended('/pegawai');
+               return redirect()->route('pegawai');
                break;
 
             case 'pelanggan':
-               return redirect()->intended('/');
+               return redirect()->route('index');
                break;
 
             default:
-            return redirect()->intended('/');
+            return redirect()->route('index');
                break;
          }
          

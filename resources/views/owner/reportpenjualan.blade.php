@@ -18,12 +18,47 @@ Pemilik
 @section('content')
 <!-- Default box -->
 <h4>Total penjualan hari ini : <b>Rp. {{ $total }}</b></h4>
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Nama Menu</th>
+                <th>Pemilik Menu</th>
+                <th>Jumlah Terjual</th>
+                <th>Harga Satuan</th>
+                <th>Sub Total Terjual</th>
+            </tr>
+        </thead>
+        <tbody id="tbody_all_rekapan">
+            @foreach($allSoldMenu as $menu)
+            <tr>
+                <td>{{ $menu->nama_menu }}</td>
+                <td>{{ $menu->nama_pemilik }} </td>
+                <td>{{ $menu->jumlah }}</td>
+                <td>{{ $menu->price}}</td>
+                <td>{{ $menu->price * $menu->jumlah }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="4" class="text-right">Grand Total</th>
+                <td id="grandTotal"><b>Rp. {{ $total }}</b></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+@if ($orderData == null)
+<h5><i><b>Tidak ada data penjualan pada hari ini.</b></i></h5>
+@else
+
 @foreach($orderData as $order)
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Rekap tanggal : {{ $order->created_at }} PM</h3>
     </div>
     <div class="card-body">
+        <b>Status Order </b> : <b>{{ $order->status_order}}</b><br>
         <b>Nama Pegawai</b> : <b>{{ $order->pegawai_name }}</b><br>
         <b>Total Harga </b> : <b>Rp. {{ $order->total_price}}</b><br>
     </div>
@@ -36,12 +71,13 @@ Pemilik
 </div>
 <!-- /.card -->
 @endforeach
+@endif
 
 <div class="modal fade" id="modal-lg">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Detail Rekap Penjualan Kamis, 25 Mei 2023 04:04:23 PM</h4>
+                <h4 class="modal-title">Detail Rekap Penjualan :</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -97,6 +133,7 @@ Pemilik
                 var str = "";
                 var grandTotal = 0;
                 response.forEach(element => {
+
                     var subtotal = element.price * element.jumlah;
                     str += "<tr>" +
                         "<td>" + element.name + "</td>" +
@@ -105,8 +142,9 @@ Pemilik
                         " <td>Rp." + element.price + "</td>" +
                         "<td>Rp." + subtotal + "</td>" +
                         "</tr>";
-                        grandTotal += subtotal;
+                    grandTotal += subtotal;
                 });
+
                 $("#tbody_detil").html(str);
                 $("#grandTotal").html("Rp." + grandTotal);
 

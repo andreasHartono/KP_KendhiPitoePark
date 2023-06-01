@@ -59,17 +59,11 @@ Route::middleware(['auth'])->group(function () {
       return view('pelanggan.lacakpesanan');
    })->name("lacak_pesanann");
 
-   Route::get('/rekappenjualanpegawai', function () {
-      return view('kasir.rekappenjualan');
-   })->name('rekap_pegawai');
+   Route::get('/rekappenjualanpegawai', [OrderController::class,'rekap_penjualan_pegawai'])->name('rekap_pegawai');
 
-   Route::get('/rekappenjualanowner', [OrderController::class,'report_penjualan'])->name('report_penjualan');
-   Route::get('/rekappenjualanowner_detail', [OrderController::class,'report_penjualan_detil'])->name('report_penjualan_detil');
-
-   // Route::get('/rekappenjualanowner', function () {
-   //    return view('owner.reportpenjualan');
-   // })->name('report_penjualan');
-
+   Route::get('/rekaptotal', [OrderController::class,'report_penjualan'])->name('report_penjualan');
+   Route::get('/rekaptotaldetil', [OrderController::class,'report_penjualan_detil'])->name('report_penjualan_detil');
+   
 
    Route::get('/datapegawai', function () {
       return view('owner.datapegawai');
@@ -107,15 +101,7 @@ Route::middleware(['auth'])->group(function () {
       return view('pelanggan.profilpelanggan');
    })->name('profil_pelanggan');
 
-   // pegawai
-   Route::get('/rekappenjualanpegawai', function () {
-      return view('kasir.rekappenjualan');
-   })->name('rekap_pegawai');
-
-   Route::get('/rekappenjualanowner', function () {
-      return view('owner.reportpenjualan');
-   })->name('report_penjualan');
-
+  
    Route::get('/datapegawai', function () {
       return view('owner.datapegawai');
    })->name("data_pegawai");
