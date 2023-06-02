@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title heading-4">KENDHI PITOE WALLET</h4><br>
-            <h4 class="card-title heading-6"><b id="ewalletUser">Rp. {{ Auth::user()->emoney }}</b></h4><br>
+            <h4 class="card-title heading-6" id="ewalletUser"><b>Rp. {{ Auth::user()->emoney }}</b></h4><br>
         </div>
     </div><br>
     <div class="card">
@@ -30,7 +30,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
     $('#kirimKode').on('click', function() {
-        var kodeVoucher = $("#kodeVoucher").val();      
+        var kodeVoucher = $("#kodeVoucher").val();
         $.ajax({
             type: 'GET',
             url: "{{ route('isi_ewallet') }}",
@@ -38,17 +38,14 @@
                 _token: '{{ csrf_token() }}',
                 kode: kodeVoucher
             },
-            success: function(response) {               
-
+            success: function(response) {
                 if (response['message'] != "OK") {
-                    alert(response['message']);                   
-                    
-                } 
+                    alert(response['message']);
+                }
                 else {
                     alert("EWallet anda telah berhasil tertambah Rp." + response['nominal']);
                     $("#ewalletUser").html = response['emoney_now'];
                 }
-
             }
         });
     });
