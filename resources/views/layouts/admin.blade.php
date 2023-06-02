@@ -22,6 +22,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet"
+        href="{{ asset('admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{ asset('admin/plugins/daterangepicker/daterangepicker.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -34,9 +39,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index3.html" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
@@ -89,18 +91,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                         </li>
                         <li class="nav-item">
-                                <a href="{{ route('scan_kasir') }}" class="nav-link">
-                                    <i class="nav-icon fas fa-qrcode text-info"></i>
-                                    <p>Scan Pembayaran</p>
-                                </a>
-                            </li>
+                            <a href="{{ route('scan_kasir') }}" class="nav-link">
+                                <i class="nav-icon fas fa-qrcode text-info"></i>
+                                <p>Scan Pembayaran</p>
+                            </a>
+                        </li>
                         @can('pegawai')
                             <li class="nav-item">
                                 <a href="{{ route('ewallet.index') }}" class="nav-link">
                                     <i class="nav-icon fas fa-wallet text-warning"></i>
                                     <p>KENDHI PITOE Wallet</p>
                                 </a>
-                            </li>                            
+                            </li>
                             <li class="nav-item">
                                 <a href="{{ route('rekap_pegawai') }}" class="nav-link">
                                     <i class="nav-icon far fa-folder-open text-success"></i>
@@ -191,6 +193,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{{ asset('admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <!-- date-range-picker -->
+    <script src="{{ asset('admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
@@ -214,6 +221,63 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 "responsive": true,
             });
         });
+
+        //Datemask dd/mm/yyyy
+        $('#datemask').inputmask('dd/mm/yyyy', {
+            'placeholder': 'dd/mm/yyyy'
+        })
+        //Datemask2 mm/dd/yyyy
+        $('#datemask2').inputmask('mm/dd/yyyy', {
+            'placeholder': 'mm/dd/yyyy'
+        })
+        //Money Euro
+        $('[data-mask]').inputmask()
+
+        //Date picker
+        $('#reservationdate').datetimepicker({
+            format: 'L'
+        })
+
+        //Date and time picker
+        $('#reservationdatetime').datetimepicker({
+            icons: {
+                time: 'far fa-clock'
+            }
+        })
+
+        //Date range picker
+        $('#reservation').daterangepicker()
+        //Date range picker with time picker
+        $('#reservationtime').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY hh:mm A'
+            }
+        })
+        //Date range as a button
+        $('#daterange-btn').daterangepicker({
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
+                        'month')]
+                },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
+            },
+            function(start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+            }
+        )
+
+        //Timepicker
+        $('#timepicker').datetimepicker({
+            format: 'LT'
+        })
     </script>
 </body>
 
