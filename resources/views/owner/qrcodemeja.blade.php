@@ -1,3 +1,4 @@
+{{-- Jaga Jaga kalo disuruh nampilin QR Code mejanya saja --}}
 @extends('layouts.admin')
 @section('title')
     Pemilik | Detail QR Code Meja
@@ -25,7 +26,8 @@
                      {{-- {!! $qrcode !!} --}}
                   </div>
                     <div class="card-footer">
-                        <a href="#" class="btn btn-success btn-block">Print QR Code Meja</a>
+                        {{-- <a href="{{ route('meja.print',['qrcode' => $qrcode]) }}" class="btn btn-success btn-block">Print QR Code Meja</a> --}}
+                        {{-- <a href="#" class="btn btn-success btn-block">Print QR Code Meja</a> --}}
                     </div>
                 </div>
             </div>

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meja;
+use PDF;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class MejaController extends Controller
 {
@@ -23,6 +23,7 @@ class MejaController extends Controller
 
    public function generate($id)
    {
+      $idMeja = $id;
       $meja = Meja::findOrFail($id);
       $meja->link = md5($id);
       $meja->save();
@@ -32,20 +33,12 @@ class MejaController extends Controller
          ->errorCorrection('M')
          ->generate(route('meja.generateUrl', ['hash' => $meja->link]));
 
-      return view('owner.qrcodemeja', compact('qrcode'));
+      $pdf = PDF::loadView('owner.printqrcode', ['qrcode' => $qrcode])->setOptions(['defaultFont' => 'sans-serif']);
+      $name = 'qrcode-meja ' . $idMeja . '.pdf';
+      return $pdf->download($name);
+      //return view('owner.qrcodemeja', compact('qrcode','idMeja'));
    }
-   // buat print qr code nya
-   // return response()->streamDownload(
-   //    function () {
-   //       echo QrCode::size(200)
-   //          ->format('png')
-   //          ->generate(route('order.generate', ['hash' => $meja->link]));
-   //    },
-   //    'qr-code.png',
-   //    [
-   //       'Content-Type' => 'image/png',
-   //    ]
-   // );
+
    public function generateSignedUrl(string $hash)
    {
       $mejaModel = Meja::where('link', $hash)->firstOrFail();
@@ -54,11 +47,6 @@ class MejaController extends Controller
       return redirect(route('order.index', ['hash' => $hashCode]));
    }
 
-   // public function printQRCode($qrcode)
-   // {
-   //    $pdf = Pdf::loadView('owner.qrcodemeja', $qrcode);
-   //    return $pdf->download('qrcodemeja.pdf');
-   // }
    /**
     * Show the form for creating a new resource.
     *

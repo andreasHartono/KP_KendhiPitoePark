@@ -38,7 +38,7 @@
                             <tr>
                                 <th scope="col">No.Meja</th>
                                 <th scope="col">Link</th>
-                                <th scope="col">Generate QR code Meja</th>
+                                <th scope="col">Generate dan Print QR code Meja</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,7 +48,7 @@
                                     <td>{{ route('meja.generateUrl', ['hash' => $meja->link]) }} </td>
                                     <td>
                                         <a href="{{ route('meja.generate', ['id' => $meja->id]) }}"
-                                            class="btn btn-success">Generate
+                                            class="btn btn-success">Generate & Print
                                             QR Code Meja</a>
                                     </td>
                                 </tr>
