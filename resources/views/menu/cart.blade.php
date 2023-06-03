@@ -61,7 +61,7 @@
                                                     </div>
                                                 </td>
                                                  <td class="checkout-price">
-                                                    <p class="price">Rp.{{ $details['price'] }}</p>
+                                                    <p class="price">Rp.{{ number_format($details['price']) }}</p>
                                                 </td>
                                                 <td class="checkout-quantity">
                                                     <div class="product-quantity d-inline-flex">
@@ -75,7 +75,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="checkout-price">
-                                                    <p class="price">Rp.{{ $details['price'] * $details['quantity'] }}</p>
+                                                    <p class="price">Rp.{{ number_format($details['price'] * $details['quantity']) }}</p>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -86,12 +86,11 @@
                                                 <div class="checkout-total">
                                                     <div class="checkout-sub-total d-flex justify-content-between">
                                                         <p class="value">Total Pembayaran :</p>
-                                                        <p class="price">Rp.{{ $total }}</p>
+                                                        <p class="price">Rp.{{ number_format($total) }}</p>
                                                     </div>
                                                     <div class="single-btn">
                                                         <a href="{{ route('index') }}"
-                                                            class="main-btn primary-btn-border">continue
-                                                            shopping</a>                                                            
+                                                            class="main-btn primary-btn-border">Lanjutkan Pilih Menu</a>                                                            
                                                         <a href="{{ route('checkout') }}" class="main-btn primary-btn">Checkout</a>
                                                     </div>
                                                 </div>

@@ -27,55 +27,46 @@
             </div>
             <button type="submit" class="btn btn-primary ml-1 mb-2">Lakukan Pencarian Data</button>
         </form><br>
-    </div>
-    <!-- Default box -->
-    <div class="row col-12">
-        <div class="card-header">
-            <h3 class="card-title">Total penjualan hari ini : <b>Rp. {{ $total }}</b></h3>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered" id="example1">
-                    <thead>
-                        <tr>
-                            <th>Nama Menu</th>
-                            <th>Pemilik Menu</th>
-                            <th>Jumlah Terjual</th>
-                            <th>Harga Satuan</th>
-                            <th>Sub Total Terjual</th>
-                            <th>Detail Penjualan</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody_all_rekapan">
-                        @if ($orderData == null)
-                            <tr>
-                                <td>
-                                    <h5><i><b>Tidak ada data penjualan pada hari ini.</b></i></h5>
-                                </td>
-                            </tr>
-                        @endif
-                        @foreach ($allSoldMenu as $menu)
-                            <tr>
-                                <td>{{ $menu->nama_menu }}</td>
-                                <td>{{ $menu->nama_pemilik }} </td>
-                                <td>{{ $menu->jumlah }}</td>
-                                <td>{{ $menu->price }}</td>
-                                <td>{{ $menu->price * $menu->jumlah }}</td>
-                                <td><button onclick="lihatdetail({{ $order->id }})" class="btn btn-success btn-block"
-                                    data-toggle="modal" data-target="#modal-lg">
-                                    Lihat Detail Penjualan</button></td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th colspan="4" class="text-right">Grand Total</th>
-                            <td id="grandTotal"><b>Rp. {{ $total }}</b></td>
-                        </tr>
-                    </tfoot>
-                </table>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Total penjualan hari ini : <b>Rp. {{ number_format($total) }}</b></h3>
             </div>
-
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered" id="example1">
+                        <thead>
+                            <tr>
+                                <th>Nama Menu</th>
+                                <th>Pemilik Menu</th>
+                                <th>Jumlah Terjual</th>
+                                <th>Harga Satuan</th>
+                                <th>Sub Total Terjual</th>
+                                <th>Detail Penjualan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody_all_rekapan">
+                            @foreach ($allSoldMenu as $menu)
+                                <tr>
+                                    <td>{{ $menu->nama_menu }}</td>
+                                    <td>{{ $menu->nama_pemilik }} </td>
+                                    <td>{{ $menu->jumlah }}</td>
+                                    <td>{{ number_format($menu->price) }}</td>
+                                    <td>{{ number_format($menu->price * $menu->jumlah) }}</td>
+                                    <td><button onclick="lihatdetail({{ $order->id }})" class="btn btn-success btn-block"
+                                            data-toggle="modal" data-target="#modal-lg">
+                                            Lihat Detail Penjualan</button></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    @if ($orderData == null)
+                        <hr><h5><i><b>Tidak ada data penjualan pada hari ini.</b></i></h5>
+                    @endif
+                </div>
+            </div>
+            <div class="card-footer">
+                <h4 id="grandTotal">Grand Total : <b>Rp. {{ number_format($total) }}</b></h4>
+            </div>
         </div>
     </div>
     {{-- @if ($orderData == null)

@@ -25,7 +25,7 @@
                                     </div>
                                 </td>
                                 <td class="checkout-price">
-                                    <p class="price">Rp.{{ $item['price'] }}</p>
+                                    <p class="price">Rp.{{ number_format($item['price']) }}</p>
                                 </td>
                                 <td class="checkout-quantity">
                                     <div class="product-quantity d-inline-flex">
@@ -33,23 +33,19 @@
                                     </div>
                                 </td>
                                 <td class="checkout-price">
-                                    <p clzass="price">Rp.{{ $item['price'] * $item['quantity'] }}</p>
+                                    <p clzass="price">Rp.{{ number_format($item['price'] * $item['quantity']) }}</p>
                                 </td>
                             </tr>
                             <?php $total += $item['price']; ?>
                         @endforeach
-                        <!--
-    @endif -->
-
                     </tbody>
-
                 </table>
             </div>
         </div>
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Total Harga</h5><br>
-                <h6 class="card-text"> &nbsp;&nbsp;&nbsp;&nbsp; Rp.{{ $total }}</h6><br>
+                <h6 class="card-text"> &nbsp;&nbsp;&nbsp;&nbsp; Rp.{{ number_format($total) }}</h6><br>
                 <!-- <p class="card-text">Punya Membership &nbsp;&nbsp; <a href="#" class="btn btn-success">Gunakan Member</a> -->
                 </p>
             </div>
