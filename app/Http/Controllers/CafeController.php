@@ -90,8 +90,9 @@ class CafeController extends Controller
          return view('menu.cart');
     }
 
-    public function addToCart($id)
+    public function addToCart(Request $request)
     {
+        $id = $request->id;
         $food = Cafe::find($id);       
         $cart = session()->get('cart');
 
@@ -108,6 +109,6 @@ class CafeController extends Controller
         }
  
         session()->put('cart', $cart);   
-        return redirect()->back()->with('success','Menu '.$cart[$id]['name'].' berhasil ditambahkan');
+        return $cart[$id]['name'].' berhasil ditambahkan';
     }
 }

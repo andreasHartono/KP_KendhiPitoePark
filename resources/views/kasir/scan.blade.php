@@ -31,17 +31,19 @@ Kasir
             <input type="hidden" name="result" id="result">
         </div>
     </div><br>
- 
+
 </div>
 
 <div id="validasi_pembayaran_content">
-    
+
 </div>
 @endsection
 @section('javascript')
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
+
+
 
     function onScanSuccess(decodedText, decodedResult) {
         // handle the scanned code as you like, for example:
@@ -56,7 +58,7 @@ Kasir
             },
             success: function(response) {               
                 $("#validasi_pembayaran_content").html("<h2>Validasi Pembayaran </h2>" + response.msg);
-                
+                document.getElementById("validasi_pembayaran_content").scrollIntoView();
             }
         });
     }

@@ -32,7 +32,7 @@ Route::post('/register_detail', [AccountController::class, 'create']);
 
 Route::get('/', [CafeController::class, 'index'])->name("index");
 
-Route::get('add-to-cart/{id}', [CafeController::class, 'addToCart'])->name('addToCart');
+Route::get('add-to-cart', [CafeController::class, 'addToCart'])->name('addToCart');
 Route::get('cart', [CafeController::class, 'cart']);
 Route::post('/checkout_tunai', [OrderController::class, 'goToQR'])->name("checkout_tunai");
 

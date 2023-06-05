@@ -4,8 +4,7 @@
             <div class="card-body">
                 <h4 class="card-title heading-6">No Meja &nbsp;&nbsp;&nbsp; : 1 </h4><br>
                 <h4 class="card-title heading-6">Nama Customer : {{ $pelanggan->name }}</h4><br>
-                <h4 class="card-title heading-6">Total Harga &nbsp;&nbsp; : Rp. 15.000,00</h4><br>
-                <h4 class="card-title heading-6">ID Transaksi : 08414912421</h4>
+                
             </div>
         </div><br>
         <div class="card">
@@ -52,7 +51,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Rincian Pembayaran</h5><br>
-                <p class="card-text">Total Harga &nbsp;&nbsp;&nbsp;&nbsp; Rp. {{ number_format($total) }}</p>
+                <p class="card-text"><b>Total Harga &nbsp;&nbsp;&nbsp;&nbsp; Rp. {{ number_format($total) }}</b>  </p>
                 <!-- <p class="card-text">Punya Membership &nbsp;&nbsp;&nbsp;&nbsp;<b>Tidak</b></p><br> -->
                 <a href="{{ route('checkout_order') }}" class="btn btn-success btn-block">Validasi Pembayaran</a>
             </div>

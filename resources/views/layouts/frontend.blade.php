@@ -12,7 +12,7 @@
 
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="{{ asset('template/assets/images/pitoe.png') }}" type="image/png">
-
+    
     <!--====== Slick CSS ======-->
     <link rel="stylesheet" href="{{ asset('template/assets/css/slick.css') }}">
 
