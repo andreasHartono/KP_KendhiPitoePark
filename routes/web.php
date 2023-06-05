@@ -30,25 +30,26 @@ Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
 Route::get('/register', [AccountController::class, 'indexRegister'])->name('register');
 Route::post('/register_detail', [AccountController::class, 'create']);
 
+Route::get('/', [CafeController::class, 'index'])->name("index");
+
+Route::get('add-to-cart/{id}', [CafeController::class, 'addToCart'])->name('addToCart');
+Route::get('cart', [CafeController::class, 'cart']);
+Route::post('/checkout_tunai', [OrderController::class, 'goToQR'])->name("checkout_tunai");
+
+Route::get('/checkout', function () {
+   return view('menu.checkout');
+})->name('checkout');
+
 Route::middleware(['auth'])->group(function () {
 
    // HALAMAN PELANGGAN
-   Route::get('/', [CafeController::class, 'index'])->name("index");
-
-   Route::get('add-to-cart/{id}', [CafeController::class, 'addToCart'])->name('addToCart');
-   Route::get('cart', [CafeController::class, 'cart']);
-   Route::post('/checkout_tunai', [OrderController::class, 'goToQR'])->name("checkout_tunai");
-
-   Route::get('/checkout', function () {
-      return view('menu.checkout');
-   })->name('checkout');
 
    Route::get('/pembayarancustomer', function () {
       return view('transaction.verifikasipembayaran');
    });
 
    Route::get('/ewallet/isiewallet', [EWalletController::class, 'isiEwallet'])->name('isi_ewallet');
-
+   Route::get('/ewallet/checkout_ewallet',[EWalletController::class,'checkoutEwallet'])->name('checkout_ewallet');
    Route::get('/notapembayaran', function () {
       return view('transaction.notapembayaran');
    });
@@ -57,11 +58,11 @@ Route::middleware(['auth'])->group(function () {
       return view('pelanggan.lacakpesanan');
    })->name("lacak_pesanann");
 
-   Route::get('/rekappenjualanpegawai', [OrderController::class,'rekap_penjualan_pegawai'])->name('rekap_pegawai');
+   Route::get('/rekappenjualanpegawai', [OrderController::class, 'rekap_penjualan_pegawai'])->name('rekap_pegawai');
 
-   Route::get('/rekaptotal', [OrderController::class,'report_penjualan'])->name('report_penjualan');
-   Route::get('/rekaptotaldetil', [OrderController::class,'report_penjualan_detil'])->name('report_penjualan_detil');
-   
+   Route::get('/rekaptotal', [OrderController::class, 'report_penjualan'])->name('report_penjualan');
+   Route::get('/rekaptotaldetil', [OrderController::class, 'report_penjualan_detil'])->name('report_penjualan_detil');
+
 
    Route::get('/datapegawai', function () {
       return view('owner.datapegawai');
@@ -71,7 +72,7 @@ Route::middleware(['auth'])->group(function () {
       return view('layouts.admin');
    })->name('pegawai');
 
-    Route::get('/logewallet', function () {
+   Route::get('/logewallet', function () {
       return view('owner.ewallet');
    })->name('log_ewallet');
 
@@ -99,7 +100,7 @@ Route::middleware(['auth'])->group(function () {
       return view('pelanggan.profilpelanggan');
    })->name('profil_pelanggan');
 
-  
+
    Route::get('/datapegawai', function () {
       return view('owner.datapegawai');
    })->name("data_pegawai");

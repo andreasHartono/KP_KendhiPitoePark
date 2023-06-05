@@ -109,16 +109,22 @@ class OrderController extends Controller
         ), 200);
     }
 
-    public function goToQR()
+    public function goToQR(Request $request)
     {
         $cart = session()->get("cart");
-        $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => Auth::user()->id];
+        
+        if(Auth::user() == true)
+        {
+            $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => Auth::user()->id,'no_meja'=> $request->no_meja];
+        }
+        else{            
+            $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99,'no_meja'=> $request->no_meja];
+        }        
+        
+       
         $cartJson = json_encode($cart);
-
-        return response()->json(array(
-            'status' => 'oke',
-            'msg' => view('/transaction.verifikasipembayaran', compact('cartJson'))->render()
-        ), 200);
+        
+        return view('/transaction.verifikasipembayaran', compact('cartJson'));
     }
 
     public function checkout(Request $request)
@@ -159,7 +165,7 @@ class OrderController extends Controller
             $orders->save();
             $cart = null;
             session()->put("scanCartOrder", $cart);
-            return redirect()->route('index');
+            return redirect()->route('scan_kasir');
         }
     }
 

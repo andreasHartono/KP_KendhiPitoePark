@@ -17,7 +17,7 @@
             </div>
             <div class="card-body">
                 <h3 class="card-text heading-3">
-                    {!! QrCode::size(300)->generate($cart) !!}
+                    {!! QrCode::size(300)->generate($cartJson) !!}
                 </h3>
             </div>
             <div class="card-footer">

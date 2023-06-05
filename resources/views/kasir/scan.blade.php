@@ -31,23 +31,17 @@ Kasir
             <input type="hidden" name="result" id="result">
         </div>
     </div><br>
-    <div class="card">
-        <div class="card-body">
-            <a href="{{ route('validasi_pembayaran') }}"><button id="tes" class="btn btn-success btn-block">Anggep
-                    bisa Scan</button></a>
-        </div>
-    </div><br>
+ 
 </div>
-<div id="all_content">
+
+<div id="validasi_pembayaran_content">
+    
 </div>
 @endsection
 @section('javascript')
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-    $('#tes').on('click', function() {
-
-    });
 
     function onScanSuccess(decodedText, decodedResult) {
         // handle the scanned code as you like, for example:
@@ -60,8 +54,8 @@ Kasir
                 _token: '{{ csrf_token() }}',
                 cartOrder: decodedText
             },
-            success: function(response) {
-                alert(response);
+            success: function(response) {               
+                $("#validasi_pembayaran_content").html("<h2>Validasi Pembayaran </h2>" + response.msg);
                 
             }
         });

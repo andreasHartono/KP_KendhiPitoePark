@@ -1,5 +1,4 @@
-@extends('layouts.frontend')
-@section('content')
+
     <div class="container">
         <div class="card">
             <div class="card-body">
@@ -54,9 +53,9 @@
             <div class="card-body">
                 <h5 class="card-title">Rincian Pembayaran</h5><br>
                 <p class="card-text">Total Harga &nbsp;&nbsp;&nbsp;&nbsp; Rp. {{ number_format($total) }}</p>
-                <p class="card-text">Punya Membership &nbsp;&nbsp;&nbsp;&nbsp;<b>Tidak</b></p><br>
+                <!-- <p class="card-text">Punya Membership &nbsp;&nbsp;&nbsp;&nbsp;<b>Tidak</b></p><br> -->
                 <a href="{{ route('checkout_order') }}" class="btn btn-success btn-block">Validasi Pembayaran</a>
             </div>
         </div><br>
     </div>
-@endsection
+

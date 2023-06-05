@@ -52,9 +52,11 @@
                         <tr>
                             <th>Nama Kasir</th>
                             <th>Kode Voucher</th>
+                            <th>Nominal Voucher</th>
                             <th>Nama Pelanggan</th>
                             <th>No Telpon Pelanggan</th>
-                            <th>Status Voucher</th>
+                            <th>Tanggal Dibuat</th>
+                            <th>Tanggal Terpakai</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,10 +64,12 @@
                             <tr>
                                 <td>{{ $dataVouch->name_pembuat }}</td>
                                 <td>{{ $dataVouch->kode_voucher }}</td>
-                                <td>{{ $dataVouch->name_pembeli }}</td>
+                                <td>Rp. {{ $dataVouch->jumlah }}</td>
+                                <td>{{ $dataVouch->name_pembeli }}</td>                                
                                 <td>{{ $dataVouch->phone_pembeli }}</td>
+                                <td>{{ $dataVouch->created_at }}</td>
                                 @if ($dataVouch->terpakai != null)
-                                    <td><span class="bg-success">Terpakai</span></td>
+                                    <td><span class="bg-success">{{ $dataVouch->terpakai }}</span></td>
                                 @else
                                     <td><span class="bg-warning">Belum Terpakai</span></td>
                                 @endif

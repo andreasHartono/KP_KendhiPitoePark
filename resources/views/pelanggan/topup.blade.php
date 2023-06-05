@@ -44,7 +44,8 @@
                 }
                 else {
                     alert("EWallet anda telah berhasil tertambah Rp." + response['nominal']);
-                    $("#ewalletUser").html = response['emoney_now'];
+                    $("#ewalletUser").html("<b>Rp."+ response['emoney_now'] + "</b>");
+
                 }
             }
         });

@@ -69,7 +69,7 @@
             </div>
         </div>
     </div>
-    {{-- @if ($orderData == null)
+     @if ($orderData == null)
         <h5><i><b>Tidak ada data penjualan pada hari ini.</b></i></h5>
     @else
         @foreach ($orderData as $order)
@@ -92,7 +92,7 @@
             </div>
             <!-- /.card -->
         @endforeach
-    @endif --}}
+    @endif 
 
     <div class="modal fade" id="modal-lg">
         <div class="modal-dialog modal-lg">
@@ -121,7 +121,7 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="4" class="text-right">Grand Total</th>
-                                    <td id="grandTotal">Rp. 50.000</td>
+                                    <td id="grandTotal">Rp.{{ $order->total_price }}</td>
                                 </tr>
                             </tfoot>
                         </table>

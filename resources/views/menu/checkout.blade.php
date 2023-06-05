@@ -13,8 +13,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- @if (session('cart'))
-    -->
+
                         @foreach (session('cart') as $item)
                             <tr>
                                 <td class="checkout-product">
@@ -82,7 +81,7 @@
             <div class="card-body">
                 <h5 class="card-title">Metode Pembayaran</h5>
                 <div class="d-grid gap-2">
-                    <a class=" btn btn-success btn-block" href="#">E-WALLET KENDHI PITOE</a>
+                    <a class=" btn btn-success btn-block" href="{{ route('checkout_ewallet') }}">E-WALLET KENDHI PITOE</a>
                     <input class="btn btn-outline-success btn-block" type="submit" value="TUNAI">
                 </div>
                 </form>
