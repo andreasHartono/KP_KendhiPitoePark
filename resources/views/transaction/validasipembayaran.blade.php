@@ -2,7 +2,7 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title heading-6">No Meja &nbsp;&nbsp;&nbsp; : 1 </h4><br>
+                <h4 class="card-title heading-6">No Meja &nbsp;&nbsp;&nbsp; : {{ $pelanggan->no_meja }} </h4><br>
                 <h4 class="card-title heading-6">Nama Customer : {{ $pelanggan->name }}</h4><br>
                 
             </div>

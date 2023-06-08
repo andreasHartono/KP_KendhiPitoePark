@@ -137,6 +137,10 @@ Route::get('/scankasir', function () {
    return view('kasir.scan');
 })->name("scan_kasir");
 
+Route::get('/scankasir2', function () {
+   return view('kasir.tesscan');
+})->name("scan_kasir2");
+
 
 
 Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('checkout_order');

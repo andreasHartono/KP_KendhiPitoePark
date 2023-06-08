@@ -17,10 +17,11 @@ Kasir
 </div><!-- /.row -->
 @endsection
 @section('content')
+
 <div class="container-fluid">
     <div class="card">
         <div class="card-body">
-            <div id="qr-reader" width="600px"></div>
+            <div id="qr-reader" style="width: 600px"></div>
         </div>
     </div><br>
     <div class="card">
@@ -34,6 +35,7 @@ Kasir
 
 </div>
 
+
 <div id="validasi_pembayaran_content">
 
 </div>
@@ -42,10 +44,8 @@ Kasir
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+
 <script>
-
-
-
     function onScanSuccess(decodedText, decodedResult) {
         // handle the scanned code as you like, for example:
         console.log(`Code matched = ${decodedText}`, decodedResult);
@@ -57,7 +57,7 @@ Kasir
                 _token: '{{ csrf_token() }}',
                 cartOrder: decodedText
             },
-            success: function(response) {               
+            success: function(response) {
                 $("#validasi_pembayaran_content").html("<h2>Validasi Pembayaran </h2>" + response.msg);
                 document.getElementById("validasi_pembayaran_content").scrollIntoView();
             }
