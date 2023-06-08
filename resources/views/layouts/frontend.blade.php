@@ -45,6 +45,7 @@
 <body>
     @php
         $total = 0;
+        $total1 = 0;
     @endphp
     <!--====== Preloader Part Start ======-->
     <div class="preloader">
@@ -110,7 +111,7 @@
 
                                                         @foreach (session('cart') as $id => $details)
                                                             @php
-                                                                $total += $details['price'] * $details['quantity'];
+                                                                $total1 += $details['price'] * $details['quantity'];
                                                             @endphp
                                                             <tr>
                                                                 <td class="checkout-product">
@@ -153,7 +154,7 @@
                                             <div class="checkout-footer">
                                                 <div class="checkout-sub-total d-flex justify-content-between">
                                                     <p class="value">Grand Total :</p>
-                                                    <p class="price">Rp.{{ number_format($total) }}</p>
+                                                    <p class="price">Rp.{{ number_format($total1) }}</p>
                                                 </div>
                                                 <div class="checkout-btn">
                                                     <a href="{{ url('cart') }}"

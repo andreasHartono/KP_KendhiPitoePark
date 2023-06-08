@@ -109,6 +109,6 @@ class CafeController extends Controller
         }
  
         session()->put('cart', $cart);   
-        return $cart[$id]['name'].' berhasil ditambahkan';
+        return toastr()->success($cart[$id]['name'] . ' berhasil ditambahkan');
     }
 }

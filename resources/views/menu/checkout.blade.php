@@ -35,7 +35,7 @@
                                     <p clzass="price">Rp.{{ number_format($item['price'] * $item['quantity']) }}</p>
                                 </td>
                             </tr>
-                            <?php $total += $item['price']; ?>
+                            <?php $total += $item['price']*$item['quantity']; ?>
                         @endforeach
                     </tbody>
                 </table>
