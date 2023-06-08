@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cafe;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CafeController extends Controller
 {
@@ -108,7 +109,7 @@ class CafeController extends Controller
             $cart[$id]['quantity']++;
         }
  
-        session()->put('cart', $cart);   
-        return toastr()->success($cart[$id]['name'] . ' berhasil ditambahkan');
+        session()->put('cart', $cart); 
+        return Alert::success('Pesan Menu Berhasil', $cart[$id]['name'] . ' berhasil ditambahkan');
     }
 }

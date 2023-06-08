@@ -6,6 +6,7 @@ use App\Models\Meja;
 use PDF;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MejaController extends Controller
 {
@@ -35,6 +36,7 @@ class MejaController extends Controller
 
       $pdf = PDF::loadView('owner.printqrcode', ['qrcode' => $qrcode])->setOptions(['defaultFont' => 'sans-serif']);
       $name = 'qrcode-meja ' . $idMeja . '.pdf';
+      Alert::success('Success Notification', 'Berhasil membuat QR Code dengan nomor meja ' . $idMeja);
       return $pdf->download($name);
       //return view('owner.qrcodemeja', compact('qrcode','idMeja'));
    }
@@ -69,7 +71,8 @@ class MejaController extends Controller
       $meja->no_meja = $request->no_meja;
       $meja->link = $request->link;
       $meja->save();
-      return back();
+      Alert::success('Success Notification', 'Berhasil membuat meja baru dengan nomor meja '.$request->no_meja);
+      return redirect()->back();
    }
 
    /**

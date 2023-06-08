@@ -80,9 +80,6 @@
                     " id": id
                 },
                 success: function(response) {
-                  alert(response);
-                  //   $('#msg-notif').html(response);
-                  //   toastr.success("${response}");
                 }
             })
         }
