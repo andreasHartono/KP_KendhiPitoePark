@@ -4,8 +4,14 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title heading-6">No Meja &nbsp;&nbsp;&nbsp; : {{ $_POST['no_meja'] }} </h4><br>
+                @auth
+                       <h4 class="card-title heading-6">Nama Customer : {{ Auth::user()->name }} </h4><br>
+                @endauth
+                @guest
                 <h4 class="card-title heading-6">Nama Customer : {{ $_POST['nama_customer'] }}</h4><br>
-                <h4 class="card-title heading-6">Total Harga &nbsp;&nbsp; : {{ $_POST['total_price'] }}</h4><br>
+                @endguest
+               
+                <h4 class="card-title heading-6">Total Harga &nbsp;&nbsp; : Rp. {{ $_POST['total_price'] }}</h4><br>
                 <!-- <h4 class="card-title heading-6">ID Transaksi : 08414912421</h4> -->
             </div>
         </div><br>
@@ -17,7 +23,7 @@
             </div>
             <div class="card-body">
                 <h3 class="card-text heading-3">
-                    {!! QrCode::size(300)->generate($cartJson) !!}
+                    {!! QrCode::size(400)->generate($cartJson) !!}
                 </h3>
             </div>
             <div class="card-footer">

@@ -20,7 +20,7 @@ Kasir
 <div class="container-fluid">
     <div class="card">
         <div class="card-body">
-            <div id="qr-reader" width="600px"></div>
+            <div id="reader" width="600px"></div>
         </div>
     </div><br>
     <div class="card">
@@ -41,7 +41,7 @@ Kasir
 @section('javascript')
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+<!-- <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script> -->
 <script>
 
 
@@ -71,7 +71,7 @@ Kasir
     }
 
     let html5QrcodeScanner = new Html5QrcodeScanner(
-        "qr-reader", {
+        "reader", {
             fps: 10,
             qrbox: {
                 width: 250,
