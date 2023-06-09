@@ -55,10 +55,14 @@ Route::middleware(['auth'])->group(function () {
    Route::get('/notapembayaran', function () {
       return view('transaction.notapembayaran');
    });
+   Route::get('/user/{id}', function ($id) {
+      return 'User '.$id;
+  });
 
-   Route::get('/lacakpesanan', function () {
-      return view('pelanggan.lacakpesanan');
-   })->name("lacak_pesanann");
+   Route::get('/lacakpesanandetil/{id}', [OrderController::class, 'lacak_pesanan_detil'])->name("lacak_pesanan_detil");
+
+   Route::get('/lacakpesananku', [OrderController::class, 'lacak_pesanan_ku'])->name("lacak_pesanan");
+
 
    Route::get('/rekappenjualanpegawai', [OrderController::class, 'rekap_penjualan_pegawai'])->name('rekap_pegawai');
 
@@ -90,9 +94,6 @@ Route::middleware(['auth'])->group(function () {
       return view('transaction.notapembayaran');
    });
 
-   Route::get('/lacakpesanan', function () {
-      return view('pelanggan.lacakpesanan');
-   })->name("lacak_pesanan");
 
    Route::get('/membershiptopup', function () {
       return view('pelanggan.topup');

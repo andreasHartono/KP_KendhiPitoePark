@@ -112,18 +112,16 @@ class OrderController extends Controller
     public function goToQR(Request $request)
     {
         $cart = session()->get("cart");
-        
-        if(Auth::user() == true)
-        {
-            $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => Auth::user()->id,'no_meja'=> $request->no_meja];
+
+        if (Auth::user() == true) {
+            $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => Auth::user()->id, 'no_meja' => $request->no_meja];
+        } else {
+            $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99, 'no_meja' => $request->no_meja];
         }
-        else{            
-            $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99,'no_meja'=> $request->no_meja];
-        }        
-        
-       
+
+
         $cartJson = json_encode($cart);
-        
+
         return view('/transaction.verifikasipembayaran', compact('cartJson'));
     }
 
@@ -175,7 +173,7 @@ class OrderController extends Controller
         $total = $data['total'];
         $orderData = $data['orderData'];
 
-        $allSoldMenu = $this->get_all_ordermenu(date("Y-m-d"),0);
+        $allSoldMenu = $this->get_all_ordermenu(date("Y-m-d"), 0);
 
         if ($orderData[0] == null) {
             $orderData = null;
@@ -189,17 +187,16 @@ class OrderController extends Controller
     {
         $data = $this->get_all_order_bydate(date("Y-m-d"));
         $total = $data['total'];
-        $orderData = $data['orderData'];        
+        $orderData = $data['orderData'];
 
         if ($orderData[0] == null) {
             $orderData = null;
         }
-        $allSoldMenu = $this->get_all_ordermenu(date("Y-m-d"),Auth::user()->id);
+        $allSoldMenu = $this->get_all_ordermenu(date("Y-m-d"), Auth::user()->id);
 
-       
-        
-        return view('kasir.rekappenjualan', compact(['orderData', 'total','allSoldMenu']));
-    
+
+
+        return view('kasir.rekappenjualan', compact(['orderData', 'total', 'allSoldMenu']));
     }
 
     public function report_penjualan_detil(Request $request)
@@ -231,8 +228,7 @@ class OrderController extends Controller
 
     public function get_all_ordermenu($date, $id_pegawai)
     {
-        if ($id_pegawai == 0) 
-        {
+        if ($id_pegawai == 0) {
             $allSoldMenu = DB::table('order_details')
                 ->select('users.name as nama_pemilik', 'cafes.name as nama_menu', 'cafes.price', DB::raw('SUM(order_details.jumlah) as jumlah'))
                 ->join('cafes', 'cafes.id', '=', 'order_details.cafe_id')
@@ -240,9 +236,7 @@ class OrderController extends Controller
                 ->groupBy('order_details.cafe_id')
                 ->where('order_details.created_at', 'like', '%' . $date . '%')
                 ->get();
-        } 
-        else 
-        {
+        } else {
             $allSoldMenu = DB::table('order_details')
                 ->select('users.name as nama_pemilik', 'cafes.name as nama_menu', 'cafes.price', DB::raw('SUM(order_details.jumlah) as jumlah'))
                 ->join('cafes', 'cafes.id', '=', 'order_details.cafe_id')
@@ -255,5 +249,35 @@ class OrderController extends Controller
         return $allSoldMenu;
     }
 
-    
+    public function lacak_pesanan_ku()
+    {
+        $id = Auth::user()->id;
+        $userOrder = DB::table('orders')
+            ->select("*")
+            ->where("id_pelanggan", "=", $id)
+            ->orderBy("created_at", "desc")
+            ->get();
+        return view('pelanggan.lacakpesanan', compact('userOrder'));
+    }
+
+    public function lacak_pesanan_detil($id)
+    {
+
+        $dataOrder = DB::table('orders')
+            ->select("*")
+            ->where("id", "=", $id)
+            ->orderBy("created_at", "desc")
+            ->get();
+
+        $detilOrder = DB::table('order_details')
+            ->select('cafes.name as nama_menu', 'cafes.price', DB::raw('SUM(order_details.jumlah) as jumlah'))
+            ->join('cafes', 'cafes.id', '=', 'order_details.cafe_id')
+            ->groupBy('order_details.cafe_id')
+            ->where('order_details.order_id', '=', $id)
+            ->get();
+
+        $dataOrder = $dataOrder[0];
+
+        return view('pelanggan.lacakpesanandetil', compact(['dataOrder', 'detilOrder']));
+    }
 }
