@@ -16,22 +16,28 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->text('keterangan');//->nullable();
-            $table->enum('status_order', ['Done','Processing','Pending','Canceled']);
+            $table->enum('status_order', ['Done','Processing','Canceled']);
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
-            $table->unsignedBigInteger('meja_id');
+           
             $table->double('total_price' , 8, 2);
-            $table->bigInteger('cafes_id')->nullable();
-            $table->string('jumlah', 5)->nullable();
-            $table->string('no_order', 5);
-            $table->string('name', 45)->nullable();
+            //$table->bigInteger('cafes_id')->nullable();
+            //$table->string('jumlah', 5)->nullable();
+            $table->string('no_antrian', 5);
+           
+            $table->string('nama_pelanggan', 50)->nullable();
             $table->string('jenis_pembayaran', 45);
-            $table->string('kode_verifikasi', 255)->nullable();
-            $table->string('no_wa', 45)->nullable();
+            //$table->string('kode_verifikasi', 255)->nullable();
+            //$table->string('no_wa', 45)->nullable();
+            $table->unsignedBigInteger('meja_id');
             $table->foreign('meja_id')->references('id')->on('mejas'); 
             
             $table->unsignedBigInteger('id_pegawai_kasir');                       
             $table->foreign('id_pegawai_kasir')->references('id')->on('users'); 
+
+            $table->unsignedBigInteger('id_pelanggan');                       
+            $table->foreign('id_pelanggan')->references('id')->on('users'); 
+            $table->string('nama_pelanggan', 50)->nullable();
              
         });
     }
