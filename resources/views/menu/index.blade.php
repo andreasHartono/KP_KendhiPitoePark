@@ -29,8 +29,7 @@
             <div class="col-lg-12">
                 <div class="mb-50">
                     <h3 class="heading-4 font-weight-700">Daftar {{ $title }}</h3>
-
-                    <div id="msg-notif" class="btn-success"></div>
+                    <div id="msg-notif"></div>
                 </div>
             </div>
             @foreach ($cafes as $cafe)
@@ -80,6 +79,7 @@
                     " id": id
                 },
                 success: function(response) {
+                    $('#msg-notif').html('<div class="alert alert-success" role="alert"><b>' + response +'</b></div>');
                 }
             })
         }
