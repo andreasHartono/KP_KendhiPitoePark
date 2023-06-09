@@ -47,7 +47,7 @@
 			$this->form[] = ['label'=>'Status','name'=>'status','type'=>'text','validation'=>'min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Message','name'=>'message','type'=>'text','validation'=>'min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Account Id','name'=>'account_id','type'=>'select2','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'account,id'];
-			$this->form[] = ['label'=>'Category Id','name'=>'category_id','type'=>'select2','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'category,id'];
+			$this->form[] = ['label'=>'Category Id','name'=>'category_id','type'=>'select2','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'category_food,id'];
 			$this->form[] = ['label'=>'Action','name'=>'action','type'=>'text','validation'=>'min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Description','name'=>'description','type'=>'text','validation'=>'min:1|max:255','width'=>'col-sm-10'];
 			# END FORM DO NOT REMOVE THIS LINE
@@ -60,7 +60,7 @@
 			//$this->form[] = ['label'=>'Status','name'=>'status','type'=>'text','validation'=>'min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Message','name'=>'message','type'=>'text','validation'=>'min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Account Id','name'=>'account_id','type'=>'select2','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'account,id'];
-			//$this->form[] = ['label'=>'Category Id','name'=>'category_id','type'=>'select2','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'category,id'];
+			//$this->form[] = ['label'=>'Category Id','name'=>'category_id','type'=>'select2','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'category_food,id'];
 			//$this->form[] = ['label'=>'Action','name'=>'action','type'=>'text','validation'=>'min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Description','name'=>'description','type'=>'text','validation'=>'min:1|max:255','width'=>'col-sm-10'];
 			# OLD END FORM
