@@ -22,7 +22,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('designlistorder', function () {
+   return view('kasir.listorder');
+});
 //LOGIN REGISTER
 Route::get('/login', [AccountController::class, 'index'])->name('login');
 Route::post('/login_detail', [AccountController::class, 'authenticate']);
@@ -49,7 +51,7 @@ Route::middleware(['auth'])->group(function () {
    });
 
    Route::get('/ewallet/isiewallet', [EWalletController::class, 'isiEwallet'])->name('isi_ewallet');
-   Route::get('/ewallet/checkout_ewallet',[EWalletController::class,'checkoutEwallet'])->name('checkout_ewallet');
+   Route::get('/ewallet/checkout_ewallet', [EWalletController::class, 'checkoutEwallet'])->name('checkout_ewallet');
    Route::get('/notapembayaran', function () {
       return view('transaction.notapembayaran');
    });
