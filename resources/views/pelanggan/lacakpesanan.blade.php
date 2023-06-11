@@ -80,6 +80,8 @@
     {{-- pake ajax tapi ini carinya opsi 2--}}
     <div class="card" id="card-cari">
         <div class="card-body d-flex justify-content-center ">
+            {{-- keluarin notif sukses atau gagal --}}
+            <div id="msg-notif"></div>
             <div class="search-container w-100">
                 <label for="nomororder" class="">Cari Nomor Order :</label>
                 <input id="nomororder" type="text" class="form-control" name="nomororder" value="" autofocus
