@@ -36,9 +36,10 @@
                                     <thead>
                                         <tr>
                                             <th class=product>Menu yang Dipesan</th>
-                                             <th class=price>Harga Per Menu</th>
-                                             <th class=quantity>Jumlah yang Dipesan</th>
-                                             <th class=price>Sub Total</th>
+                                            <th class=price>Harga Per Menu</th>
+                                            <th class=quantity>Jumlah yang Dipesan</th>
+                                            <th class=price>Sub Total</th>
+                                            <th class=product>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -60,22 +61,28 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                 <td class="checkout-price">
+                                                <td class="checkout-price">
                                                     <p class="price">Rp.{{ number_format($details['price']) }}</p>
                                                 </td>
                                                 <td class="checkout-quantity">
                                                     <div class="product-quantity d-inline-flex">
-                                                        {{-- <button type="button" id="sub" class="sub">
-                                                            <i class="mdi mdi-minus"></i>
-                                                        </button> --}}
+                                                        <button type="button" id="sub btnaddcart" class="sub" onclick="addToCart('{{ $cafe->id }}')">
+                                                            <i class="mdi mdi-minus" ></i>
+                                                        </button>
                                                         <input type="text" value="{{ $details['quantity'] }}">
-                                                        {{-- <button type="button" id="add" class="add">
+                                                        <button type="button" id="add" class="add">
                                                             <i class="mdi mdi-plus"></i>
-                                                        </button> --}}
+                                                        </button>
                                                     </div>
                                                 </td>
                                                 <td class="checkout-price">
-                                                    <p class="price">Rp.{{ number_format($details['price'] * $details['quantity']) }}</p>
+                                                    <p class="price">
+                                                        Rp.{{ number_format($details['price'] * $details['quantity']) }}</p>
+                                                </td>
+                                                <td>
+                                                    <a class="delete" href="javascript:void(0)">
+                                                        <i class="mdi mdi-delete"></i> Hapus Item
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -90,8 +97,9 @@
                                                     </div>
                                                     <div class="single-btn">
                                                         <a href="{{ route('index') }}"
-                                                            class="main-btn primary-btn-border">Lanjutkan Pilih Menu</a>                                                            
-                                                        <a href="{{ route('checkout') }}" class="main-btn primary-btn">Checkout</a>
+                                                            class="main-btn primary-btn-border">Lanjutkan Pilih Menu</a>
+                                                        <a href="{{ route('checkout') }}"
+                                                            class="main-btn primary-btn">Checkout</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -118,4 +126,22 @@
         </div>
     </section>
 
+@endsection
+@section('javascript')
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        function addToCart(id) {
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('addToCart') }}",
+                data: {
+                    " id": id
+                },
+                success: function(response) {
+                    $('#msg-notif').html('<div class="alert alert-success" role="alert"><b>' + response +'</b></div>');
+                }
+            })
+        }
+    </script>
 @endsection

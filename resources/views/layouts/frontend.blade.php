@@ -39,7 +39,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-
+   @yield('css')
 </head>
 
 <body>
@@ -96,11 +96,12 @@
                             <!-- navbar cart start -->
                             <div class="navbar-cart">
                                 <a class="icon-btn primary-icon-text icon-text-btn" href="javascript:void(0)">
-                                    <img src="{{ asset('template/assets/images/icon-svg/cart-1.svg') }}"
+                                    <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}"
                                         alt="Icon">
-                                    <span class="icon-text text-style-1">1</span>
+                                    @if (session('cart'))
+                                        <span class="icon-text text-style-1">{{ count(session('cart')) }}</span>
+                                    @endif
                                 </a>
-
                                 <div class="navbar-cart-dropdown">
                                     <div class="checkout-style-2">
                                         <div class="checkout-header d-flex justify-content-between">
@@ -110,7 +111,6 @@
                                             <div class="checkout-table">
                                                 <table class="table">
                                                     <tbody>
-
                                                         @foreach (session('cart') as $id => $details)
                                                             @php
                                                                 $total1 += $details['price'] * $details['quantity'];
@@ -205,14 +205,20 @@
                                             Login atau Register</a>
                                     @endguest
                                     @auth
-                                        <li>
-                                            <p>Selamat Datang di Kendhi Pitoe, {{ Auth::user()->name }}</p>
-                                        </li>
                                         <li><a href="{{ route('index') }}">Menu</a></li>
-                                        <li><a href="{{ route('profil_pelanggan') }}">Profil</a></li>
+
                                         <li><a href="{{ route('lacak_pesanan') }}">Lacak Pesanan saya</a></li>
                                         <li><a href="{{ route('pelanggan_topup') }}">Kendhi Pitoe E-Wallet</a></li>
-                                        <li><a href="{{ route('logout') }}">Logout</a></li>
+                                        <li class="menu-item-has-children">
+                                            <a href="#">{{ Auth::user()->name }}</a>
+                                            <!-- sub menu Start -->
+                                            <ul class="sub-menu">
+                                                <li><b>Selamat Datang di Kendhi Pitoe, {{ Auth::user()->name }}<b></li>
+                                                <li><a href="{{ route('profil_pelanggan') }}">Profil</a></li>
+                                                <li><a href="{{ route('logout') }}">Logout</a></li>
+                                            </ul>
+                                            <!-- sub menu Ends -->
+                                        </li>
                                     @endauth
                                 </ul>
                             </div>
@@ -221,9 +227,11 @@
                                 <!-- navbar cart start -->
                                 <div class="navbar-cart">
                                     <a class="icon-btn primary-icon-text icon-text-btn" href="javascript:void(0)">
-                                        <img src="{{ asset('template/assets/images/icon-svg/cart-1.svg') }}"
+                                        <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}"
                                             alt="Icon">
-                                        <span class="icon-text text-style-1">1</span>
+                                        @if (session('cart'))
+                                            <span class="icon-text text-style-1">{{ count(session('cart')) }}</span>
+                                        @endif
                                     </a>
                                     <div class="navbar-cart-dropdown">
                                         <div class="checkout-style-2">
@@ -234,7 +242,6 @@
                                                 <div class="checkout-table">
                                                     <table class="table">
                                                         <tbody>
-
                                                             @foreach (session('cart') as $id => $details)
                                                                 @php
                                                                     $total += $details['price'] * $details['quantity'];

@@ -42,6 +42,9 @@ Route::get('/register', [AccountController::class, 'indexRegister'])->name('regi
 Route::post('/register_detail', [AccountController::class, 'create']);
 Route::get('/', [CafeController::class, 'index'])->name("index");
 Route::get('add-to-cart', [CafeController::class, 'addToCart'])->name('addToCart');
+Route::get('increase-cart', [CafeController::class, 'increaseQtyCart'])->name('increaseQtyCart');
+Route::get('decrease-cart', [CafeController::class, 'decreaseQtyCart'])->name('decreaseQtyCart');
+Route::get('delete-item-cart', [CafeController::class, 'deleteQtyCart'])->name('deleteQtyCart');
 Route::get('cart', [CafeController::class, 'cart'])->name('cart');
 Route::post('/checkout_tunai', [OrderController::class, 'goToQR'])->name("checkout_tunai");
 
@@ -50,8 +53,8 @@ Route::get('/checkout', function () {
 })->name('checkout');
 
 
-   // HALAMAN PELANGGAN PERLU LOGIN
-Route::middleware(['auth','role:pelanggan'])->group(function () {
+// HALAMAN PELANGGAN PERLU LOGIN
+Route::middleware(['auth', 'role:pelanggan'])->group(function () {
 
 
    Route::get('/profilpelanggan', function () {
@@ -70,13 +73,12 @@ Route::middleware(['auth','role:pelanggan'])->group(function () {
    Route::get('/ewallet/checkout_ewallet', [EWalletController::class, 'checkoutEwallet'])->name('checkout_ewallet');
    Route::get('/lacakpesanandetil/{id}', [OrderController::class, 'lacak_pesanan_detil'])->name("lacak_pesanan_detil");
    Route::get('/lacakpesananku', [OrderController::class, 'lacak_pesanan_ku'])->name("lacak_pesanan");
-
 });
 
 
 // HALAMAN PEGAWAI
-Route::middleware(['auth','role:pegawai'])->group(function(){
-   
+Route::middleware(['auth', 'role:pegawai'])->group(function () {
+
 
    Route::get('/pegawai', function () {
       return view('layouts.admin');
@@ -111,8 +113,6 @@ Route::middleware(['auth','role:pegawai'])->group(function(){
    Route::post('/buatlinkmeja', [MejaController::class, 'store'])->name('meja.store');
    Route::get('generateqrcode/{id}', [MejaController::class, 'generate'])->name('meja.generate');
    Route::get('/kendhipitoe/{hash}', [MejaController::class, 'generateSignedUrl'])->name('meja.generateUrl');
-
-
 });
 
 
