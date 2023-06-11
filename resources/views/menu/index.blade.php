@@ -33,31 +33,41 @@
                 </div>
             </div>
             @foreach ($cafes as $cafe)
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <div class="card card-1">
-                        <img src="{{ asset('assets/images/menu/' . $cafe->image) }}" alt="menu"
-                            class="card-body card-body-1">
                         <div class="card-body card-body-1">
+                           <img src="{{ asset('assets/images/menu/' . $cafe->image) }}" alt="menu"
+                               class="img-responsive">
                             <div class="text-section">
                                 <h4 class="title title-1">{{ $cafe->name }}</h4>
                                 <p class="card-text card-text-1">
                                     {{ Str::limit(strtolower($cafe->description), 20) }}
-                                    <br> Ketersediaan :
+                                    <br> Ketersediaan:
                                     @if ($cafe->status == true)
                                         Tersedia
                                     @else
-                                        Tidak Tersedia
+                                        Habis
                                     @endif
                                 </p>
                             </div>
                             <div class="cta-section">
                                 <div class="price">Rp. {{ number_format($cafe->price) }}</div>
                                 <input type="hidden" name="idMenu" id="idmenu" value="{{ $cafe->id }}">
-                                <button onclick="addToCart('{{ $cafe->id }}')" id="btnaddcart" class="btn btn-success">
-                                    <img src="{{ asset('template/assets/images/icon-svg/cart-4.svg') }}" alt="">
-                                    Pesan Sekarang
-                                </button>
-
+                                @if ($cafe->status == true)
+                                    <button onclick="addToCart('{{ $cafe->id }}')" id="btnaddcart"
+                                        class="btn btn-success">
+                                        <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}"
+                                            alt="">
+                                        Pesan Sekarang
+                                    </button>
+                                @else
+                                    <button onclick="addToCart('{{ $cafe->id }}')" id="btnaddcart"
+                                        class="btn btn-success">
+                                        <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}" alt=""
+                                            disabled>
+                                        Pesan Sekarang
+                                    </button>
+                                @endif
                             </div>
                         </div>
                     </div><br>
@@ -79,7 +89,8 @@
                     " id": id
                 },
                 success: function(response) {
-                    $('#msg-notif').html('<div class="alert alert-success" role="alert"><b>' + response +'</b></div>');
+                    $('#msg-notif').html('<div class="alert alert-success" role="alert"><b>' + response +
+                        '</b></div>');
                 }
             })
         }
