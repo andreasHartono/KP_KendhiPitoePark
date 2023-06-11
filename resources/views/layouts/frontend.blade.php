@@ -87,7 +87,7 @@
                         <div class="col-6">
                             <!-- desktop logo Start -->
                             <div class="mobile-logo text-center">
-                                <a href="{{ url('/') }}"><img width="110px" height="110px"
+                                <a href="{{ route('index') }}"><img width="110px" height="110px"
                                         src="{{ asset('template/assets/images/pitoe.png') }}" alt="Logo"></a>
                             </div>
                             <!-- desktop logo Ends -->
@@ -159,7 +159,7 @@
                                                     <p class="price">Rp.{{ number_format($total1) }}</p>
                                                 </div>
                                                 <div class="checkout-btn">
-                                                    <a href="{{ url('cart') }}"
+                                                    <a href="{{ route('cart') }}"
                                                         class="main-btn primary-btn-border">View
                                                         Cart</a>
                                                     <a href="{{ route('checkout') }}"
@@ -191,7 +191,7 @@
                         <nav class="main-navbar d-lg-flex justify-content-between align-items-center">
                             <!-- desktop logo Start -->
                             <div class="desktop-logo d-none d-lg-block">
-                                <a href="/"><img width="110px" height="110px"
+                                <a href="{{ route('index') }}"><img width="110px" height="110px"
                                         src="{{ asset('template/assets/images/pitoe.png') }}" alt="Logo"></a>
                             </div>
                             <!-- desktop logo Ends -->
@@ -212,7 +212,7 @@
                                         <li><a href="{{ route('profil_pelanggan') }}">Profil</a></li>
                                         <li><a href="{{ route('lacak_pesanan') }}">Lacak Pesanan saya</a></li>
                                         <li><a href="{{ route('pelanggan_topup') }}">Kendhi Pitoe E-Wallet</a></li>
-                                        <li><a href="{{ url('logout') }}">Logout</a></li>
+                                        <li><a href="{{ route('logout') }}">Logout</a></li>
                                     @endauth
                                 </ul>
                             </div>
@@ -284,10 +284,10 @@
                                                         <p class="price">Rp.{{ number_format($total) }}</p>
                                                     </div>
                                                     <div class="checkout-btn">
-                                                        <a href="{{ url('cart') }}"
+                                                        <a href="{{ route('cart') }}"
                                                             class="main-btn primary-btn-border">View
                                                             Cart</a>
-                                                        <a href="{{ url('checkout') }}"
+                                                        <a href="{{ route('checkout') }}"
                                                             class="main-btn primary-btn">Checkout</a>
                                                     </div>
                                                 </div>

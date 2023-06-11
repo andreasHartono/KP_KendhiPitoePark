@@ -17,7 +17,7 @@ class CafeController extends Controller
     {
         $cafes = Cafe::all();
         $title = 'Semua Menu';
-        return view('menu.index', compact("cafes","title"));
+        return view('menu.index', compact("cafes", "title"));
     }
 
     /**
@@ -38,7 +38,6 @@ class CafeController extends Controller
      */
     public function store(Request $request)
     {
-        
     }
 
     /**
@@ -72,7 +71,6 @@ class CafeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
     }
 
     /**
@@ -88,29 +86,34 @@ class CafeController extends Controller
 
     public function cart()
     {
-         return view('menu.cart');
+        return view('menu.cart');
     }
 
     public function addToCart(Request $request)
     {
-        $id = $request->id;
-        $food = Cafe::find($id);       
-        $cart = session()->get('cart');
+        if (!is_null($request->id)) {
+            $id = $request->id;
+            $food = Cafe::find($id);
+            $cart = session()->get('cart');
 
-        if (!isset($cart[$id])) {
-            $cart[$id] = [
-                "id" => $id,
-                "name" => $food->name,
-                "quantity" => 1,
-                "price" => $food->price,
-                "image" => $food->image,
-            ];
-        } else {
-            $cart[$id]['quantity']++;
+            if (!isset($cart[$id])) {
+                $cart[$id] = [
+                    "id" => $id,
+                    "name" => $food->name,
+                    "quantity" => 1,
+                    "price" => $food->price,
+                    "image" => $food->image,
+                ];
+            } else {
+                $cart[$id]['quantity']++;
+            }
+
+            session()->put('cart', $cart);
+            //   return Alert::success('Pesan Menu Berhasil', $cart[$id]['name'] . ' berhasil ditambahkan');
+            return $cart[$id]['name'] . ' berhasil ditambahkan';
         }
- 
-        session()->put('cart', $cart); 
-      //   return Alert::success('Pesan Menu Berhasil', $cart[$id]['name'] . ' berhasil ditambahkan');
-        return $cart[$id]['name'] . ' berhasil ditambahkan';
+        else{
+            return redirect()->route('index');
+        }
     }
 }

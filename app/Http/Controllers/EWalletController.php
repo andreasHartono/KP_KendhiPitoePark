@@ -19,55 +19,9 @@ class EWalletController extends Controller
     */
    public function index()
    {
-      // $rekapVoucherTopUp = DB::table('log_vouchers')
-      //    ->select('log_vouchers.*', 'pembuat.name as name_pembuat', 'pembeli.name as name_pembeli', 'pembeli.phone as phone_pembeli')
-      //    ->join('users as pembeli', 'pembeli.id', '=', 'log_vouchers.id_pembeli')
-      //    ->join('users as pembuat', 'pembuat.id', '=', 'log_vouchers.id_pembuat')
-      //    ->get();
-      // //   dd($rekapVoucherTopUp);
-      // RAW SQL QUERY udah bener, tapi kok cuman dapet 1??
-      //SELECT lv.*, pembuat.name as name_pembuat, pembeli.name as name_pembeli FROM log_vouchers as lv INNER JOIN users AS pembuat ON pembuat.id = lv.id_pembuat INNER JOIN users AS pembeli ON pembeli.id = lv.id_pembeli GROUP BY lv.id;
-      // return view('owner.ewallet', compact("rekapVoucherTopUp")); 
-      $rekapVoucherTopUp = DB::table('log_vouchers')
-         ->select('log_vouchers.*', 'pembuat.name as name_pembuat', 'pembeli.name as name_pembeli', 'pembeli.phone as phone_pembeli')
-         ->leftJoin('users as pembeli', 'pembeli.id', '=', 'log_vouchers.id_pembeli')
-         ->join('users as pembuat', 'pembuat.id', '=', 'log_vouchers.id_pembuat')
-         ->orderBy("created_at", 'desc')
-         ->get();
-      $kode = '123';
-      $voucherTopUp = Ewallet::where([['kode_voucher', "=", $kode], ["terpakai", '=', null]])->get()[0];
-
-      if ($voucherTopUp != null) {
-         $nominal = $voucherTopUp->jumlah;
-         $id = $voucherTopUp->id;
-
-         $voucher = EWallet::find($id);
-         $voucher->id_pembeli = Auth::user()->id;
-         $voucher->terpakai = now();
-         $voucher->save();
-
-         $user = User::find(Auth::user()->id);
-         $user->emoney += $nominal;
-         $user->save();
-
-         return view('kasir.ewallet', [
-            "message" => "OK",
-            "emoney_now" => $user->emoney,
-            "nominal" => $nominal,
-            "rekapVoucherTopUp" => $rekapVoucherTopUp
-         ]);
-      }
-
-      return view('kasir.ewallet', [
-         "message" => "Kode sudah terpakai!",
-         "nominal" => 0,
-         "rekapVoucherTopUp" => $rekapVoucherTopUp
-      ]);
+      return redirect()->route('index');
    }
-
-   public function indexPegawai()
-   {
-   }
+   
    /**
     * Show the form for creating a new resource.
     *
