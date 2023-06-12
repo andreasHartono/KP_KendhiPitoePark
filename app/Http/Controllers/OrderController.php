@@ -22,13 +22,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-
-        $order = Order::all();
-
-
-
-        dd($noAntri);
-        // return view('kasir.listorder', compact('order'));
+        $order = Order::all();        
+        return view('kasir.listorder', compact('order'));
     }
 
     /**
