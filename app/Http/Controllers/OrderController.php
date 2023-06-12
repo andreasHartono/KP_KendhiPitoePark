@@ -22,13 +22,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $cart = '{"1":{"id":"1","name":"Nasi Goreng","quantity":1,"price":"15000","image":"nasigoreng.jpg"},"2":{"id":"2","name":"Es Teh","quantity":2,"price":"6000","image":"esteh.jpg"},"4":{"id":"4","name":"Mie Goreng","quantity":1,"price":"15000","image":"miegoreng.jpg"},"pelanggan":{"name":"Budi Pelanggan 1","id":4}}';
-        session()->put("scanCartOrder", $cart);
-        $jsonCart = json_decode($cart);
-        $pelanggan = $jsonCart->pelanggan;
-        unset($jsonCart->pelanggan);
 
-        return view('transaction.validasipembayaran', compact(["jsonCart", 'pelanggan']));
+        $order = Order::all();
+
+
+
+        dd($noAntri);
+        // return view('kasir.listorder', compact('order'));
     }
 
     /**
@@ -114,9 +114,9 @@ class OrderController extends Controller
         $cart = session()->get("cart");
 
         if (Auth::user() == true) {
-            $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => Auth::user()->id, 'no_meja' => $request->no_meja];
+            $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => Auth::user()->id, 'no_meja' => $request->no_meja,'keterangan' => $request->catatan_tambahan];
         } else {
-            $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99, 'no_meja' => $request->no_meja];
+            $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan];
         }
 
 
@@ -137,12 +137,24 @@ class OrderController extends Controller
             session()->put("msg", $msg);
             return redirect()->route('index');
         } else {
-            $orders = new Order();
-            $orders->keterangan = "Belum ada";
+            $orders = new Order();           
             $orders->status_order = "Processing";
-            $orders->meja_id = "1";
+            $orders->keterangan = $pelanggan->keterangan;
+            $orders->meja_id = $pelanggan->no_meja;
+            $orders->id_pelanggan = $pelanggan->id;
+            $orders->nama_pelanggan = $pelanggan->name;
             $orders->total_price = 0;
-            $orders->no_order = 9;
+
+            $lastNoAntri = Order::where('created_at', "like", "%" . date("Y-m-d") . "%")
+                ->orderBy('created_at', 'desc')
+                ->take(1)
+                ->get('no_antrian');
+            $noAntri = 1;
+            if (!is_null($lastNoAntri[0]->no_antrian)) {
+                $noAntri = $lastNoAntri[0]->no_antrian + 1;
+            }
+
+            $orders->no_antrian = $noAntri;
             $orders->jenis_pembayaran = "Cash";
             $orders->id_pegawai_kasir = Auth::user()->id;
 

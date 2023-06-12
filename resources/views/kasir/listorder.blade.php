@@ -18,7 +18,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row col-lg-12">
-            <div class="card">
+            <div class="card" style="width: 100%;">
                 <div class="card-header">
                     <h3>Daftar Pesanan Makanan & Minuman Hari ini</b></h3>
                 </div>
@@ -27,29 +27,33 @@
                         <table class="table table-bordered table-hover table-striped" id="example1">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
                                     <th>Nomor Order</th>
+                                    <th>Waktu Pemesanan</th>
                                     <th>Nomor Meja</th>
                                     <th>Status Pesanan</th>
-                                    <th>Nama Pelanggan</th>
-                                    <th>Menu yang Dipesan</th>
-                                    <th>Harga Per Menu</th>
-                                    <th>Jumlah yang Dipesan</th>
-                                    <th>Sub Total</th>
+                                    <th>Nama Pelanggan</th> 
+                                    <th>Total</th>                                  
                                     <th>Detail Pesanan dan Aksi Pesanan</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>A001</td>
-                                    <td>5</td>
-                                    <td><span class="bg-warning">Processing</span></td>
-                                    <td>Guest 1</td>
-                                    <td>Nasi Goreng</td>
-                                    <td>15.000</td>
-                                    <td>1</td>
-                                    <td>15.000</td>
+                                @foreach($order as $ord)
+                                <tr>                                   
+                                    <td>{{ $ord->id }}</td>
+                                    <td>{{ $ord->created_at }}</td>
+                                    <td>{{ $ord->meja_id }}</td>
+                                    <td>
+                                    @if($ord->status_order == 'Processing')
+                                    <span class="bg-warning">Processing</span>
+                                    @elseif($ord->status_order == 'Done')
+                                    <span class="bg-success">Done</span>
+                                    @else
+                                    <span class="bg-danger">Canceled</span>
+                                    @endif
+                                    </td>
+                                    <td>{{ $ord->nama_pelanggan }}</td>
+                                    <td>Rp. {{ $ord->total_price }}</td>
+                                    
                                     <td>
                                         <div class="col-md-6">
                                             <a href="#" data-toogle="modal" data-target="#modal-lg" class="btn btn-primary btn-block btn-sm"><i
@@ -63,6 +67,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

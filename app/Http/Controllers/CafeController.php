@@ -84,11 +84,6 @@ class CafeController extends Controller
       //
    }
 
-   public function cart()
-   {
-      return view('menu.cart');
-   }
-
    public function addToCart(Request $request)
    {
       if (!is_null($request->id)) {
@@ -115,6 +110,29 @@ class CafeController extends Controller
          return redirect()->route('index');
       }
    }
+
+   public function removeFromCart(Request $request)
+   {
+      if (!is_null($request->id)) {
+         $id = $request->id;        
+         $cart = session()->get('cart');
+
+         if (isset($cart[$id])) {
+            $qty = $cart[$id]['quantity']--;
+            if ($qty == 0) {
+               unset($cart[$id]);
+            }
+         }
+
+         session()->put('cart', $cart);
+         //   return Alert::success('Pesan Menu Berhasil', $cart[$id]['name'] . ' berhasil ditambahkan');
+         return $cart[$id]['name'] . ' berhasil ditambahkan';
+      } else {
+         return redirect()->route('index');
+      }
+   }
+
+
    public function increaseQtyCart(Request $request)
    {
       if (!is_null($request->id)) {

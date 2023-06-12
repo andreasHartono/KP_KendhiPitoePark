@@ -41,17 +41,21 @@ Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
 Route::get('/register', [AccountController::class, 'indexRegister'])->name('register');
 Route::post('/register_detail', [AccountController::class, 'create']);
 Route::get('/', [CafeController::class, 'index'])->name("index");
+
+
 Route::get('add-to-cart', [CafeController::class, 'addToCart'])->name('addToCart');
+Route::get('remove-from-cart', [CafeController::class, 'removeFromCart'])->name('removeFromCart');
 Route::get('increase-cart', [CafeController::class, 'increaseQtyCart'])->name('increaseQtyCart');
 Route::get('decrease-cart', [CafeController::class, 'decreaseQtyCart'])->name('decreaseQtyCart');
 Route::get('delete-item-cart', [CafeController::class, 'deleteQtyCart'])->name('deleteQtyCart');
-Route::get('cart', [CafeController::class, 'cart'])->name('cart');
 Route::post('/checkout_tunai', [OrderController::class, 'goToQR'])->name("checkout_tunai");
 
 Route::get('/checkout', function () {
    return view('menu.checkout');
 })->name('checkout');
-
+Route::get('/cart', function () {
+   return view('menu.cart');
+})->name('cart');
 
 // HALAMAN PELANGGAN PERLU LOGIN
 Route::middleware(['auth', 'role:pelanggan'])->group(function () {

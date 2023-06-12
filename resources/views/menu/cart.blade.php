@@ -53,11 +53,13 @@
                                                 <div class="product-quantity d-inline-flex">
 
                                                     <button type="button" id="sub btnaddcart" class="sub"
-                                                        onclick="addToCart('{{ $details['id'] }}')">
+                                                        onclick="removeFromCart('{{ $details['id'] }}')">
                                                         <i class="mdi mdi-minus"></i>
                                                     </button>
+
                                                     <input type="text" value="{{ $details['quantity'] }}">
-                                                    <button type="button" id="add" class="add">
+
+                                                    <button type="button" id="add" class="add" onclick="addToCart('{{ $details['id'] }}')">
                                                         <i class="mdi mdi-plus"></i>
                                                     </button>
                                                 </div><br><br>
@@ -95,6 +97,19 @@
             $.ajax({
                 type: 'GET',
                 url: "{{ route('addToCart') }}",
+                data: {
+                    " id": id
+                },
+                success: function(response) {
+                    alert(response);
+                }
+            })
+        }
+
+        function removeFromCart(id) {
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('removeFromCart') }}",
                 data: {
                     " id": id
                 },
