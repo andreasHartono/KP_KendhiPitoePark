@@ -37,7 +37,7 @@ class CreateOrdersTable extends Migration
 
             $table->unsignedBigInteger('id_pelanggan');                       
             $table->foreign('id_pelanggan')->references('id')->on('users'); 
-            $table->string('nama_pelanggan', 50)->nullable();
+            // $table->string('nama_pelanggan', 50)->nullable();
              
         });
     }
