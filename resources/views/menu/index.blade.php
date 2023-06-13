@@ -62,9 +62,9 @@
                                     </button>
                                 @else
                                     <button onclick="addToCart('{{ $cafe->id }}')" id="btnaddcart"
-                                        class="btn btn-success">
+                                        class="btn btn-success" disabled>
                                         <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}" alt=""
-                                            disabled>
+                                            >
                                         Pesan Sekarang
                                     </button>
                                 @endif

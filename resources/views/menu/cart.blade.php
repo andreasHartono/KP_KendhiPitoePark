@@ -26,12 +26,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex justify-content-center">
-                    <div class="mb-50">
-                        <div id="msg-notif"></div>
-                    </div>
                     <div class="checkout-style-1">
                         <div class="checkout-header">
                             <h6 class="title heading-4">Daftar Menu yang Dipilih</h6>
+                            <div class="mb-50">
+                                <div id="msg-notif"></div>
+                            </div>
                         </div>
                         @if (session('cart'))
                             @foreach (session('cart') as $id => $details)
@@ -67,7 +67,8 @@
                                                         <i class="mdi mdi-plus"></i>
                                                     </button>
                                                 </div><br><br>
-                                                <a class="delete d-flex justify-content-center" href="javascript:void(0)">
+                                                <a class="delete d-flex justify-content-center" href="#"
+                                                    onclick="removeFromCart('{{ $details['id'] }}')">
                                                     <i class="mdi mdi-delete"></i>Hapus
                                                 </a>
                                             </div>
@@ -85,6 +86,15 @@
                                             Menu</a>
                                         <a href="{{ route('checkout') }}" class="main-btn primary-btn">Checkout</a>
                                     </div>
+                                </div>
+                            </div>
+                        @else
+                            <div class="card">
+                                <div class="card-body">
+                                    <h2 class="heading-2">Daftar Pesanan Sementara Kosong</h2><br>
+                                    <a href="{{ route('index') }}" class="main-btn primary-btn"> <img
+                                            src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}"
+                                            alt="logo cart">Silahkan Pilih Menu</a>
                                 </div>
                             </div>
                         @endif

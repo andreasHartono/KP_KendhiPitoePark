@@ -126,7 +126,7 @@ class CafeController extends Controller
 
          session()->put('cart', $cart);
          //   return Alert::success('Pesan Menu Berhasil', $cart[$id]['name'] . ' berhasil ditambahkan');
-         return $cart[$id]['name'] . ' berhasil ditambahkan';
+         return $cart[$id]['name'] . ' berhasil dikurangi';
       } else {
          return redirect()->route('index');
       }
