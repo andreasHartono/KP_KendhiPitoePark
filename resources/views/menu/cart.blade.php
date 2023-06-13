@@ -26,6 +26,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 d-flex justify-content-center">
+                    <div class="mb-50">
+                        <div id="msg-notif"></div>
+                    </div>
                     <div class="checkout-style-1">
                         <div class="checkout-header">
                             <h6 class="title heading-4">Daftar Menu yang Dipilih</h6>
@@ -59,7 +62,8 @@
 
                                                     <input type="text" value="{{ $details['quantity'] }}">
 
-                                                    <button type="button" id="add" class="add" onclick="addToCart('{{ $details['id'] }}')">
+                                                    <button type="button" id="add" class="add"
+                                                        onclick="addToCart('{{ $details['id'] }}')">
                                                         <i class="mdi mdi-plus"></i>
                                                     </button>
                                                 </div><br><br>
@@ -101,7 +105,8 @@
                     " id": id
                 },
                 success: function(response) {
-                    alert(response);
+                    $('#msg-notif').html('<div class="alert alert-success" role="alert"><b>' + response +
+                        '</b></div>');
                 }
             })
         }
