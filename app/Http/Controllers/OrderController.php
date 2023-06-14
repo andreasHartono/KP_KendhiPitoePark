@@ -347,8 +347,9 @@ class OrderController extends Controller
          ->where('order_details.order_id', '=', $id)
          ->get();
 
-        $dataOrder = $dataOrder[0];
-        dd($dataOrder, $detilOrder);
-        return view('transaction.invoicedapur');
-    }
+      $dataOrder = $dataOrder[0];
+      $pdf = PDF::loadView('transaction.invoicedapur', compact(['dataOrder', 'detilOrder']))->setOptions(['defaultFont' => 'sans-serif']);
+      $name = 'invoice_dapur ' . $dataOrder->id . '.pdf';
+      return $pdf->download($name);
+   }
 }
