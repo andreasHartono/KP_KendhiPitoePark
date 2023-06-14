@@ -8,8 +8,7 @@
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="{{ asset('template/assets/images/pitoe.png') }}" type="image/png">
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- icheck bootstrap -->
@@ -27,27 +26,21 @@
                 <small> Kali Jaten, Selotapak, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur</small>
             </div>
             <div class="card-body">
-                <b>No Meja : </b> <span class="font-weight-bold">12</span><br>
-                <b>Nama Pelanggan : </b> Andre<br>
-                <b>Nama Kasir : </b> Agus<br>
-                <b>Tanggal Transaksi : </b> 30 Mei 2023 12:30:00<br>
+                <b>No Meja : </b> <span class="font-weight-bold">{{ $dataOrder->meja_id }}</span><br>
+                <b>Nama Pelanggan : </b> {{ $dataOrder->nama_pelanggan }}<br>
+                <b>Nama Kasir : </b> {{ $dataOrder->nama_kasir }}<br>
+                <b>Tanggal Transaksi : </b> {{ $dataOrder->created_at }}<br>
+
                 <hr>
                 <h3>Menu yang Dipesan</h3>
-                <b>Nasi Goreng</b><br>
+                @foreach($detilOrder as $do)
+                <b>{{ $do->nama_menu }}</b><br>
                 <div class="row">
-                    <div class="col-8"><b>1 x </b>&nbsp;&nbsp;&nbsp;15.000</div>
-                    <div class="col-4"><b>Rp. 15.000</b></div>
+                    <div class="col-8"><b>{{ $do->jumlah }} x </b>&nbsp;&nbsp;&nbsp;{{ $do->price }}</div>
+                    <div class="col-4"><b>Rp. {{ $do->jumlah * $do->price }}</b></div>
                 </div>
-                <b>Kentang Goreng</b><br>
-                <div class="row">
-                    <div class="col-8"><b>2 x </b>&nbsp;&nbsp;&nbsp;10.000</div>
-                    <div class="col-4"><b>Rp. 20.000</b></div>
-                </div>
-                <b>Es Teh</b><br>
-                <div class="row">
-                    <div class="col-8"><b>1 x </b>&nbsp;&nbsp;&nbsp;5.000</div>
-                    <div class="col-4"><b>Rp. 5.000</b></div>
-                </div>
+                @endforeach
+               
                 <hr>
                 <span class="text-center">
                     <h4>Matur Nuwun sampun</h4>

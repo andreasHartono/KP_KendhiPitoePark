@@ -40,25 +40,22 @@
                     <div class="col-8"><b>{{ $do->jumlah }} x </b>&nbsp;&nbsp;&nbsp;{{ $do->price }}</div>
                     <div class="col-4"><b>Rp. {{ $do->jumlah * $do->price }}</b></div>
                 </div>
+                @endforeach
                 
                 <hr>
                 <h3>Rincian Pembayaran</h3>
                 <div class="row">
                     <div class="col-8"><b>Total Harga</b></div>
-                    <div class="col-4"><b>Rp. 40.000</b></div>
+                    <div class="col-4"><b>Rp. {{ $dataOrder->total_price }}</b></div>
                 </div>
-                <div class="row">
-                    <div class="col-8"><b>Kendhi Pitoe E-Wallet</b></div>
-                    <div class="col-4"><b>Rp. 40.000</b></div>
-                </div><br>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-8"><b>Harga Tunai</b></div>
                     <div class="col-4"><b>Rp. 50.000</b></div>
                 </div>
                 <div class="row">
                     <div class="col-8"><b>Harga Kembali</b></div>
                     <div class="col-4"><b>Rp. 10.000</b></div>
-                </div>
+                </div> -->
                 <hr>
                 <span class="text-center">
                     <h4>Matur Nuwun sampun</h4>

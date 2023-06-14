@@ -325,8 +325,8 @@ class OrderController extends Controller
             ->get();
 
         $dataOrder = $dataOrder[0];
-        dd($dataOrder, $detilOrder);
-        return view('transaction.invoicedesign', compact(['dataOrder', 'detilOrder']));
+       
+        return view('transaction.invoicepelanggan', compact(['dataOrder', 'detilOrder']));
     }
 
     public function nota_dapur($id)
