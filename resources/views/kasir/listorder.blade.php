@@ -136,7 +136,7 @@
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script>
-        function updateStatus(status) {
+        function updateStatus(status:string) {
             $.ajax({
                 type: 'POST',
                 url: "#", // ganti url e ya nanti
