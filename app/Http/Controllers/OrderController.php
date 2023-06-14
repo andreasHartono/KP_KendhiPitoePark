@@ -346,7 +346,7 @@ class OrderController extends Controller
             ->get();
 
         $dataOrder = $dataOrder[0];
-        dd($dataOrder, $detilOrder);
-        return view('transaction.invoicedapur');
+       
+        return view('transaction.invoicedapur', compact(['dataOrder', 'detilOrder']));
     }
 }
