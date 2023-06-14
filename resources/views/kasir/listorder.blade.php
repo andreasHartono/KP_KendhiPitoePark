@@ -31,42 +31,55 @@
                                     <th>Waktu Pemesanan</th>
                                     <th>Nomor Meja</th>
                                     <th>Status Pesanan</th>
-                                    <th>Nama Pelanggan</th> 
-                                    <th>Total</th>                                  
+                                    <th>Nama Pelanggan</th>
+                                    <th>Total</th>
                                     <th>Detail Pesanan dan Aksi Pesanan</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($order as $ord)
-                                <tr>                                   
-                                    <td>{{ $ord->id }}</td>
-                                    <td>{{ $ord->created_at }}</td>
-                                    <td>{{ $ord->meja_id }}</td>
-                                    <td>
-                                    @if($ord->status_order == 'Processing')
-                                    <span class="bg-warning">Processing</span>
-                                    @elseif($ord->status_order == 'Done')
-                                    <span class="bg-success">Done</span>
-                                    @else
-                                    <span class="bg-danger">Canceled</span>
-                                    @endif
-                                    </td>
-                                    <td>{{ $ord->nama_pelanggan }}</td>
-                                    <td>Rp. {{ $ord->total_price }}</td>
-                                    
-                                    <td>
-                                        <div class="col-md-6">
-                                            <a href="{{ route('lacak_pesanan_detil_pegawai', ['id' => $ord->id]) }}" data-toogle="modal" data-target="#modal-lg" class="btn btn-primary btn-block btn-sm"><i
-                                                    class="fa fa-bell"></i> Detail Pesanan</a>
-                                            <a href="#" class="btn btn-danger btn-block btn-sm"><i
-                                                    class="fa fa-bell"></i> Ganti Status Pesanan</a>
-                                            <a href="{{ route('nota_pelanggan', ['id' => $ord->id]) }}" class="btn btn-success btn-block btn-sm"><i
-                                                    class="fa fa-bell"></i> Cetak Nota Pelanggan</a>
-                                            <a href="{{ route('nota_dapur', ['id' => $ord->id]) }}" class="btn btn-warning btn-block btn-sm"><i
-                                                    class="fa fa-bell"></i> Cetak Nota Dapur</a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach ($order as $ord)
+                                    <tr>
+                                        <td>{{ $ord->id }}</td>
+                                        <td>{{ $ord->created_at }}</td>
+                                        <td>{{ $ord->meja_id }}</td>
+                                        <td>
+                                            <label for="ganti status">Ganti Status Pesanan</label>
+                                            <select id="gantistatus" name="gantistatus" class="form-control editable">
+                                                <option value="Processing" @selected($ord->status_order == 'Processing') class="bg-warning"
+                                                    onclick="updateStatus('Processing')">Processing</option>
+                                                <option value="Processing" @selected($ord->status_order == 'Done') class="bg-success"
+                                                    onclick="updateStatus('Done')">Done</option>
+                                                <option value="Canceled"@selected($ord->status_order == 'Canceled') class="bg-danger"
+                                                    onclick="updateStatus('Canceled')">Canceled</option>
+                                            </select>
+                                            {{-- @if ($ord->status_order == 'Processing')
+                                                <span class="bg-warning">Processing</span>
+                                            @elseif($ord->status_order == 'Done')
+                                                <span class="bg-success">Done</span>
+                                            @else
+                                                <span class="bg-danger">Canceled</span>
+                                            @endif --}}
+                                        </td>
+                                        <td>{{ $ord->nama_pelanggan }}</td>
+                                        <td>Rp. {{ $ord->total_price }}</td>
+
+                                        <td>
+                                            <div class="col-md-6">
+                                                <a href="{{ route('lacak_pesanan_detil_pegawai', ['id' => $ord->id]) }}"
+                                                    data-toogle="modal" data-target="#modal-lg"
+                                                    class="btn btn-primary btn-block btn-sm"><i class="fa fa-bell"></i>
+                                                    Detail Pesanan</a>
+                                                <a href="#" class="btn btn-danger btn-block btn-sm"><i
+                                                        class="fa fa-bell"></i> Ganti Status Pesanan</a>
+                                                <a href="{{ route('nota_pelanggan', ['id' => $ord->id]) }}"
+                                                    class="btn btn-success btn-block btn-sm"><i class="fa fa-bell"></i>
+                                                    Cetak Nota Pelanggan</a>
+                                                <a href="{{ route('nota_dapur', ['id' => $ord->id]) }}"
+                                                    class="btn btn-warning btn-block btn-sm"><i class="fa fa-bell"></i>
+                                                    Cetak Nota Dapur</a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -120,4 +133,21 @@
     </div>
 @endsection
 @section('javascript')
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        function updateStatus(status) {
+            $.ajax({
+                type: 'POST',
+                url: "#", // ganti url e ya nanti
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    status: status;
+                },
+                success: function(response) {
+                    alert(response);
+                }
+            });
+        }
+    </script>
 @endsection
