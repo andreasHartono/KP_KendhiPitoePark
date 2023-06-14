@@ -43,15 +43,19 @@
                                         <td>{{ $ord->created_at }}</td>
                                         <td>{{ $ord->meja_id }}</td>
                                         <td>
-                                            <label for="ganti status">Ganti Status Pesanan</label>
-                                            <select id="gantistatus" name="gantistatus" class="form-control editable">
-                                                <option value="Processing" @selected($ord->status_order == 'Processing') class="bg-warning"
-                                                    onclick="updateStatus('Processing')">Processing</option>
-                                                <option value="Processing" @selected($ord->status_order == 'Done') class="bg-success"
-                                                    onclick="updateStatus('Done')">Done</option>
-                                                <option value="Canceled"@selected($ord->status_order == 'Canceled') class="bg-danger"
-                                                    onclick="updateStatus('Canceled')">Canceled</option>
-                                            </select>
+                                            <form action="#" class="validated">
+                                                <label for="ganti status">Ganti Status Pesanan</label>
+                                                <select id="gantistatus" name="gantistatus" class="form-control editable">
+                                                    <option value="Processing" @selected($ord->status_order == 'Processing' ? 'selected="selected"' : '')
+                                                        class="bg-warning">Processing</option>
+                                                    <option value="Processing" @selected($ord->status_order == 'Done' ? 'selected="selected"' : '')
+                                                        class="bg-success">Done</option>
+                                                    <option value="Canceled"@selected($ord->status_order == 'Canceled' ? 'selected="selected"' : '') class="bg-danger">
+                                                        Canceled</option>
+                                                </select>
+                                                <a href="#" class="btn btn-danger btn-block btn-sm"><i
+                                                        class="fa fa-bell"></i> Ganti Status Pesanan</a>
+                                            </form>
                                             {{-- @if ($ord->status_order == 'Processing')
                                                 <span class="bg-warning">Processing</span>
                                             @elseif($ord->status_order == 'Done')
@@ -69,8 +73,7 @@
                                                     data-toogle="modal" data-target="#modal-lg"
                                                     class="btn btn-primary btn-block btn-sm"><i class="fa fa-bell"></i>
                                                     Detail Pesanan</a>
-                                                <a href="#" class="btn btn-danger btn-block btn-sm"><i
-                                                        class="fa fa-bell"></i> Ganti Status Pesanan</a>
+
                                                 <a href="{{ route('nota_pelanggan', ['id' => $ord->id]) }}"
                                                     class="btn btn-success btn-block btn-sm"><i class="fa fa-bell"></i>
                                                     Cetak Nota Pelanggan</a>
@@ -133,21 +136,4 @@
     </div>
 @endsection
 @section('javascript')
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script>
-        function updateStatus(status:string) {
-            $.ajax({
-                type: 'POST',
-                url: "#", // ganti url e ya nanti
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    status: status;
-                },
-                success: function(response) {
-                    alert(response);
-                }
-            });
-        }
-    </script>
 @endsection
