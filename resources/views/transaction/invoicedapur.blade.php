@@ -33,21 +33,18 @@
                 <b>Tanggal Transaksi : </b> 30 Mei 2023 12:30:00<br>
                 <hr>
                 <h3>Menu yang Dipesan</h3>
-                <b>Nasi Goreng</b><br>
                 <div class="row">
-                    <div class="col-8"><b>1 x </b>&nbsp;&nbsp;&nbsp;15.000</div>
-                    <div class="col-4"><b>Rp. 15.000</b></div>
-                </div>
-                <b>Kentang Goreng</b><br>
+                    <div class="col-8"><b>Nasi Goreng</b></div>
+                    <div class="col-4"><b>1</b></div>
+                </div><br>
                 <div class="row">
-                    <div class="col-8"><b>2 x </b>&nbsp;&nbsp;&nbsp;10.000</div>
-                    <div class="col-4"><b>Rp. 20.000</b></div>
-                </div>
-                <b>Es Teh</b><br>
+                    <div class="col-8"><b>Kentang Goreng</b></div>
+                    <div class="col-4"><b>2</b></div>
+                </div><br>
                 <div class="row">
-                    <div class="col-8"><b>1 x </b>&nbsp;&nbsp;&nbsp;5.000</div>
-                    <div class="col-4"><b>Rp. 5.000</b></div>
-                </div>
+                    <div class="col-8"><b>Es Teh</b></div>
+                    <div class="col-4"><b>3</b></div>
+                </div><br>
                 <hr>
                 <span class="text-center">
                     <h4>Matur Nuwun sampun</h4>
