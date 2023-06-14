@@ -94,5 +94,11 @@
                 }
             })
         }
+
+        $("#btnaddcart").on('click',function(){
+            var msg = "";
+            
+            // $('#cart_place').html('asd');
+        })
     </script>
 @endsection
