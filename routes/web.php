@@ -25,13 +25,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('designlistorder', function () {
    return view('kasir.listorder');
 });
-Route::get('/designnota', function () {
-   return view('transaction.invoicedesign');
-});
+Route::get('/notaorder/{id}', [OrderController::class,'nota_pelanggan'])->name("nota_pelanggan");
+Route::get('/notaorderdapur/{id}', [OrderController::class,'nota_dapur'])->name("nota_dapur");
 
-Route::get('/designnotadapur', function () {
-   return view('transaction.invoicedapur');
-});
 
 
 //LOGIN REGISTER
@@ -108,6 +104,7 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
       return view('kasir.scan');
    })->name("scan_kasir");
 
+   Route::get('/lacakpesanandetilpegawai/{id}', [OrderController::class, 'lacak_pesanan_detil_pegawai'])->name("lacak_pesanan_detil_pegawai");
    Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('checkout_order');
    Route::get('/order/validasipembayaran', [OrderController::class, 'validasipembayaran'])->name('validasi_pembayaran');
    Route::get('/rekappenjualanpegawai', [OrderController::class, 'rekap_penjualan_pegawai'])->name('rekap_pegawai');

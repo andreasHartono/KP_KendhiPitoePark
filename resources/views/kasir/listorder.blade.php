@@ -56,13 +56,13 @@
                                     
                                     <td>
                                         <div class="col-md-6">
-                                            <a href="#" data-toogle="modal" data-target="#modal-lg" class="btn btn-primary btn-block btn-sm"><i
+                                            <a href="{{ route('lacak_pesanan_detil_pegawai', ['id' => $ord->id]) }}" data-toogle="modal" data-target="#modal-lg" class="btn btn-primary btn-block btn-sm"><i
                                                     class="fa fa-bell"></i> Detail Pesanan</a>
                                             <a href="#" class="btn btn-danger btn-block btn-sm"><i
                                                     class="fa fa-bell"></i> Ganti Status Pesanan</a>
-                                            <a href="#" class="btn btn-success btn-block btn-sm"><i
+                                            <a href="{{ route('nota_pelanggan', ['id' => $ord->id]) }}" class="btn btn-success btn-block btn-sm"><i
                                                     class="fa fa-bell"></i> Cetak Nota Pelanggan</a>
-                                            <a href="#" class="btn btn-warning btn-block btn-sm"><i
+                                            <a href="{{ route('nota_dapur', ['id' => $ord->id]) }}" class="btn btn-warning btn-block btn-sm"><i
                                                     class="fa fa-bell"></i> Cetak Nota Dapur</a>
                                         </div>
                                     </td>

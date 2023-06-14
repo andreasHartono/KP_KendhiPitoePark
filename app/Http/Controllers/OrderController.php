@@ -22,7 +22,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::all();        
+        $order = Order::orderBy("created_at", "desc")->get();
         return view('kasir.listorder', compact('order'));
     }
 
@@ -109,7 +109,7 @@ class OrderController extends Controller
         $cart = session()->get("cart");
 
         if (Auth::user() == true) {
-            $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => Auth::user()->id, 'no_meja' => $request->no_meja,'keterangan' => $request->catatan_tambahan];
+            $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => Auth::user()->id, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan];
         } else {
             $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan];
         }
@@ -132,7 +132,7 @@ class OrderController extends Controller
             session()->put("msg", $msg);
             return redirect()->route('index');
         } else {
-            $orders = new Order();           
+            $orders = new Order();
             $orders->status_order = "Processing";
             $orders->keterangan = $pelanggan->keterangan;
             $orders->meja_id = $pelanggan->no_meja;
@@ -267,6 +267,26 @@ class OrderController extends Controller
         return view('pelanggan.lacakpesanan', compact('userOrder'));
     }
 
+    public function lacak_pesanan_detil_pegawai($id)
+    {
+        $dataOrder = DB::table('orders')
+            ->select("*")
+            ->where("id", "=", $id)
+            ->orderBy("created_at", "desc")
+            ->get();
+
+        $detilOrder = DB::table('order_details')
+            ->select('cafes.name as nama_menu', 'cafes.price', DB::raw('SUM(order_details.jumlah) as jumlah'))
+            ->join('cafes', 'cafes.id', '=', 'order_details.cafe_id')
+            ->groupBy('order_details.cafe_id')
+            ->where('order_details.order_id', '=', $id)
+            ->get();
+
+        $dataOrder = $dataOrder[0];
+
+        return view('kasir.lacakpesanandetil', compact(['dataOrder', 'detilOrder']));
+    }
+
     public function lacak_pesanan_detil($id)
     {
 
@@ -286,5 +306,47 @@ class OrderController extends Controller
         $dataOrder = $dataOrder[0];
 
         return view('pelanggan.lacakpesanandetil', compact(['dataOrder', 'detilOrder']));
+    }
+
+    public function nota_pelanggan($id)
+    {
+        $dataOrder = DB::table('orders')
+            ->select("orders.*", "users.name as nama_kasir")
+            ->join('users', 'orders.id_pegawai_kasir', '=', 'users.id')
+            ->where("orders.id", "=", $id)
+            ->orderBy("orders.created_at", "desc")
+            ->get();
+
+        $detilOrder = DB::table('order_details')
+            ->select('cafes.name as nama_menu', 'cafes.price', DB::raw('SUM(order_details.jumlah) as jumlah'))
+            ->join('cafes', 'cafes.id', '=', 'order_details.cafe_id')
+            ->groupBy('order_details.cafe_id')
+            ->where('order_details.order_id', '=', $id)
+            ->get();
+
+        $dataOrder = $dataOrder[0];
+       
+        return view('transaction.invoicepelanggan', compact(['dataOrder', 'detilOrder']));
+    }
+
+    public function nota_dapur($id)
+    {
+        $dataOrder = DB::table('orders')
+            ->select("orders.*", "users.name as nama_kasir")
+            ->join('users', 'orders.id_pegawai_kasir', '=', 'users.id')
+            ->where("orders.id", "=", $id)
+            ->orderBy("orders.created_at", "desc")
+            ->get();
+
+        $detilOrder = DB::table('order_details')
+            ->select('cafes.name as nama_menu', 'cafes.price', DB::raw('SUM(order_details.jumlah) as jumlah'))
+            ->join('cafes', 'cafes.id', '=', 'order_details.cafe_id')
+            ->groupBy('order_details.cafe_id')
+            ->where('order_details.order_id', '=', $id)
+            ->get();
+
+        $dataOrder = $dataOrder[0];
+        dd($dataOrder, $detilOrder);
+        return view('transaction.invoicedapur');
     }
 }

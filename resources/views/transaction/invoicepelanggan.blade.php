@@ -27,46 +27,35 @@
                 <small> Kali Jaten, Selotapak, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur</small>
             </div>
             <div class="card-body">
-                <b>No Meja : </b> <span class="font-weight-bold">12</span><br>
-                <b>Nama Pelanggan : </b> Andre<br>
-                <b>Nama Kasir : </b> Agus<br>
-                <b>Tanggal Transaksi : </b> 30 Mei 2023 12:30:00<br>
-                <b>Metode Pembayaran : </b> <span class="font-weight-bold text-uppercase font-italic">Tunai</span><br>
+                <b>No Meja : </b> <span class="font-weight-bold">{{ $dataOrder->meja_id }}</span><br>
+                <b>Nama Pelanggan : </b> {{ $dataOrder->nama_pelanggan }}<br>
+                <b>Nama Kasir : </b> {{ $dataOrder->nama_kasir }}<br>
+                <b>Tanggal Transaksi : </b> {{ $dataOrder->created_at }}<br>
+                <b>Metode Pembayaran : </b> <span class="font-weight-bold text-uppercase font-italic">{{ $dataOrder->jenis_pembayaran }}</span><br>
                 <hr>
                 <h3>Menu yang Dipesan</h3>
-                <b>Nasi Goreng</b><br>
+                @foreach($detilOrder as $do)
+                <b>{{ $do->nama_menu }}</b><br>
                 <div class="row">
-                    <div class="col-8"><b>1 x </b>&nbsp;&nbsp;&nbsp;15.000</div>
-                    <div class="col-4"><b>Rp. 15.000</b></div>
+                    <div class="col-8"><b>{{ $do->jumlah }} x </b>&nbsp;&nbsp;&nbsp;{{ $do->price }}</div>
+                    <div class="col-4"><b>Rp. {{ $do->jumlah * $do->price }}</b></div>
                 </div>
-                <b>Kentang Goreng</b><br>
-                <div class="row">
-                    <div class="col-8"><b>2 x </b>&nbsp;&nbsp;&nbsp;10.000</div>
-                    <div class="col-4"><b>Rp. 20.000</b></div>
-                </div>
-                <b>Es Teh</b><br>
-                <div class="row">
-                    <div class="col-8"><b>1 x </b>&nbsp;&nbsp;&nbsp;5.000</div>
-                    <div class="col-4"><b>Rp. 5.000</b></div>
-                </div>
+                @endforeach
+                
                 <hr>
                 <h3>Rincian Pembayaran</h3>
                 <div class="row">
                     <div class="col-8"><b>Total Harga</b></div>
-                    <div class="col-4"><b>Rp. 40.000</b></div>
+                    <div class="col-4"><b>Rp. {{ $dataOrder->total_price }}</b></div>
                 </div>
-                <div class="row">
-                    <div class="col-8"><b>Kendhi Pitoe E-Wallet</b></div>
-                    <div class="col-4"><b>Rp. 40.000</b></div>
-                </div><br>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-8"><b>Harga Tunai</b></div>
                     <div class="col-4"><b>Rp. 50.000</b></div>
                 </div>
                 <div class="row">
                     <div class="col-8"><b>Harga Kembali</b></div>
                     <div class="col-4"><b>Rp. 10.000</b></div>
-                </div>
+                </div> -->
                 <hr>
                 <span class="text-center">
                     <h4>Matur Nuwun sampun</h4>

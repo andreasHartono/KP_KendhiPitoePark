@@ -239,7 +239,7 @@
                                                 <h6 class="title">Daftar Pesanan Sementara</h6>
                                             </div>
                                             @if (session('cart'))
-                                                <div class="checkout-table">
+                                                <div class="checkout-table" id="cart_place">
                                                     <table class="table">
                                                         <tbody>
                                                             @foreach (session('cart') as $id => $details)
@@ -262,18 +262,18 @@
                                                                     </td>
                                                                     <td class="checkout-quantity">
                                                                         <div class="product-quantity d-inline-flex">
-                                                                            {{-- <button type="button" id="sub"
+                                                                            <button type="button" id="sub"
                                                                                 class="sub">
                                                                                 <i class="mdi mdi-minus"></i>
-                                                                            </button> --}}
+                                                                            </button> 
                                                                             <input type="text"
                                                                                 value="{{ $details['quantity'] }}">
-                                                                            {{-- <button type="button" id="add"
+                                                                              <button type="button" id="add"
                                                                                 class="add">
                                                                                 <i class="mdi mdi-plus"></i>
-                                                                            </button> --}}
+                                                                            </button> 
                                                                         </div>
-                                                                    </td>
+                                                                    </td> 
                                                                     <td class="checkout-price">
                                                                         <p class="price">
                                                                             Rp.{{ number_format($details['price'] * $details['quantity']) }}
