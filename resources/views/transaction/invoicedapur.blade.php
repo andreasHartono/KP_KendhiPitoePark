@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Struk Dapur</title>
     <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="http://127.0.0.1:8000/images/pitoe.png" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('template/assets/images/pitoe.png') }}" type="image/png">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -189,7 +189,7 @@
     <div class="login-box">
         <div class="card card-outline">
             <div class="card-header text-center">
-                <img src="http://127.0.0.1:8000/images/pitoe.png" alt="logo" height="150" width="150"
+                <img src="{{ asset('template/assets/images/pitoe.png') }}" alt="logo" height="150" width="150"
                     class="img-responsive">
                 <h4>Kendhi Pitoe Park</h4>
                 <small> Kali Jaten, Selotapak, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur</small>
