@@ -21,6 +21,7 @@
             <div class="card-body">
                 <h4 class="card-title">No Meja &nbsp;&nbsp;&nbsp; : {{ $pelanggan->no_meja }} </h4><br>
                 <h4 class="card-title">Nama Customer : {{ $pelanggan->name }}</h4><br>
+                <h4 class="card-title">Catatan : {{ $pelanggan->keterangan }}</h4><br>
             </div>
         </div><br>
         <div class="card">

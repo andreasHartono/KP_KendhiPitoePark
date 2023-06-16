@@ -23,7 +23,11 @@ class OrderController extends Controller
     */
    public function index()
    {
-      $order = Order::orderBy("created_at", "desc")->get();
+      //$order = Order::orderBy("created_at", "desc")->get();
+      $order = DB::table('orders')
+                  ->select("*")
+                  ->orderBy('created_at','desc')
+                  ->get();
       return view('kasir.listorder', compact('order'));
    }
 
@@ -108,6 +112,7 @@ class OrderController extends Controller
    public function goToQR(Request $request)
    {
       $cart = session()->get("cart");
+      
 
       if (Auth::user() == true) {
          $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => Auth::user()->id, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan];
@@ -133,6 +138,7 @@ class OrderController extends Controller
          session()->put("msg", $msg);
          return redirect()->route('index');
       } else {
+         
          $orders = new Order();
          $orders->status_order = "Processing";
          $orders->keterangan = $pelanggan->keterangan;
