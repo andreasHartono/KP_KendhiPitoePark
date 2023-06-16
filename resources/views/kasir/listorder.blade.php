@@ -46,12 +46,9 @@
                                             <form action="#" class="validated">
                                                 <label for="ganti status">Ganti Status Pesanan</label>
                                                 <select id="gantistatus" name="gantistatus" class="form-control editable">
-                                                    <option value="Processing" @selected($ord->status_order == 'Processing' ? 'selected="selected"' : '')
-                                                        class="bg-warning">Processing</option>
-                                                    <option value="Processing" @selected($ord->status_order == 'Done' ? 'selected="selected"' : '')
-                                                        class="bg-success">Done</option>
-                                                    <option value="Canceled"@selected($ord->status_order == 'Canceled' ? 'selected="selected"' : '') class="bg-danger">
-                                                        Canceled</option>
+                                                    <option value="Processing" class="bg-warning">Processing</option>
+                                                    <option value="Processing" class="bg-success">Done</option>
+                                                    <option value="Canceled" class="bg-danger">Canceled</option>
                                                 </select>
                                                 <a href="#" class="btn btn-danger btn-block btn-sm"><i
                                                         class="fa fa-bell"></i> Ganti Status Pesanan</a>
