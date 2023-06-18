@@ -25,9 +25,9 @@ class OrderController extends Controller
    {
       //$order = Order::orderBy("created_at", "desc")->get();
       $order = DB::table('orders')
-                  ->select("*")
-                  ->orderBy('created_at','desc')
-                  ->get();
+         ->select("*")
+         ->orderBy('created_at', 'desc')
+         ->get();
       return view('kasir.listorder', compact('order'));
    }
 
@@ -112,7 +112,7 @@ class OrderController extends Controller
    public function goToQR(Request $request)
    {
       $cart = session()->get("cart");
-      
+
 
       if (Auth::user() == true) {
          $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => Auth::user()->id, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan];
@@ -138,7 +138,7 @@ class OrderController extends Controller
          session()->put("msg", $msg);
          return redirect()->route('index');
       } else {
-         
+
          $orders = new Order();
          $orders->status_order = "Processing";
          $orders->keterangan = $pelanggan->keterangan;
@@ -181,36 +181,66 @@ class OrderController extends Controller
       }
    }
 
-   public function report_penjualan()
+   public function report_penjualan(Request $request)
    {
-      $data = $this->get_all_order_bydate(date("Y-m-d"));
-      $total = $data['total'];
-      $orderData = $data['orderData'];
-
-      $allSoldMenu = $this->get_all_ordermenu(date("Y-m-d"), 0);
-
-      if ($orderData[0] == null) {
-         $orderData = null;
+      $tanggal = 'hari ini';
+      if(!$request->timeInput)
+      {
+         $data = $this->get_all_order_bydate(date("Y-m-d"));
+         $total = $data['total'];
+         $orderData = $data['orderData'];
+   
+         $allSoldMenu = $this->get_all_ordermenu(date("Y-m-d"), 0);
+   
+         if ($orderData[0] == null) {
+            $orderData = null;
+         }
       }
+      else{
+         $data = $this->get_all_order_bydate($request->timeInput);
+         $total = $data['total'];
+         $orderData = $data['orderData'];
+   
+         $allSoldMenu = $this->get_all_ordermenu($request->timeInput, 0);
+         $tanggal = $request->timeInput;
 
-
-      return view('owner.reportpenjualan', compact(['orderData', 'total', 'allSoldMenu']));
+         if ($orderData[0] == null) {
+            $orderData = null;
+         }
+      }
+     
+      return view('owner.reportpenjualan', compact(['orderData', 'total', 'allSoldMenu','tanggal']));
    }
 
-   public function rekap_penjualan_pegawai()
+   public function rekap_penjualan_pegawai(Request $request)
    {
-      $data = $this->get_all_order_bydate(date("Y-m-d"));
-      $total = $data['total'];
-      $orderData = $data['orderData'];
+      $tanggal = "hari ini";
+      
+      if (!$request->timeInput) {
+         $data = $this->get_all_order_bydate(date("Y-m-d"));
+         $total = $data['total'];
+         $orderData = $data['orderData'];
 
-      if ($orderData[0] == null) {
-         $orderData = null;
+         if ($orderData[0] == null) {
+            $orderData = null;
+         }
+         $allSoldMenu = $this->get_all_ordermenu(date("Y-m-d"), Auth::user()->id);
+      } else {
+         
+         $data = $this->get_all_order_bydate($request->timeInput);         
+         $total = $data['total'];
+         $orderData = $data['orderData'];
+
+         if ($orderData[0] == null) {
+            $orderData = null;
+         }
+         $allSoldMenu = $this->get_all_ordermenu($request->timeInput, Auth::user()->id);
+         dd($allSoldMenu);
+         $tanggal = "tanggal ".$request->timeInput;
       }
-      $allSoldMenu = $this->get_all_ordermenu(date("Y-m-d"), Auth::user()->id);
 
 
-
-      return view('kasir.rekappenjualan', compact(['orderData', 'total', 'allSoldMenu']));
+      return view('kasir.rekappenjualan', compact(['orderData', 'total', 'allSoldMenu','tanggal']));
    }
 
    public function report_penjualan_detil(Request $request)
@@ -251,13 +281,24 @@ class OrderController extends Controller
             ->where('order_details.created_at', 'like', '%' . $date . '%')
             ->get();
       } else {
-         $allSoldMenu = DB::table('order_details')
-            ->select('users.name as nama_pemilik', 'cafes.name as nama_menu', 'cafes.price', DB::raw('SUM(order_details.jumlah) as jumlah'))
-            ->join('cafes', 'cafes.id', '=', 'order_details.cafe_id')
-            ->join('users', 'users.id', '=', 'cafes.id_pemilik_menu')
-            ->groupBy('order_details.cafe_id')
-            ->where([['users.id', '=', $id_pegawai], ['order_details.created_at', 'like', '%' . $date . '%']])
-            ->get();
+
+         $allSoldMenu = DB::select(DB::raw("SELECT v.food_name, v.price, v.jumlah, v.id_pemilik_menu, v.pemilik_name 
+         FROM (SELECT c.name as food_name, c.price, SUM(od.jumlah) as jumlah, c.id_pemilik_menu, u.name as pemilik_name
+         FROM order_details as od 
+         INNER JOIN cafes as c ON c.id = od.cafe_id
+         INNER JOIN users as u ON c.id_pemilik_menu = u.id
+         WHERE od.created_at LIKE '%".$date."%'
+         GROUP BY c.id) as v
+         WHERE v.id_pemilik_menu = ".$id_pegawai ."
+         GROUP BY v.food_name"));
+
+         // $allSoldMenu = DB::table('order_details')
+         //    ->select('users.name as nama_pemilik', 'cafes.name as nama_menu', 'cafes.price', DB::raw('SUM(order_details.jumlah) as jumlah'))
+         //    ->join('cafes', 'cafes.id', '=', 'order_details.cafe_id')
+         //    ->join('users', 'users.id', '=', 'cafes.id_pemilik_menu')
+         //    ->groupBy('order_details.cafe_id')
+         //    ->where([['users.id', '=', $id_pegawai], ['order_details.created_at', 'like', '%' . $date . '%']])
+         //    ->get();
       }
 
       return $allSoldMenu;
