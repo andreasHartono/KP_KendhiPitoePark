@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\DB;
 use PHPUnit\Util\Json;
 use Svg\Tag\Rect;
 use PDF;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\Printer;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class OrderController extends Controller
 {
@@ -184,23 +187,21 @@ class OrderController extends Controller
    public function report_penjualan(Request $request)
    {
       $tanggal = 'hari ini';
-      if(!$request->timeInput)
-      {
+      if (!$request->timeInput) {
          $data = $this->get_all_order_bydate(date("Y-m-d"));
          $total = $data['total'];
          $orderData = $data['orderData'];
-   
+
          $allSoldMenu = $this->get_all_ordermenu(date("Y-m-d"), 0);
-   
+
          if ($orderData[0] == null) {
             $orderData = null;
          }
-      }
-      else{
+      } else {
          $data = $this->get_all_order_bydate($request->timeInput);
          $total = $data['total'];
          $orderData = $data['orderData'];
-   
+
          $allSoldMenu = $this->get_all_ordermenu($request->timeInput, 0);
          $tanggal = $request->timeInput;
 
@@ -208,14 +209,14 @@ class OrderController extends Controller
             $orderData = null;
          }
       }
-     
-      return view('owner.reportpenjualan', compact(['orderData', 'total', 'allSoldMenu','tanggal']));
+
+      return view('owner.reportpenjualan', compact(['orderData', 'total', 'allSoldMenu', 'tanggal']));
    }
 
    public function rekap_penjualan_pegawai(Request $request)
    {
       $tanggal = "hari ini";
-      
+
       if (!$request->timeInput) {
          $data = $this->get_all_order_bydate(date("Y-m-d"));
          $total = $data['total'];
@@ -226,8 +227,8 @@ class OrderController extends Controller
          }
          $allSoldMenu = $this->get_all_ordermenu(date("Y-m-d"), Auth::user()->id);
       } else {
-         
-         $data = $this->get_all_order_bydate($request->timeInput);         
+
+         $data = $this->get_all_order_bydate($request->timeInput);
          $total = $data['total'];
          $orderData = $data['orderData'];
 
@@ -236,11 +237,11 @@ class OrderController extends Controller
          }
          $allSoldMenu = $this->get_all_ordermenu($request->timeInput, Auth::user()->id);
          dd($allSoldMenu);
-         $tanggal = "tanggal ".$request->timeInput;
+         $tanggal = "tanggal " . $request->timeInput;
       }
 
 
-      return view('kasir.rekappenjualan', compact(['orderData', 'total', 'allSoldMenu','tanggal']));
+      return view('kasir.rekappenjualan', compact(['orderData', 'total', 'allSoldMenu', 'tanggal']));
    }
 
    public function report_penjualan_detil(Request $request)
@@ -287,9 +288,9 @@ class OrderController extends Controller
          FROM order_details as od 
          INNER JOIN cafes as c ON c.id = od.cafe_id
          INNER JOIN users as u ON c.id_pemilik_menu = u.id
-         WHERE od.created_at LIKE '%".$date."%'
+         WHERE od.created_at LIKE '%" . $date . "%'
          GROUP BY c.id) as v
-         WHERE v.id_pemilik_menu = ".$id_pegawai ."
+         WHERE v.id_pemilik_menu = " . $id_pegawai . "
          GROUP BY v.food_name"));
 
          // $allSoldMenu = DB::table('order_details')
@@ -400,5 +401,120 @@ class OrderController extends Controller
       // $name = 'invoice_dapur ' . $dataOrder->id . '.pdf';
       // return $pdf->stream($name);
       return view('transaction.invoicedapur', compact(['dataOrder', 'detilOrder', 'imagePath']));
+   }
+
+   public function cetaNotaPelanggan($id)
+   {
+      $dataOrder = DB::table('orders')
+      ->select("orders.*", "users.name as nama_kasir")
+      ->join('users', 'orders.id_pegawai_kasir', '=', 'users.id')
+      ->where("orders.id", "=", $id)
+         ->orderBy("orders.created_at", "desc")
+         ->get();
+
+      $detilOrder = DB::table('order_details')
+      ->select('cafes.name as nama_menu', 'cafes.price', DB::raw('SUM(order_details.jumlah) as jumlah'))
+      ->join('cafes', 'cafes.id', '=', 'order_details.cafe_id')
+      ->groupBy('order_details.cafe_id')
+      ->where('order_details.order_id', '=', $id)
+         ->get();
+      $dataOrder = $dataOrder[0];
+      $connector = new WindowsPrintConnector("");
+      $print = new Printer($connector);
+      $print->setJustification(Printer::JUSTIFY_CENTER);
+      $print->setEmphasis(true);
+      $print->text("Kendhi Pitoe Park\n");
+      $print->text("Kali Jaten, Selotapak, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur\n");
+      $print->setEmphasis(false);
+      $print->text("\n===============================\n");
+      $print->setJustification(Printer::JUSTIFY_LEFT);
+      $print->setEmphasis(true);
+      $print->text("No Meja : " . $dataOrder->meja_id . "\n");
+      $print->text("Nama Pelanggan : " . $dataOrder->nama_pelanggan . "\n");
+      $print->text("Nama Kasir : " . $dataOrder->nama_kasir . "\n");
+      $print->text("Tanggal Transaksi : " . date('Y-m-d : H:i:s', strtotime($dataOrder->created_at)) . "\n");
+      $print->setEmphasis(false);
+      $print->text("\n===============================\n");
+      $print->setJustification(Printer::JUSTIFY_LEFT);
+      $print->text("Nama Menu");
+      $print->setJustification(Printer::JUSTIFY_CENTER);
+      $print->text("Jumlah Pesanan");
+      $print->setJustification(Printer::JUSTIFY_RIGHT);
+      $print->text("Subtotal\n");
+      $print->setEmphasis(false);
+      foreach ($detilOrder as $do) {
+         $print->setJustification(Printer::JUSTIFY_LEFT);
+         $print->text($do->nama_menu);
+         $print->setJustification(Printer::JUSTIFY_CENTER);
+         $print->text($do->jumlah);
+         $print->setJustification(Printer::JUSTIFY_RIGHT);
+         $print->text($do->jumlah * $do->price. "\n");
+      }
+      $print->setJustification(Printer::JUSTIFY_CENTER);
+      $print->text("\n===============================\n");
+      $print->setJustification(Printer::JUSTIFY_RIGHT);
+      $print->setEmphasis(true);
+      $print->text("Total: Rp." . number_format($dataOrder->total_price) . "\n");
+      $print->setTextSize(1, 1);
+      $print->text("Matur Nuwun sampun\n");
+      $print->text("Rawuh ing\n");
+      $print->text("Kendhi Pitoe Park");
+      $print->feed(5);
+      $print->close();
+      return Alert::success('Success Notification', 'Berhasil Print Nota Pelanggan');
+   }
+
+   public function cetaNotaDapur($id)
+   {
+      $dataOrder = DB::table('orders')
+         ->select("orders.*", "users.name as nama_kasir")
+         ->join('users', 'orders.id_pegawai_kasir', '=', 'users.id')
+         ->where("orders.id", "=", $id)
+         ->orderBy("orders.created_at", "desc")
+         ->get();
+
+      $detilOrder = DB::table('order_details')
+         ->select('cafes.name as nama_menu', 'cafes.price', DB::raw('SUM(order_details.jumlah) as jumlah'))
+         ->join('cafes', 'cafes.id', '=', 'order_details.cafe_id')
+         ->groupBy('order_details.cafe_id')
+         ->where('order_details.order_id', '=', $id)
+         ->get();
+      $dataOrder = $dataOrder[0];
+      $connector = new WindowsPrintConnector("");
+      $print = new Printer($connector);
+      $print->setJustification(Printer::JUSTIFY_CENTER);
+      $print->setEmphasis(true);
+      $print->text("Kendhi Pitoe Park\n");
+      $print->text("Kali Jaten, Selotapak, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur\n");
+      $print->setEmphasis(false);
+      $print->text("\n===============================\n");
+      $print->setJustification(Printer::JUSTIFY_LEFT);
+      $print->setEmphasis(true);
+      $print->text("No Meja : " . $dataOrder->meja_id . "\n");
+      $print->text("Nama Pelanggan : " . $dataOrder->nama_pelanggan . "\n");
+      $print->text("Nama Kasir : " . $dataOrder->nama_kasir . "\n");
+      $print->text("Tanggal Transaksi : " . date('Y-m-d : H:i:s', strtotime($dataOrder->created_at)) . "\n");
+      $print->setEmphasis(false);
+      $print->text("\n===============================\n");
+      $print->setJustification(Printer::JUSTIFY_LEFT);
+      $print->text("Nama Menu");
+      $print->setJustification(Printer::JUSTIFY_RIGHT);
+      $print->text("Jumlah Pesanan\n");
+      $print->text("\n===============================\n");
+      foreach ($detilOrder as $do) {
+         $print->setJustification(Printer::JUSTIFY_LEFT);
+         $print->text($do->nama_menu);
+         $print->setJustification(Printer::JUSTIFY_RIGHT);
+         $print->text($do->jumlah . "\n");
+      }
+      $print->setJustification(Printer::JUSTIFY_CENTER);
+      $print->text("\n===============================\n");
+      $print->setTextSize(1, 1);
+      $print->text("Matur Nuwun sampun\n");
+      $print->text("Rawuh ing\n");
+      $print->text("Kendhi Pitoe Park");
+      $print->feed(5);
+      $print->close();
+      return Alert::success('Success Notification', 'Berhasil Print Nota Dapur');
    }
 }

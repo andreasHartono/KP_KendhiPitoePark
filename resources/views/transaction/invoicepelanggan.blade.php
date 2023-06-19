@@ -88,7 +88,7 @@
                     <li>No Meja</li>
                     <li>Nama Pelanggan</li>
                     <li>Nama Kasir</li>
-                    <li>Tanggal</li>
+                    <li>Tanggal Transaksi</li>
                 </ul>
             </div>
             <div class="right">

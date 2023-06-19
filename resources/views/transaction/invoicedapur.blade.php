@@ -89,7 +89,7 @@
                     <li>No Meja</li>
                     <li>Nama Pelanggan</li>
                     <li>Nama Kasir</li>
-                    <li>Tanggal</li>
+                    <li>Tanggal Transaksi</li>
                 </ul>
             </div>
             <div class="right">
@@ -104,7 +104,7 @@
         <hr>
         <div class="flex-container" style="margin-bottom: 10px; text-align:right;">
             <div style="text-align: left;">Nama Menu</div>
-            <div>Jumlah yang Dibeli</div>
+            <div>Jumlah Pesanan</div>
         </div>
         @foreach ($detilOrder as $do)
             <div class="flex-container" style="text-align: right;">
