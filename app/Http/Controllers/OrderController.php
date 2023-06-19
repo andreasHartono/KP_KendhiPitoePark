@@ -371,11 +371,12 @@ class OrderController extends Controller
          ->groupBy('order_details.cafe_id')
          ->where('order_details.order_id', '=', $id)
          ->get();
-
+      $imagePath = public_path('images/pitoe.png');
       $dataOrder = $dataOrder[0];
-      $pdf = PDF::loadView('transaction.invoicepelanggan', compact(['dataOrder', 'detilOrder']))->setOptions(['defaultFont' => 'sans-serif']);
-      $name = 'invoice_pelanggan ' . $dataOrder->id . '.pdf';
-      return $pdf->download($name);;
+      // $pdf = PDF::loadView('transaction.invoicepelanggan', compact(['dataOrder', 'detilOrder', 'imagePath']))->setOptions(['defaultFont' => 'sans-serif']);
+      // $name = 'invoice_pelanggan ' . $dataOrder->id . '.pdf';
+      // return $pdf->stream($name);
+      return view('transaction.invoicepelanggan', compact(['dataOrder', 'detilOrder', 'imagePath']));
    }
 
    public function nota_dapur($id)
@@ -393,10 +394,11 @@ class OrderController extends Controller
          ->groupBy('order_details.cafe_id')
          ->where('order_details.order_id', '=', $id)
          ->get();
-
+      $imagePath = public_path('images/pitoe.png');
       $dataOrder = $dataOrder[0];
-      $pdf = PDF::loadView('transaction.invoicedapur', compact(['dataOrder', 'detilOrder']))->setOptions(['defaultFont' => 'sans-serif']);
-      $name = 'invoice_dapur ' . $dataOrder->id . '.pdf';
-      return $pdf->download($name);
+      // $pdf = PDF::loadView('transaction.invoicedapur', compact(['dataOrder', 'detilOrder', 'imagePath']))->setOptions(['defaultFont' => 'sans-serif']);
+      // $name = 'invoice_dapur ' . $dataOrder->id . '.pdf';
+      // return $pdf->stream($name);
+      return view('transaction.invoicedapur', compact(['dataOrder', 'detilOrder', 'imagePath']));
    }
 }

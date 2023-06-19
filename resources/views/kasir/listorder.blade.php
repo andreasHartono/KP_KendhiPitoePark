@@ -72,10 +72,10 @@
                                                     Detail Pesanan</a>
 
                                                 <a href="{{ route('nota_pelanggan', ['id' => $ord->id]) }}"
-                                                    class="btn btn-success btn-block btn-sm"><i class="fa fa-bell"></i>
+                                                    class="btn btn-success btn-block btn-sm" onclick="window.print()"><i class="fa fa-bell"></i>
                                                     Cetak Nota Pelanggan</a>
                                                 <a href="{{ route('nota_dapur', ['id' => $ord->id]) }}"
-                                                    class="btn btn-warning btn-block btn-sm"><i class="fa fa-bell"></i>
+                                                    class="btn btn-warning btn-block btn-sm" onclick="window.print()"><i class="fa fa-bell"></i>
                                                     Cetak Nota Dapur</a>
                                             </div>
                                         </td>
