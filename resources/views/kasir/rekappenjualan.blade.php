@@ -71,7 +71,7 @@ Kasir
     </div>
 </div>
 
-<!-- 
+{{--   
      @if ($orderData == null)
         <h5><i><b>Tidak ada data penjualan pada hari ini.</b></i></h5>
     @else
@@ -134,7 +134,7 @@ Kasir
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                 </div>
             </div>
-             -->
+             --}}
 <!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
