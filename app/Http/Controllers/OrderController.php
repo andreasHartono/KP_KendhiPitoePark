@@ -435,20 +435,12 @@ class OrderController extends Controller
       $print->text("Tanggal Transaksi : " . date('Y-m-d : H:i:s', strtotime($dataOrder->created_at)) . "\n");
       $print->setEmphasis(false);
       $print->text("\n===============================\n");
-      $print->setJustification(Printer::JUSTIFY_LEFT);
-      $print->text("Nama Menu");
-      $print->setJustification(Printer::JUSTIFY_CENTER);
-      $print->text("Jumlah Pesanan");
-      $print->setJustification(Printer::JUSTIFY_RIGHT);
-      $print->text("Subtotal\n");
       $print->setEmphasis(false);
       foreach ($detilOrder as $do) {
          $print->setJustification(Printer::JUSTIFY_LEFT);
-         $print->text($do->nama_menu);
-         $print->setJustification(Printer::JUSTIFY_CENTER);
-         $print->text($do->jumlah);
+         $print->text(sprintf("%.1fx%s\n", $do->jumlah, $do->nama_menu));
          $print->setJustification(Printer::JUSTIFY_RIGHT);
-         $print->text($do->jumlah * $do->price. "\n");
+         $print->text('Rp.' . number_format($do->jumlah * $do->price) . "\n");
       }
       $print->setJustification(Printer::JUSTIFY_CENTER);
       $print->text("\n===============================\n");
