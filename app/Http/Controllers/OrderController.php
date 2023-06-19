@@ -492,7 +492,7 @@ class OrderController extends Controller
       $print->text("Nama Menu");
       $print->setJustification(Printer::JUSTIFY_RIGHT);
       $print->text("Jumlah Pesanan\n");
-      $print->text("\n===============================\n");
+      $print->setEmphasis(false);
       foreach ($detilOrder as $do) {
          $print->setJustification(Printer::JUSTIFY_LEFT);
          $print->text($do->nama_menu);
