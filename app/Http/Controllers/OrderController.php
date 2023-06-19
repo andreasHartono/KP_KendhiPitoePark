@@ -419,7 +419,7 @@ class OrderController extends Controller
       ->where('order_details.order_id', '=', $id)
          ->get();
       $dataOrder = $dataOrder[0];
-      $connector = new WindowsPrintConnector("");
+      $connector = new WindowsPrintConnector("POS-58");
       $print = new Printer($connector);
       $print->setJustification(Printer::JUSTIFY_CENTER);
       $print->setEmphasis(true);
@@ -472,7 +472,7 @@ class OrderController extends Controller
          ->where('order_details.order_id', '=', $id)
          ->get();
       $dataOrder = $dataOrder[0];
-      $connector = new WindowsPrintConnector("");
+      $connector = new WindowsPrintConnector("POS-58");
       $print = new Printer($connector);
       $print->setJustification(Printer::JUSTIFY_CENTER);
       $print->setEmphasis(true);
