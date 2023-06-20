@@ -22,7 +22,7 @@
     <div class="card">
         <h5 class="card-header">Menu yang Dipesan</h5>
         <div class="checkout-table">
-            <table class="table table-hover">
+            <table class="table table-hover" id="example1">
                 <thead>
                     <tr>
                         <th class=product>Nama Menu</th>

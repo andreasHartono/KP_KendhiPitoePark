@@ -27,10 +27,12 @@ Kasir
         </div>
         <button type="submit" class="btn btn-primary ml-1 mb-2">Lakukan Pencarian Data</button>
     </form>
+     <a href="#" class="btn btn-success">Print Rekapan</a>
 </div>
 <div class="card">
     <div class="card-header">
         <h3 class="card-title"><b>Tabel penjualan menu anda {{ $tanggal }} :</b></h3>
+         
     </div>
     <div class="card-body">
         <div class="table-responsive">
