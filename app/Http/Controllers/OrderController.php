@@ -180,7 +180,7 @@ class OrderController extends Controller
          $orders->save();
          $cart = null;
          session()->put("scanCartOrder", $cart);
-         return redirect()->route('scan_kasir');
+         return redirect()->route('order.index');
       }
    }
 
@@ -219,7 +219,7 @@ class OrderController extends Controller
 
       if (!$request->timeInput) {
          $data = $this->get_all_order_bydate(date("Y-m-d"));
-         $total = $data['total'];
+         
          $orderData = $data['orderData'];
 
          if ($orderData[0] == null) {
@@ -229,19 +229,46 @@ class OrderController extends Controller
       } else {
 
          $data = $this->get_all_order_bydate($request->timeInput);
-         $total = $data['total'];
+        
          $orderData = $data['orderData'];
 
          if ($orderData[0] == null) {
             $orderData = null;
          }
          $allSoldMenu = $this->get_all_ordermenu($request->timeInput, Auth::user()->id);
-         dd($allSoldMenu);
-         $tanggal = "tanggal " . $request->timeInput;
+         
+         $tanggal = $request->timeInput;
       }
 
+      $failMsg = '';
+      return view('kasir.rekappenjualan', compact(['orderData','allSoldMenu', 'tanggal',"failMsg"]));
+   }
 
-      return view('kasir.rekappenjualan', compact(['orderData', 'total', 'allSoldMenu', 'tanggal']));
+   public function print_rekap_penjualan_pegawai($date)
+   {            
+
+      $data = $this->get_all_order_bydate($date);
+    
+      $orderData = $data['orderData'];
+
+      if ($orderData[0] == null) {
+         $orderData = null;
+      }
+
+      $allSoldMenu = $this->get_all_ordermenu($date, Auth::user()->id);         
+      $tanggal = "tanggal " . $date;
+
+      if($date == date('Y-m-d'))
+      {
+         $tanggal = "hari ini";
+      }      
+    
+      if(!$allSoldMenu)
+      {         
+         return redirect()->route('rekap_pegawai');
+      }
+     
+      return view('kasir.pdfrekappenjualan', compact(['orderData', 'allSoldMenu', 'tanggal']));
    }
 
    public function report_penjualan_detil(Request $request)
@@ -291,18 +318,19 @@ class OrderController extends Controller
          WHERE od.created_at LIKE '%" . $date . "%'
          GROUP BY c.id) as v
          WHERE v.id_pemilik_menu = " . $id_pegawai . "
-         GROUP BY v.food_name"));
+         GROUP BY v.food_name"));         
 
-         // $allSoldMenu = DB::table('order_details')
-         //    ->select('users.name as nama_pemilik', 'cafes.name as nama_menu', 'cafes.price', DB::raw('SUM(order_details.jumlah) as jumlah'))
-         //    ->join('cafes', 'cafes.id', '=', 'order_details.cafe_id')
-         //    ->join('users', 'users.id', '=', 'cafes.id_pemilik_menu')
-         //    ->groupBy('order_details.cafe_id')
-         //    ->where([['users.id', '=', $id_pegawai], ['order_details.created_at', 'like', '%' . $date . '%']])
-         //    ->get();
       }
 
       return $allSoldMenu;
+   }
+
+   public function ganti_status_order(Request $request){
+      $order = Order::find($request->orderId);
+      $order->status_order = $request->status;
+      $order->save();
+
+      return "Status order dengan ID : ".$request->orderId." berhasil terganti menjadi '$request->status'";
    }
 
    public function lacak_pesanan_ku()

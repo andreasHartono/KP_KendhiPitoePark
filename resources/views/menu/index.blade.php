@@ -63,8 +63,7 @@
                                 @else
                                     <button onclick="addToCart('{{ $cafe->id }}')" id="btnaddcart"
                                         class="btn btn-success" disabled>
-                                        <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}" alt=""
-                                            >
+                                        <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}" alt="">
                                         Pesan Sekarang
                                     </button>
                                 @endif
@@ -73,7 +72,6 @@
                     </div><br>
                 </div>
             @endforeach
-
         </div>
     </div>
 @endsection

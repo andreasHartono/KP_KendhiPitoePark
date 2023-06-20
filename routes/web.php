@@ -22,9 +22,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('designlistorder', function () {
-   return view('kasir.listorder');
-});
+
+Route::get('/tes', function(){
+   return view('kasir.pdfrekappenjualan');
+})->name("nasd");
 Route::get('/notaorder/{id}', [OrderController::class,'nota_pelanggan'])->name("nota_pelanggan");
 Route::get('/notaorderdapur/{id}', [OrderController::class,'nota_dapur'])->name("nota_dapur");
 
@@ -108,6 +109,11 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
    Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('checkout_order');
    Route::get('/order/validasipembayaran', [OrderController::class, 'validasipembayaran'])->name('validasi_pembayaran');
    Route::get('/rekappenjualanpegawai', [OrderController::class, 'rekap_penjualan_pegawai'])->name('rekap_pegawai');
+   Route::get('/printrekappenjualanpegawai/{date}', [OrderController::class, 'print_rekap_penjualan_pegawai'])->name('print_rekap_pegawai');
+   Route::get('/order/ganti_status_order', [OrderController::class, 'ganti_status_order'])->name('ganti_status_order');
+   
+
+
    Route::get('/rekaptotal', [OrderController::class, 'report_penjualan'])->name('report_penjualan');
    Route::get('/rekaptotaldetil', [OrderController::class, 'report_penjualan_detil'])->name('report_penjualan_detil');
    Route::get('/qrcodemeja', [MejaController::class, 'index'])->name('meja.index');

@@ -27,11 +27,15 @@ Kasir
         </div>
         <button type="submit" class="btn btn-primary ml-1 mb-2">Lakukan Pencarian Data</button>
     </form>
-     <a href="#" class="btn btn-success">Print Rekapan</a>
+    @php
+        $date = $tanggal;
+    @endphp
+     <a href="{{ route('print_rekap_pegawai',['date'=>$date]) }}" class="btn btn-success">Print Rekapan</a>
 </div>
+
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title"><b>Tabel penjualan menu anda {{ $tanggal }} :</b></h3>
+        <h3 class="card-title"><b>Tabel penjualan menu anda pada {{ $tanggal }} :</b></h3>
          
     </div>
     <div class="card-body">
@@ -147,6 +151,8 @@ Kasir
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
+
+    
     function lihatdetail(orderId) {
         $.ajax({
             type: 'GET',
