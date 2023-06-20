@@ -85,21 +85,6 @@
                   <td>Rp. {{ number_format(15000) }}</td>
                   <td>Rp. {{ number_format(15000) }}</td>
                </tr>
-                {{-- @php $subtotal = 0; @endphp
-                @foreach ($pemakaians as $pemakaian)
-                    <tr>
-                        <td>{{ $pemakaian->nama_bahan }}</td>
-                        <td>{{ $pemakaian->nama_merek }}</td>
-                        <td class="text-right" style="white-space: nowrap;">Rp.
-                            {{ number_format($pemakaian->harga_bahan, 0, ',', '.') }}</td>
-                        <td class="text-right" style="white-space: nowrap;">
-                            {{ preg_replace("/\,?0+$/", '', number_format($pemakaian->jumlah, 2, ',', '.')) }}
-                            {{ $pemakaian->satuan }}</td>
-                        <td class="text-right" style="white-space: nowrap;">Rp.
-                            {{ number_format($pemakaian->harga_bahan * $pemakaian->jumlah, 0, ',', '.') }}</td>
-                        @php $subtotal += $pemakaian->harga_bahan * $pemakaian->jumlah; @endphp
-                    </tr>
-                @endforeach --}}
             </tbody>
             <tfoot>
                 <tr>
