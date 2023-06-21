@@ -81,7 +81,7 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
 
 
    Route::get('/pegawai', function () {
-      return view('layouts.admin');
+      return view('kasir.selamatdatang');
    })->name('pegawai');
 
    Route::get('/datapegawai', function () {

@@ -31,6 +31,7 @@
                             <h6 class="title heading-4">Daftar Menu yang Dipilih</h6>
                             <div class="mb-50">
                                 <div id="msg-notif"></div>
+                                <input type="hidden" name="idmeja" id="idmeja" value="1">
                             </div>
                         </div>
                         @if (session('cart'))

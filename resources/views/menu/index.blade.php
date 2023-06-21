@@ -30,6 +30,7 @@
                 <div class="mb-50">
                     <h3 class="heading-4 font-weight-700">Daftar {{ $title }}</h3>
                     <div id="msg-notif"></div>
+                    <input type="hidden" name="idmeja" id="idmeja" value="1">
                 </div>
             </div>
             @foreach ($cafes as $cafe)
@@ -53,6 +54,7 @@
                             <div class="cta-section">
                                 <div class="price">Rp. {{ number_format($cafe->price) }}</div>
                                 <input type="hidden" name="idMenu" id="idmenu" value="{{ $cafe->id }}">
+                                
                                 @if ($cafe->status == true)
                                     <button onclick="addToCart('{{ $cafe->id }}')" id="btnaddcart"
                                         class="btn btn-success">

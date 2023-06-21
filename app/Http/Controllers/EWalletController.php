@@ -19,7 +19,8 @@ class EWalletController extends Controller
     */
    public function index()
    {
-      return redirect()->route('index');
+      $rekapVoucherTopUp = Ewallet::all();
+      return view('kasir.ewallet', compact('rekapVoucherTopUp'));
    }
    
    /**
