@@ -1,11 +1,9 @@
 <!doctype html>
 <html>
-
 <head>
     <title>Harga Rekapan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <style type="text/css">
     body {
@@ -34,7 +32,7 @@
 
 <body>
     <script type="text/php">
-            if (isset($pdf)) {
+        if (isset($pdf)) {
                 $pdf->page_text(60, $pdf->get_height()-35, "{{ $pemakaians[0]->nama_pelanggan }} ({{ $pemakaians[0]->kode_pelanggan }})", null, 7, array(0,0,0));
                 $pdf->page_text(500, $pdf->get_height()-35, "Halaman {PAGE_NUM}/{PAGE_COUNT}", null, 7, array(0,0,0));
             }
@@ -44,8 +42,7 @@
             <div class="col-sm-1" style="display: table-cell; vertical-align: middle; width: 20%;">
                 <img src="{{ asset('images/pitoe.png') }}" height="100" width="100">
             </div>
-            <div class="col-sm-6"
-                style="color: #28a745; display: table-cell; vertical-align: middle; padding-left: -30px;">
+            <div class="col-sm-6" style="color: #28a745; display: table-cell; vertical-align: middle; padding-left: -30px;">
                 <h5 style="font-weight: bold;">Kendhi Pitoe Park</h5>
                 <h5>Kali Jaten, Selotapak, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur</h5>
             </div>
@@ -57,7 +54,7 @@
                 <p><strong>Nama Pemilik Menu</strong></p>
             </div>
             <div style="display: inline-block;">
-                <p>: Pegawai 1</p>
+                <p>: {{ Auth::user()->name }}</p>
             </div>
         </div>
         <div style="margin-bottom: -10px;">
@@ -65,7 +62,7 @@
                 <p><strong>Tanggal Penjualan</strong></p>
             </div>
             <div style="display: inline-block;">
-                <p>: 19 Juni 2023</p>
+                <p>: {{ $tanggal }}</p>
             </div>
         </div>
         <table class="table table-striped table-bordered">
@@ -79,17 +76,24 @@
                 </tr>
             </thead>
             <tbody>
-               <tr>
-                  <td>Nasi Goreng</td>
-                  <td>1</td>
-                  <td>Rp. {{ number_format(15000) }}</td>
-                  <td>Rp. {{ number_format(15000) }}</td>
-               </tr>
+
+                @foreach($allSoldMenu as $menu)
+                <tr>
+                    <td>{{ $menu->food_name }}</td>
+                    <td>{{ $menu->jumlah }}</td>
+                    <td>Rp. {{ number_format($menu->price) }}</td>
+                    @php
+                    $subTotal = $menu->price * $menu->jumlah;
+                    $grandTotal += $subTotal;
+                    @endphp
+                    <td>Rp. {{ number_format($subTotal) }}</td>
+                </tr>
+                @endforeach
             </tbody>
             <tfoot>
                 <tr>
                     <th class="text-right" colspan=4>Grand Total</th>
-                    <td class="text-right" colspan=2>Rp. {{ number_format(10000) }}</td>
+                    <td class="text-right" colspan=2>Rp. {{ number_format($grandTotal) }}</td>
                 </tr>
             </tfoot>
     </div>
