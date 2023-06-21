@@ -30,7 +30,7 @@
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Order Id","name"=>"order_id","join"=>"order,id"];
+			$this->col[] = ["label"=>"Order Id","name"=>"order_id","join"=>"orders,id"];
 			$this->col[] = ["label"=>"Cafe Id","name"=>"cafe_id","join"=>"cafes,id"];
 			$this->col[] = ["label"=>"Jumlah","name"=>"jumlah"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
@@ -44,9 +44,9 @@
 
 			# OLD START FORM
 			//$this->form = [];
-			//$this->form[] = ["label"=>"Order Id","name"=>"order_id","type"=>"select2","required"=>TRUE,"validation"=>"required|min:1|max:255","datatable"=>"order,id"];
-			//$this->form[] = ["label"=>"Cafe Id","name"=>"cafe_id","type"=>"select2","required"=>TRUE,"validation"=>"required|min:1|max:255","datatable"=>"cafe,id"];
-			//$this->form[] = ["label"=>"Jumlah","name"=>"jumlah","type"=>"number","required"=>TRUE,"validation"=>"required|integer|min:0"];
+			//$this->form[] = ['label'=>'Order Id','name'=>'order_id','type'=>'select2','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'orders,id'];
+			//$this->form[] = ['label'=>'Cafe Id','name'=>'cafe_id','type'=>'select2','validation'=>'required|min:1|max:255','width'=>'col-sm-10','datatable'=>'cafes,id'];
+			//$this->form[] = ['label'=>'Jumlah','name'=>'jumlah','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
 			# OLD END FORM
 
 			/* 

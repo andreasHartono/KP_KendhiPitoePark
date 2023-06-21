@@ -21,7 +21,9 @@
             <div class="card">
                 <div class="card-header p-2">
                     <ul class="nav nav-pills">
-                        <li class="nav-item d-flex justify-content-center"><h5><b>Profil</b></h5></li>
+                        <li class="nav-item d-flex justify-content-center">
+                            <h5><b>Profil</b></h5>
+                        </li>
                     </ul>
                 </div><!-- /.card-header -->
                 <div class="card-body box-profile">
@@ -69,7 +71,9 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
-                                            <button type="submit" class="btn btn-block btn-success">Ubah Profil</button>
+                                            <button type="submit" class="btn btn-block btn-success"
+                                                onclick="if(!confirm('apakah anda yakin bahwa informasi profil yang anda ubah sudah benar ?')) return false;">Ubah
+                                                Profil</button>
                                         </div>
                                     </div>
                                 </form>
