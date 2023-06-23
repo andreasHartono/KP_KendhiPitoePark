@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/tes', function(){
    return view('kasir.pdfrekappenjualan');
 })->name("nasd");
+
 Route::get('/notaorder/{id}', [OrderController::class,'nota_pelanggan'])->name("nota_pelanggan");
 Route::get('/notaorderdapur/{id}', [OrderController::class,'nota_dapur'])->name("nota_dapur");
 
@@ -70,7 +71,11 @@ Route::middleware(['auth', 'role:pelanggan'])->group(function () {
       return view('transaction.notapembayaran');
    });
 
-   Route::get('/ewallet/isiewallet', [EWalletController::class, 'isiEwallet'])->name('isi_ewallet');
+   Route::get('/membershiptopup', function () {
+      return view('pelanggan.topup');
+   })->name('pelanggan_topup');
+
+   Route::get('/profilepelanggan/update', [AccountController::class, 'update_profil'])->name('update_profil');
    Route::get('/ewallet/checkout_ewallet', [EWalletController::class, 'checkoutEwallet'])->name('checkout_ewallet');
    Route::get('/lacakpesanandetil/{id}', [OrderController::class, 'lacak_pesanan_detil'])->name("lacak_pesanan_detil");
    Route::get('/lacakpesananku', [OrderController::class, 'lacak_pesanan_ku'])->name("lacak_pesanan");
@@ -96,10 +101,7 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
    Route::get('/profilowner', function () {
       return view('owner.profil');
    })->name("profil_owner");
-
-   Route::get('/membershiptopup', function () {
-      return view('pelanggan.topup');
-   })->name('pelanggan_topup');
+   
 
    Route::get('/scankasir', function () {
       return view('kasir.scan');
@@ -113,7 +115,7 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
    Route::get('/order/ganti_status_order', [OrderController::class, 'ganti_status_order'])->name('ganti_status_order');
    
 
-
+   Route::get('/ewallet/isiewallet', [EWalletController::class, 'isiEwallet'])->name('isi_ewallet');
    Route::get('/rekaptotal', [OrderController::class, 'report_penjualan'])->name('report_penjualan');
    Route::get('/rekaptotaldetil', [OrderController::class, 'report_penjualan_detil'])->name('report_penjualan_detil');
    Route::get('/qrcodemeja', [MejaController::class, 'index'])->name('meja.index');

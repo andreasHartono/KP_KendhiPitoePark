@@ -101,4 +101,23 @@ class AccountController extends Controller
       $request->session()->flash('success', 'Pendaftaran Akun Kendhi Pitoe Berhasil');
       return redirect('/');
    }
+
+   public function update_profil(Request $request)
+   {
+      
+      $nama = $request['inputNama'];
+      $telp = $request['inputTelepon'];
+      $alamat = $request['inputAlamat'];      
+
+      $idUser = Auth::user()->id;
+      $user = User::find($idUser);
+      $user->name = $nama;
+      $user->phone = $telp;
+      $user->address = $alamat;
+      $user->save();
+
+      $msg = "Data profil berhasil diubah";
+
+      return view('pelanggan.profilpelanggan', compact("msg"));
+   }
 }
