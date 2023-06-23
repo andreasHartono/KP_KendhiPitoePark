@@ -29,7 +29,7 @@ Route::get('/tes', function(){
 
 Route::get('/notaorder/{id}', [OrderController::class,'nota_pelanggan'])->name("nota_pelanggan");
 Route::get('/notaorderdapur/{id}', [OrderController::class,'nota_dapur'])->name("nota_dapur");
-
+Route::get('/lacakpesanantamu', [OrderController::class, 'lacak_pesanan_tamu'])->name("lacak_pesanan_tamu");
 
 
 //LOGIN REGISTER
@@ -39,6 +39,7 @@ Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
 Route::get('/register', [AccountController::class, 'indexRegister'])->name('register');
 Route::post('/register_detail', [AccountController::class, 'create']);
 Route::get('/', [CafeController::class, 'index'])->name("index");
+
 
 
 Route::get('add-to-cart', [CafeController::class, 'addToCart'])->name('addToCart');

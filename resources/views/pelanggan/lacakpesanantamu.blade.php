@@ -78,21 +78,25 @@
         </div>
     </form> --}}
 
-@if (count($userOrder) != 0)
 {{-- pake ajax tapi ini carinya opsi 2--}}
 <div class="card" id="card-cari">
     <div class="card-body d-flex justify-content-center ">
         {{-- keluarin notif sukses atau gagal --}}
         <div id="msg-notif"></div>
         <div class="search-container w-100">
+            <form class="w-100" action="{{ route('lacak_pesanan_tamu')}}">
             <label for="nomororder" class="">Cari Nomor Order :</label>
             <input id="nomororder" type="text" class="form-control" name="nomororder" value="" autofocus style="width: 75%;">
 
-            <button class="btn btn-success" id="carilacak" style="width: 100px;font-size:16px;" type="button" onclick="lacakPesanan()">
-                <i class="fa-solid fa-magnifying-glass" style="margin-right: 8px;"></i>Cari</button>
+            <input type="submit" class="btn btn-success" id="carilacak" style="width: 100px;font-size:16px;" type="button" onclick="lacakPesanan()">
+                <i class="fa-solid fa-magnifying-glass" style="margin-right: 8px;"></i>Cari</input>
+        
+            </form>
         </div>
     </div>
 </div>
+@if (count($userOrder) != 0)
+
 
 @foreach ($userOrder as $order)
 <div class="card">
@@ -117,7 +121,6 @@
 <!-- /.card -->
 <br>
 @endforeach
-@else
-<h5><i><b>Anda tidak memiliki catatan pembelian di Kendhi Pitoe Cafe.</b></i></h5>
+
 @endif
 @endsection

@@ -340,8 +340,23 @@ class OrderController extends Controller
          ->select("*")
          ->where("id_pelanggan", "=", $id)
          ->orderBy("created_at", "desc")
-         ->get();
+         ->get();         
+     
       return view('pelanggan.lacakpesanan', compact('userOrder'));
+   }
+
+   public function lacak_pesanan_tamu(Request $request)
+   {
+      $orderId = $request['nomororder'];
+      $userOrder = DB::table('orders')
+         ->select("*")
+         ->where([["id", "=", $orderId],["id_pelanggan", "=", 99]])
+         ->orderBy("created_at", "desc")
+         ->get();         
+
+         dd($orderId,$userOrder);
+     
+      return view('pelanggan.lacakpesanantamu', compact('userOrder'));
    }
 
    public function lacak_pesanan_detil_pegawai($id)
