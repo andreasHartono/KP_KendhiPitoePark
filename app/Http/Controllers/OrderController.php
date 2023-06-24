@@ -14,7 +14,9 @@ use PHPUnit\Util\Json;
 use Svg\Tag\Rect;
 use PDF;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 use Mike42\Escpos\Printer;
+use Mike42\Escpos\CapabilityProfile;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class OrderController extends Controller
@@ -462,8 +464,9 @@ class OrderController extends Controller
       ->where('order_details.order_id', '=', $id)
          ->get();
       $dataOrder = $dataOrder[0];
-      $connector = new WindowsPrintConnector("POS-58");
-      $print = new Printer($connector);
+      $profile = CapabilityProfile::load("TM-P20");
+      $connector = new WindowsPrintConnector("smb://computer/printer");
+      $print = new Printer($connector, $profile);
       $print->setJustification(Printer::JUSTIFY_CENTER);
       $print->setEmphasis(true);
       $print->text("Kendhi Pitoe Park\n");
@@ -515,8 +518,9 @@ class OrderController extends Controller
          ->where('order_details.order_id', '=', $id)
          ->get();
       $dataOrder = $dataOrder[0];
-      $connector = new WindowsPrintConnector("POS-58");
-      $print = new Printer($connector);
+      $profile = CapabilityProfile::load("TM-P20");
+      $connector = new WindowsPrintConnector("smb://computer/printer");
+      $print = new Printer($connector, $profile);
       $print->setJustification(Printer::JUSTIFY_CENTER);
       $print->setEmphasis(true);
       $print->text("Kendhi Pitoe Park\n");
