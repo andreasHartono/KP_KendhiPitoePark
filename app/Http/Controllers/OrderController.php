@@ -130,7 +130,7 @@ class OrderController extends Controller
       $cartJson = json_encode($cart);
 
       return view('/transaction.verifikasipembayaran', compact('cartJson'));
-   }
+   }   
 
    public function checkout(Request $request)
    {
@@ -263,10 +263,18 @@ class OrderController extends Controller
 
       if ($date == date('Y-m-d')) {
          $tanggal = "hari ini";
+<<<<<<< Updated upstream
       }
 
       if (!$allSoldMenu) {
          return redirect()->route('rekap_pegawai');
+=======
+      }      
+    
+      if(!$allSoldMenu)
+      {         
+         return redirect()->route('rekap_pegawai')->withErrors(['Tidak ada data penjualan menu anda hari ini']);
+>>>>>>> Stashed changes
       }
 
       return view('kasir.pdfrekappenjualan', compact(['orderData', 'allSoldMenu', 'tanggal']));
@@ -346,17 +354,21 @@ class OrderController extends Controller
       return view('pelanggan.lacakpesanan', compact('userOrder'));
    }
 
-   public function lacak_pesanan_tamu(Request $request)
+   public function lacak_pesanan_by_orderid(Request $request)
    {
       $orderId = $request['nomororder'];
       $userOrder = DB::table('orders')
          ->select("*")
          ->where([["id", "=", $orderId], ["id_pelanggan", "=", 99]])
          ->orderBy("created_at", "desc")
+<<<<<<< Updated upstream
          ->get();
 
       dd($orderId, $userOrder);
 
+=======
+         ->get();              
+>>>>>>> Stashed changes
       return view('pelanggan.lacakpesanantamu', compact('userOrder'));
    }
 
@@ -382,12 +394,21 @@ class OrderController extends Controller
 
    public function lacak_pesanan_detil($id)
    {
+      // if(isset($request['orderId']))
+      // {
+      //    $id = $request['orderId'];
+      // }      
 
       $dataOrder = DB::table('orders')
          ->select("*")
          ->where("id", "=", $id)
          ->orderBy("created_at", "desc")
          ->get();
+
+      if(count($dataOrder) == 0)
+      {
+         return '<h5>Pesanan yang dicari tidak ada.</h5>';
+      }
 
       $detilOrder = DB::table('order_details')
          ->select('cafes.name as nama_menu', 'cafes.price', DB::raw('SUM(order_details.jumlah) as jumlah'))
