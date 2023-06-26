@@ -1,34 +1,38 @@
 <!doctype html>
 <html>
+
 <head>
     <title>Harga Rekapan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="{{ asset('template/assets/images/pitoe.png') }}" type="image/png">
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+            font-size: 10px;
+        }
+
+        .table {
+            font-size: 10px;
+        }
+
+        .table tr,
+        .table td {
+            height: 20px;
+        }
+
+        .table>tbody>tr>td,
+        .table>tbody>tr>th,
+        .table>tfoot>tr>td,
+        .table>tfoot>tr>th,
+        .table>thead>tr>td,
+        .table>thead>tr>th {
+            padding: 0 5 0 5;
+        }
+    </style>
 </head>
-<style type="text/css">
-    body {
-        font-family: sans-serif;
-        font-size: 10px;
-    }
-
-    .table {
-        font-size: 10px;
-    }
-
-    .table tr,
-    .table td {
-        height: 20px;
-    }
-
-    .table>tbody>tr>td,
-    .table>tbody>tr>th,
-    .table>tfoot>tr>td,
-    .table>tfoot>tr>th,
-    .table>thead>tr>td,
-    .table>thead>tr>th {
-        padding: 0 5 0 5;
-    }
-</style>
 
 <body>
     <script type="text/php">
@@ -42,7 +46,8 @@
             <div class="col-sm-1" style="display: table-cell; vertical-align: middle; width: 20%;">
                 <img src="{{ asset('images/pitoe.png') }}" height="150" width="150">
             </div>
-            <div class="col-sm-6" style="color: #080908; display: table-cell; vertical-align: middle; padding-left: -30px;">
+            <div class="col-sm-6"
+                style="color: #080908; display: table-cell; vertical-align: middle; padding-left: -30px;">
                 <h5 style="font-weight: bold;">Kendhi Pitoe Park</h5>
                 <h5>Kali Jaten, Selotapak, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur</h5>
             </div>
@@ -76,17 +81,17 @@
             </thead>
             <tbody>
 
-                @foreach($allSoldMenu as $menu)
-                <tr>
-                    <td style="text-align: center;">{{ $menu->food_name }}</td>
-                    <td style="text-align: center;">{{ $menu->jumlah }}</td>
-                    <td>Rp. {{ number_format($menu->price) }}</td>
-                    @php
-                    $subTotal = $menu->price * $menu->jumlah;
-                    $grandTotal += $subTotal;
-                    @endphp
-                    <td>Rp. {{ number_format($subTotal) }}</td>
-                </tr>
+                @foreach ($allSoldMenu as $menu)
+                    <tr>
+                        <td style="text-align: center;">{{ $menu->food_name }}</td>
+                        <td style="text-align: center;">{{ $menu->jumlah }}</td>
+                        <td>Rp. {{ number_format($menu->price) }}</td>
+                        @php
+                            $subTotal = $menu->price * $menu->jumlah;
+                            $grandTotal += $subTotal;
+                        @endphp
+                        <td>Rp. {{ number_format($subTotal) }}</td>
+                    </tr>
                 @endforeach
             </tbody>
             <tfoot>
