@@ -27,8 +27,8 @@ Route::get('/tes', function(){
    return view('kasir.pdfrekappenjualan');
 })->name("nasd");
 
-Route::get('/notaorder/{id}', [OrderController::class,'nota_pelanggan'])->name("nota_pelanggan");
-Route::get('/notaorderdapur/{id}', [OrderController::class,'nota_dapur'])->name("nota_dapur");
+Route::get('/notaorder/{id}', [OrderController::class,'cetak_nota_pelanggan'])->name("nota_pelanggan");
+Route::get('/notaorderdapur/{id}', [OrderController::class,'cetak_nota_dapur'])->name("nota_dapur");
 Route::get('/lacakpesanantamu', [OrderController::class, 'lacak_pesanan_tamu'])->name("lacak_pesanan_tamu");
 
 

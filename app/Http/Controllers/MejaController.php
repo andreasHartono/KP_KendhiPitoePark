@@ -71,8 +71,7 @@ class MejaController extends Controller
       $meja->no_meja = $request->no_meja;
       $meja->link = $request->link;
       $meja->save();
-      Alert::success('Success Notification', 'Berhasil membuat meja baru dengan nomor meja '.$request->no_meja);
-      return redirect()->back();
+      return redirect()->back()->with('success', Alert::success('Success Notification', 'Berhasil membuat meja baru dengan nomor meja '.$request->no_meja));
    }
 
    /**

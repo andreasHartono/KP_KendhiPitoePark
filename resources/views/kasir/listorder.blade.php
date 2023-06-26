@@ -18,6 +18,9 @@ List Order
 @section('content')
 <div class="container-fluid">
     <div class="row col-lg-12">
+      @if(session('success'))
+         {{ session('sucess') }}
+      @endif
         <div class="card" style="width: 100%;">
             <div class="card-header">
                 <h3>Daftar Pesanan Makanan & Minuman Hari ini</b></h3>
