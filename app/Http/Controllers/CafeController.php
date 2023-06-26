@@ -105,7 +105,7 @@ class CafeController extends Controller
 
          session()->put('cart', $cart);
          //   return Alert::success('Pesan Menu Berhasil', $cart[$id]['name'] . ' berhasil ditambahkan');
-         return $cart[$id]['name'] . ' berhasil ditambahkan';
+         return ["msg"=>$cart[$id]['name'].' berhasil ditambahkan', "price"=>$food->price];
       } else {
          return redirect()->route('index');
       }
@@ -123,14 +123,36 @@ class CafeController extends Controller
                $text = $cart[$id]['name'] . ' berhasil dihilangkan';
                unset($cart[$id]);
                session()->put('cart', $cart);
-               return $text;
+               return ["msg"=>$text, "price"=>$cart[$id]['price']];
             }
          }
 
          session()->put('cart', $cart);
-         //   return Alert::success('Pesan Menu Berhasil', $cart[$id]['name'] . ' berhasil ditambahkan');
-         return $cart[$id]['name'] . ' berhasil dikurangi';
+         return ["msg"=>$cart[$id]['name'] . ' berhasil dikurangi', "price"=>$cart[$id]['price']];
+         return ;
       } else {
+         return redirect()->route('index');
+      }
+   }
+
+   public function deleteFromCart(Request $request)
+   {
+      if (!is_null($request->id)) 
+      {
+         $id = $request->id;        
+         $cart = session()->get('cart');
+
+         if (isset($cart[$id])) 
+         {            
+            $text = $cart[$id]['name'] . ' berhasil dihilangkan';
+            $quantity = $cart[$id]['quantity'];
+            $price = $cart[$id]['price'];
+            unset($cart[$id]);
+            session()->put('cart', $cart);
+
+            return ["msg"=>$text, "price"=>$price,"qty"=>$quantity];            
+         }
+      }else {
          return redirect()->route('index');
       }
    }

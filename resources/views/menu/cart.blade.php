@@ -34,65 +34,69 @@ $total = 0;
                             <input type="hidden" name="idmeja" id="idmeja" value="1">
                         </div>
                     </div>
-                    @if (session('cart'))
-                    @foreach (session('cart') as $id => $details)
-                    @php
-                    $total += $details['price'] * $details['quantity'];
-                    @endphp
-                    <div class="card card-1" id="cart_{{ $details['id'] }}">
-                        <div class="card-body card-body-1">
-                            <img src="{{ asset('assets/images/menu/' . $details['image']) }}" alt="menu" class="img-responsive">
-                            <div class="text-section">
-                                <h4 class="title title-1">{{ $details['name'] }}</h4>
-                                <p class="card-text card-text-1">
-                                    <b>Harga per Menu:</b><br>Rp.<b>{{ number_format($details['price']) }}</b>
-                                    <br> <b>Sub Total:</b><br>
-                                    Rp.<b>{{ number_format($details['price'] * $details['quantity']) }}</b>
-                                </p>
-                            </div>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <div class="cta-section d-grid gap-2">
-                                <div class="checkout-quantity">
-                                    <div class="text-center">Jumlah Yang dipesan:</div> <br>
-                                    <div class="product-quantity d-inline-flex">
+                    <div id="contain">
+                        @if (session('cart'))
+                        @foreach (session('cart') as $id => $details)
+                        @php
+                        $total += $details['price'] * $details['quantity'];
+                        @endphp
+                        <div class="card card-1" id="cart_{{ $details['id'] }}">
+                            <div class="card-body card-body-1">
+                                <img src="{{ asset('assets/images/menu/' . $details['image']) }}" alt="menu" class="img-responsive">
+                                <div class="text-section">
+                                    <h4 class="title title-1">{{ $details['name'] }}</h4>
+                                    <p class="card-text card-text-1">
+                                        <b>Harga per Menu:</b><br>Rp.<b>{{ $details['price'] }}</b>
+                                        <br> <b>Sub Total:</b><br>
+                                        Rp.<b id="sub_total_{{ $details['id'] }}">{{ $details['price'] * $details['quantity'] }}</b>
+                                    </p>
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="cta-section d-grid gap-2">
+                                    <div class="checkout-quantity">
+                                        <div class="text-center">Jumlah Yang dipesan:</div> <br>
+                                        <div class="product-quantity d-inline-flex">
 
-                                        <button type="button" id="sub btnaddcart" class="sub" onclick="removeFromCart('{{ $details['id'] }}')">
-                                            <i class="mdi mdi-minus"></i>
-                                        </button>
+                                            <button type="button" id="sub btnaddcart" class="sub" onclick="removeFromCart('{{ $details['id'] }}')">
+                                                <i class="mdi mdi-minus"></i>
+                                            </button>
 
-                                        <input type="text" value="{{ $details['quantity'] }}">
+                                            <input type="text" value="{{ $details['quantity'] }}">
 
-                                        <button type="button" id="add" class="add" onclick="addToCart('{{ $details['id'] }}')">
-                                            <i class="mdi mdi-plus"></i>
-                                        </button>
-                                    </div><br><br>
-                                    <a class="delete d-flex justify-content-center" href="#" onclick="removeFromCart('{{ $details['id'] }}')">
-                                        <i class="mdi mdi-delete"></i>Hapus
-                                    </a>
+                                            <button type="button" id="add" class="add" onclick="addToCart('{{ $details['id'] }}')">
+                                                <i class="mdi mdi-plus"></i>
+                                            </button>
+                                        </div><br><br>
+                                        <a class="delete d-flex justify-content-center" onclick="deleteFromCart('{{ $details['id'] }}')">
+                                            <i class="mdi mdi-delete"></i>Hapus
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br>
+                        @endforeach
+                        <div class="card card-1 checkout-total d-flex flex-wrap">
+                            <div class="card-header">
+                                <h4 class="card-title">Total Pembayaran : Rp. <span id="grand_total">{{ $total }}</span></h4>
+                            </div>
+                            <div class="card-body card-body-1">
+                                <div class="single-btn">
+                                    <a href="{{ route('index') }}" class="main-btn primary-btn-border">Lanjutkan Pilih
+                                        Menu</a>
+                                    <a href="{{ route('checkout') }}" class="main-btn primary-btn">Checkout</a>
                                 </div>
                             </div>
                         </div>
-                    </div><br>
-                    @endforeach
-                    <div class="card card-1 checkout-total d-flex flex-wrap">
-                        <div class="card-header">
-                            <h4 class="card-title">Total Pembayaran : Rp.{{ number_format($total) }}</h4>
-                        </div>
-                        <div class="card-body card-body-1">
-                            <div class="single-btn">
-                                <a href="{{ route('index') }}" class="main-btn primary-btn-border">Lanjutkan Pilih
-                                    Menu</a>
-                                <a href="{{ route('checkout') }}" class="main-btn primary-btn">Checkout</a>
+                        @else
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="heading-2">Daftar Pesanan Sementara Kosong</h2><br>
+                                <a href="{{ route('index') }}" class="main-btn primary-btn"> <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}" alt="logo cart">Silahkan Pilih Menu</a>
                             </div>
                         </div>
+                        @endif
+
                     </div>
-                    @else
-                    <div class="card">
-                        <div class="card-body">
-                            <h2 class="heading-2">Daftar Pesanan Sementara Kosong</h2><br>
-                            <a href="{{ route('index') }}" class="main-btn primary-btn"> <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}" alt="logo cart">Silahkan Pilih Menu</a>
-                        </div>
-                    </div>
-                    @endif
+
                 </div>
             </div>
         </div>
@@ -110,8 +114,12 @@ $total = 0;
                 " id": id
             },
             success: function(response) {
-                $('#msg-notif').html('<div class="alert alert-success" role="alert"><b>' + response +
-                    '</b></div>');
+                $('#msg-notif').html('<div class="alert alert-success" role="alert"><b>' + response['msg'] + '</b></div>');
+                var total = $('#grand_total').html() * 1;
+                total += response['price'] * 1;
+                $('#grand_total').html(total);
+                $('#sub_total_' + id).html($('#sub_total_' + id).html() * 1 + response['price'] * 1);
+
             }
         })
     }
@@ -124,11 +132,40 @@ $total = 0;
                 " id": id
             },
             success: function(response) {
-                $('#msg-notif').html('<div class="alert alert-success" role="alert"><b>' + response +
+                $('#msg-notif').html('<div class="alert alert-success" role="alert"><b>' + response['msg'] +
                     '</b></div>');
-                if (response.match(/dihilangkan.*/)) {
-                    $('#cart_'+id).remove();
+
+                if (response['msg'].match(/dihilangkan.*/)) {
+                    $('#cart_' + id).remove();
                 }
+
+                var total = $('#grand_total').html() * 1;
+                total -= response['price'] * 1;
+                $('#grand_total').html(total);
+                $('#sub_total_' + id).html($('#sub_total_' + id).html() * 1 - response['price'] * 1);
+
+            }
+        })
+    }
+
+    function deleteFromCart(id) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('deleteFromCart') }}",
+            data: {
+                " id": id
+            },
+            success: function(response) {
+                $('#msg-notif').html('<div class="alert alert-success" role="alert"><b>' + response['msg'] +
+                    '</b></div>');
+                $('#cart_' + id).remove();
+                var total = $('#grand_total').html() * 1;
+                console.log(response['price'] * response['qty']);
+                total -= response['price'] * response['qty'];
+                console.log(total);
+                $('#grand_total').html(total);
+
+
             }
         })
     }

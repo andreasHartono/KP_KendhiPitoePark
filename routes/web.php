@@ -27,12 +27,6 @@ Route::get('/tes', function(){
    return view('kasir.pdfrekappenjualan');
 })->name("nasd");
 
-<<<<<<< Updated upstream
-Route::get('/notaorder/{id}', [OrderController::class,'cetak_nota_pelanggan'])->name("nota_pelanggan");
-Route::get('/notaorderdapur/{id}', [OrderController::class,'cetak_nota_dapur'])->name("nota_dapur");
-Route::get('/lacakpesanantamu', [OrderController::class, 'lacak_pesanan_tamu'])->name("lacak_pesanan_tamu");
-
-=======
 Route::get('/lacakpesanantamu', function(){
    return view('pelanggan.lacakpesanantamu');
 })->name("lacak_pesanan_tamu");
@@ -40,9 +34,8 @@ Route::get('/lacakpesanantamu', function(){
 
 Route::get('/notaorder/{id}', [OrderController::class,'nota_pelanggan'])->name("nota_pelanggan");
 Route::get('/notaorderdapur/{id}', [OrderController::class,'nota_dapur'])->name("nota_dapur");
-Route::get('/lacakpesanantamudetil', [OrderController::class, 'lacak_pesanan_by_orderid'])->name("lacak_pesanan_by_orderid");
+Route::get('/lacakpesanantamudetil', [OrderController::class, 'lacak_pesanan_by_nama_dan_meja'])->name("lacak_pesanan_by_nama_dan_meja");
 Route::get('/lacakpesanandetil/{id}', [OrderController::class, 'lacak_pesanan_detil'])->name("lacak_pesanan_detil");
->>>>>>> Stashed changes
 
 //LOGIN REGISTER
 Route::get('/login', [AccountController::class, 'index'])->name('login');
@@ -56,6 +49,8 @@ Route::get('/', [CafeController::class, 'index'])->name("index");
 
 Route::get('add-to-cart', [CafeController::class, 'addToCart'])->name('addToCart');
 Route::get('remove-from-cart', [CafeController::class, 'removeFromCart'])->name('removeFromCart');
+Route::get('delete-from-cart', [CafeController::class, 'deleteFromCart'])->name('deleteFromCart');
+
 Route::get('increase-cart', [CafeController::class, 'increaseQtyCart'])->name('increaseQtyCart');
 Route::get('decrease-cart', [CafeController::class, 'decreaseQtyCart'])->name('decreaseQtyCart');
 Route::get('delete-item-cart', [CafeController::class, 'deleteQtyCart'])->name('deleteQtyCart');

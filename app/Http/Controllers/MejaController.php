@@ -57,7 +57,13 @@ class MejaController extends Controller
                   ->orderByDesc("no_meja")
                   ->limit(1)
                   ->get();
-      $noMejaMax = $noMeja[0]->no_meja;     
+      $noMejaMax = $noMeja[0]->no_meja;    
+      
+      $cart = session()->get('cart');
+      if(count($cart) == 0)
+      {
+         return redirect()->route('index')->withErrors(['Tidak ada menu pada keranjang. Mohon pilih menu untuk dimasukkan ke keranjang.']);;
+      }
       return view ('menu.checkout',compact(['noMejaMax']));
    }
 

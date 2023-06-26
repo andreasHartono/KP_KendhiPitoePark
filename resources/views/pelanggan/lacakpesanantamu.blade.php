@@ -64,10 +64,13 @@
         <div id="msg-notif"></div>
         
        
-        <form class="search-container w-100" action="{{ route('lacak_pesanan_by_orderid')}}">
+        <form class="search-container w-100" action="{{ route('lacak_pesanan_by_nama_dan_meja')}}">
             @csrf
-            <label for="nomororder" class="">Cari Nomor Order :</label>
-            <input id="nomororder" type="text" class="form-control" name="nomororder" value="" autofocus style="width: 75%;">
+            <label for="nomororder" class="">Nama Pelanggan :</label>
+            <input id="nomororder" type="text" class="form-control" name="input_nama" value="" autofocus style="width: 75%;">
+            <br>
+            <label for="nomororder" class="">Nomor Meja :</label>
+            <input id="nomororder" type="text" class="form-control" name="input_meja" value="" autofocus style="width: 75%;">
 
             <input type="submit" class="btn btn-success" id="carilacak" style="width: 100px;font-size:16px;" type="button" value="Cari">
                 
