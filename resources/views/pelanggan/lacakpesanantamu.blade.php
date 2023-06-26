@@ -58,45 +58,31 @@
 @endsection
 @section('content')
 <!-- Ini Tempat search nomor order -->
-{{-- Pake form tanpa ajax opsi 1 --}}
-{{-- <form action="#" class="needs-validation" novalidate>
-        @csrf
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="mb-50">
-                    <div id="msg-notif"></div>
-                </div>
-            </div>
-            <label for="cari">Cari Nomor Order</label>
-            <div class="col-md-3">
-                <input type="text" name="search" id="search" class="form-control" value=""
-                    placeholder="Nomor Order">
-            </div>
-            <div class="col-md-2">
-                <a href="#" name="button" class="text-white btn btn-primary form-control">Cari</a>
-            </div>
-        </div>
-    </form> --}}
-
-{{-- pake ajax tapi ini carinya opsi 2--}}
 <div class="card" id="card-cari">
     <div class="card-body d-flex justify-content-center ">
         {{-- keluarin notif sukses atau gagal --}}
         <div id="msg-notif"></div>
-        <div class="search-container w-100">
-            <form class="w-100" action="{{ route('lacak_pesanan_tamu')}}">
+        
+       
+        <form class="search-container w-100" action="{{ route('lacak_pesanan_by_orderid')}}">
+            @csrf
             <label for="nomororder" class="">Cari Nomor Order :</label>
             <input id="nomororder" type="text" class="form-control" name="nomororder" value="" autofocus style="width: 75%;">
 
-            <input type="submit" class="btn btn-success" id="carilacak" style="width: 100px;font-size:16px;" type="button" onclick="lacakPesanan()">
-                <i class="fa-solid fa-magnifying-glass" style="margin-right: 8px;"></i>Cari</input>
-        
+            <input type="submit" class="btn btn-success" id="carilacak" style="width: 100px;font-size:16px;" type="button" value="Cari">
+                
             </form>
-        </div>
+       
+        
     </div>
 </div>
-@if (count($userOrder) != 0)
 
+
+
+@if(isset($userOrder))
+
+
+@if (count($userOrder) != 0)
 
 @foreach ($userOrder as $order)
 <div class="card">
@@ -121,6 +107,11 @@
 <!-- /.card -->
 <br>
 @endforeach
+@else
+<h5>Pesanan yang dicari tidak ditemukan.</h5>
 
 @endif
+@endif
+
+
 @endsection

@@ -58,29 +58,8 @@
 @endsection
 @section('content')
 <!-- Ini Tempat search nomor order -->
-{{-- Pake form tanpa ajax opsi 1 --}}
-{{-- <form action="#" class="needs-validation" novalidate>
-        @csrf
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="mb-50">
-                    <div id="msg-notif"></div>
-                </div>
-            </div>
-            <label for="cari">Cari Nomor Order</label>
-            <div class="col-md-3">
-                <input type="text" name="search" id="search" class="form-control" value=""
-                    placeholder="Nomor Order">
-            </div>
-            <div class="col-md-2">
-                <a href="#" name="button" class="text-white btn btn-primary form-control">Cari</a>
-            </div>
-        </div>
-    </form> --}}
 
-@if (count($userOrder) != 0)
-{{-- pake ajax tapi ini carinya opsi 2--}}
-<div class="card" id="card-cari">
+<!-- <div class="card" id="card-cari">
     <div class="card-body d-flex justify-content-center ">
         {{-- keluarin notif sukses atau gagal --}}
         <div id="msg-notif"></div>
@@ -92,7 +71,11 @@
                 <i class="fa-solid fa-magnifying-glass" style="margin-right: 8px;"></i>Cari</button>
         </div>
     </div>
-</div>
+</div> -->
+
+
+@if (count($userOrder) != 0)
+
 
 @foreach ($userOrder as $order)
 <div class="card">

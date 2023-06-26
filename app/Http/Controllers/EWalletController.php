@@ -19,7 +19,12 @@ class EWalletController extends Controller
     */
    public function index()
    {
-      $rekapVoucherTopUp = Ewallet::all();
+      $rekapVoucherTopUp = DB::table('log_vouchers')
+      ->select('log_vouchers.*', 'kasir.name as nama_kasir', 'pelanggan.name as nama_pelanggan', 'pelanggan.phone as telpon_pelanggan')
+      ->leftJoin('users as kasir','kasir.id','=','log_vouchers.id_pembuat')
+      ->leftJoin('users as pelanggan','pelanggan.id','=','log_vouchers.id_pembeli')
+      ->get();
+      
       return view('kasir.ewallet', compact('rekapVoucherTopUp'));
    }
    
@@ -49,7 +54,7 @@ class EWalletController extends Controller
       $voucherTopUp = new Ewallet;
       $voucherTopUp->id_pembuat = $id_pembuat;
       $voucherTopUp->kode_voucher = $kodeRand;
-      $voucherTopUp->jumlah = $nominal;
+      $voucherTopUp->jumlah = $nominal;      
       $voucherTopUp->save();
 
       return $kodeRand;

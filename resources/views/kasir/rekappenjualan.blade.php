@@ -16,27 +16,36 @@ Kasir
 </div><!-- /.row -->
 @endsection
 @section('content')
+@if($errors->any())
+<div class="alert alert-danger" role="alert"><b>{{$errors->first()}}</b></div>
+
+@endif
 <div class="row col-12">
     <form class="form-inline was-validated" action=" {{ route('rekap_pegawai') }} ">
         @csrf
         <div class="form-group">
             <label>Cari Berdasarkan Tanggal : &nbsp;</label>
             <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                <input type="date" class="form-control datetimepicker-input" data-target="#reservationdate" name="timeInput" id="timeInput"/>
+                <input type="date" class="form-control datetimepicker-input" data-target="#reservationdate" name="timeInput" id="timeInput" />
             </div>
         </div>
         <button type="submit" class="btn btn-primary ml-1 mb-2">Lakukan Pencarian Data</button>
     </form>
     @php
-        $date = $tanggal;
+    $date = $tanggal;
+    if($tanggal == 'hari ini')
+    {
+    $date = date("Y-m-d");
+    }
     @endphp
-     <a href="{{ route('print_rekap_pegawai',['date'=>$date]) }}" class="btn btn-success">Print Rekapan</a>
+    <a href="{{ route('print_rekap_pegawai',['date'=>$date]) }}" class="btn btn-success">Print Rekapan</a>
 </div>
+
 
 <div class="card">
     <div class="card-header">
         <h3 class="card-title"><b>Tabel penjualan menu anda pada {{ $tanggal }} :</b></h3>
-         
+
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -47,7 +56,7 @@ Kasir
                         <th>Pemilik Menu</th>
                         <th>Jumlah Terjual</th>
                         <th>Harga Satuan</th>
-                        <th>Sub Total Terjual</th>                        
+                        <th>Sub Total Terjual</th>
                     </tr>
                 </thead>
                 <tbody id="tbody_all_rekapan">
@@ -77,7 +86,7 @@ Kasir
     </div>
 </div>
 
-{{--   
+{{--
      @if ($orderData == null)
         <h5><i><b>Tidak ada data penjualan pada hari ini.</b></i></h5>
     @else
@@ -85,65 +94,64 @@ Kasir
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Rekap tanggal : {{ $order->created_at }} PM</h3>
-                </div>
-                <div class="card-body">
-                    <b>Status Order </b> : <b>{{ $order->status_order }}</b><br>
-                    <b>Nama Pegawai</b> : <b>{{ $order->pegawai_name }}</b><br>
-                    <b>Total Harga </b> : <b>Rp. {{ $order->total_price }}</b><br>
-                </div>
-                
-                <div class="card-footer">
-                    <button onclick="lihatdetail({{ $order->id }})" class="btn btn-success btn-block"
-                        data-toggle="modal" data-target="#modal-lg">
-                        Lihat Detail Penjualan</button>
-                </div>
-                
-            </div>
-            
-        @endforeach
-    @endif 
-
-    <div class="modal fade" id="modal-lg">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Detail Rekap Penjualan :</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Nama Menu</th>
-                                    <th>Kategori Menu</th>
-                                    <th>Jumlah Terjual</th>
-                                    <th>Harga Satuan</th>
-                                    <th>Sub Total Terjual</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody_detil">
-
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th colspan="4" class="text-right">Grand Total</th>
-                                    <td id="grandTotal">Rp.{{ $order->total_price }}</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-end">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-             --}}
-<!-- /.modal-content -->
 </div>
-<!-- /.modal-dialog -->
+<div class="card-body">
+    <b>Status Order </b> : <b>{{ $order->status_order }}</b><br>
+    <b>Nama Pegawai</b> : <b>{{ $order->pegawai_name }}</b><br>
+    <b>Total Harga </b> : <b>Rp. {{ $order->total_price }}</b><br>
+</div>
+
+<div class="card-footer">
+    <button onclick="lihatdetail({{ $order->id }})" class="btn btn-success btn-block" data-toggle="modal" data-target="#modal-lg">
+        Lihat Detail Penjualan</button>
+</div>
+
+</div>
+
+@endforeach
+@endif
+
+<div class="modal fade" id="modal-lg">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Detail Rekap Penjualan :</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nama Menu</th>
+                                <th>Kategori Menu</th>
+                                <th>Jumlah Terjual</th>
+                                <th>Harga Satuan</th>
+                                <th>Sub Total Terjual</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody_detil">
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="4" class="text-right">Grand Total</th>
+                                <td id="grandTotal">Rp.{{ $order->total_price }}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        --}}
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
 @endsection
@@ -151,8 +159,6 @@ Kasir
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-
-    
     function lihatdetail(orderId) {
         $.ajax({
             type: 'GET',

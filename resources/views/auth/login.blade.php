@@ -50,7 +50,7 @@
                     <a href="#" class="btn btn-block btn-danger">
                         <i class="fab fa-google-plus mr-2"></i> Login Without Email
                     </a>
-                    <a href="#" class="btn btn-block btn-outline-success">
+                    <a href="{{ route('index')}}" class="btn btn-block btn-outline-success">
                         Continue As Guest
                     </a>
                 </div>

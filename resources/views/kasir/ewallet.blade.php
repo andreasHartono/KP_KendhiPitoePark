@@ -62,11 +62,11 @@
                     <tbody>
                         @foreach ($rekapVoucherTopUp as $dataVouch)
                             <tr>
-                                <td>{{ $dataVouch->name_pembuat }}</td>
+                                <td>{{ $dataVouch->nama_kasir }}</td>
                                 <td>{{ $dataVouch->kode_voucher }}</td>
                                 <td>Rp. {{ $dataVouch->jumlah }}</td>
-                                <td>{{ $dataVouch->name_pembeli }}</td>                                
-                                <td>{{ $dataVouch->phone_pembeli }}</td>
+                                <td>{{ $dataVouch->name_pelanggan }}</td>                                
+                                <td>{{ $dataVouch->telpon_pelanggan }}</td>
                                 <td>{{ $dataVouch->created_at }}</td>
                                 @if ($dataVouch->terpakai != null)
                                     <td><span class="bg-success">{{ $dataVouch->terpakai }}</span></td>

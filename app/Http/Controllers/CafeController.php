@@ -119,8 +119,11 @@ class CafeController extends Controller
 
          if (isset($cart[$id])) {
             $qty = $cart[$id]['quantity']--;
-            if ($qty == 0) {
+            if ($qty <= 1) {
+               $text = $cart[$id]['name'] . ' berhasil dihilangkan';
                unset($cart[$id]);
+               session()->put('cart', $cart);
+               return $text;
             }
          }
 

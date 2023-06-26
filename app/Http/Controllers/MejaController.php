@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Meja;
 use PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -47,6 +48,17 @@ class MejaController extends Controller
       $hashCode = md5(random_bytes(8));
       session(['hash' => $hashCode, 'meja' => $mejaModel]);
       return redirect(route('order.index', ['hash' => $hashCode]));
+   }
+
+   public function meja_number()
+   {
+      $noMeja = DB::table('mejas')
+                  ->select('no_meja')
+                  ->orderByDesc("no_meja")
+                  ->limit(1)
+                  ->get();
+      $noMejaMax = $noMeja[0]->no_meja;     
+      return view ('menu.checkout',compact(['noMejaMax']));
    }
 
    /**
