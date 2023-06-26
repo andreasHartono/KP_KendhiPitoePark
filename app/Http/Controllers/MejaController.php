@@ -37,7 +37,7 @@ class MejaController extends Controller
       $pdf = PDF::loadView('owner.printqrcode', ['qrcode' => $qrcode])->setOptions(['defaultFont' => 'sans-serif']);
       $name = 'qrcode-meja ' . $idMeja . '.pdf';
       Alert::success('Success Notification', 'Berhasil membuat QR Code dengan nomor meja ' . $idMeja);
-      return $pdf->download($name);
+      return $pdf->stream($name);
       //return view('owner.qrcodemeja', compact('qrcode','idMeja'));
    }
 
