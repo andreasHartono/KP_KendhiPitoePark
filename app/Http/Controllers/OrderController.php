@@ -120,6 +120,7 @@ class OrderController extends Controller
       }      
 
       $cartJson = json_encode($cart);
+      
 
       return view('/transaction.verifikasipembayaran', compact('cartJson'));
    }   
