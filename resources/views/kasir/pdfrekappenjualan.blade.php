@@ -40,9 +40,9 @@
     <div class="container-fluid p-3">
         <div class="row" style="display: table; width:100%;">
             <div class="col-sm-1" style="display: table-cell; vertical-align: middle; width: 20%;">
-                <img src="{{ asset('images/pitoe.png') }}" height="100" width="100">
+                <img src="{{ asset('images/pitoe.png') }}" height="150" width="150">
             </div>
-            <div class="col-sm-6" style="color: #28a745; display: table-cell; vertical-align: middle; padding-left: -30px;">
+            <div class="col-sm-6" style="color: #080908; display: table-cell; vertical-align: middle; padding-left: -30px;">
                 <h5 style="font-weight: bold;">Kendhi Pitoe Park</h5>
                 <h5>Kali Jaten, Selotapak, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur</h5>
             </div>
@@ -54,7 +54,7 @@
                 <p><strong>Nama Pemilik Menu</strong></p>
             </div>
             <div style="display: inline-block;">
-                <p>: {{ Auth::user()->name }}</p>
+                <h5>: {{ Auth::user()->name }}</h5>
             </div>
         </div>
         <div style="margin-bottom: -10px;">
@@ -62,25 +62,24 @@
                 <p><strong>Tanggal Penjualan</strong></p>
             </div>
             <div style="display: inline-block;">
-                <p>: {{ $tanggal }}</p>
+                <h5>: {{ $tanggal }}</h5>
             </div>
         </div>
         <table class="table table-striped table-bordered">
             <thead style="display: table-row-group;">
                 <tr class="text-center">
-                    <th>Nama Menu</th>
-                    <th width="15%">Jumlah Menu Terjual</th>
-                    <th width="15%">Harga Satuan</th>
-                    <th width="15%">SubTotal Terjual</th>
-
+                    <th><b>Nama Menu</b></th>
+                    <th width="15%"><b>Jumlah Menu Terjual</b></th>
+                    <th width="15%"><b>Harga Satuan</b></th>
+                    <th width="15%"><b>SubTotal Terjual</b></th>
                 </tr>
             </thead>
             <tbody>
 
                 @foreach($allSoldMenu as $menu)
                 <tr>
-                    <td>{{ $menu->food_name }}</td>
-                    <td>{{ $menu->jumlah }}</td>
+                    <td style="text-align: center;">{{ $menu->food_name }}</td>
+                    <td style="text-align: center;">{{ $menu->jumlah }}</td>
                     <td>Rp. {{ number_format($menu->price) }}</td>
                     @php
                     $subTotal = $menu->price * $menu->jumlah;
@@ -92,7 +91,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th class="text-right" colspan=4>Grand Total</th>
+                    <th class="text-right" style="text-align:right;" colspan=3><b>Grand Total</b></th>
                     <td class="text-right" colspan=2>Rp. {{ number_format($grandTotal) }}</td>
                 </tr>
             </tfoot>
