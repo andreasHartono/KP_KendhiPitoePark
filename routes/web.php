@@ -27,10 +27,15 @@ Route::get('/tes', function(){
    return view('kasir.pdfrekappenjualan');
 })->name("nasd");
 
-Route::get('/notaorder/{id}', [OrderController::class,'cetak_nota_pelanggan'])->name("nota_pelanggan");
-Route::get('/notaorderdapur/{id}', [OrderController::class,'cetak_nota_dapur'])->name("nota_dapur");
-Route::get('/lacakpesanantamu', [OrderController::class, 'lacak_pesanan_tamu'])->name("lacak_pesanan_tamu");
+Route::get('/lacakpesanantamu', function(){
+   return view('pelanggan.lacakpesanantamu');
+})->name("lacak_pesanan_tamu");
 
+
+Route::get('/notaorder/{id}', [OrderController::class,'nota_pelanggan'])->name("nota_pelanggan");
+Route::get('/notaorderdapur/{id}', [OrderController::class,'nota_dapur'])->name("nota_dapur");
+Route::get('/lacakpesanantamudetil', [OrderController::class, 'lacak_pesanan_by_nama_dan_meja'])->name("lacak_pesanan_by_nama_dan_meja");
+Route::get('/lacakpesanandetil/{id}', [OrderController::class, 'lacak_pesanan_detil'])->name("lacak_pesanan_detil");
 
 //LOGIN REGISTER
 Route::get('/login', [AccountController::class, 'index'])->name('login');
@@ -44,14 +49,16 @@ Route::get('/', [CafeController::class, 'index'])->name("index");
 
 Route::get('add-to-cart', [CafeController::class, 'addToCart'])->name('addToCart');
 Route::get('remove-from-cart', [CafeController::class, 'removeFromCart'])->name('removeFromCart');
+Route::get('delete-from-cart', [CafeController::class, 'deleteFromCart'])->name('deleteFromCart');
+
 Route::get('increase-cart', [CafeController::class, 'increaseQtyCart'])->name('increaseQtyCart');
 Route::get('decrease-cart', [CafeController::class, 'decreaseQtyCart'])->name('decreaseQtyCart');
 Route::get('delete-item-cart', [CafeController::class, 'deleteQtyCart'])->name('deleteQtyCart');
 Route::post('/checkout_tunai', [OrderController::class, 'goToQR'])->name("checkout_tunai");
+Route::get('/getmejanumber', [MejaController::class, 'meja_number'])->name('meja_number');
+Route::get('/checkout', [MejaController::class, 'meja_number'])->name('checkout');
 
-Route::get('/checkout', function () {
-   return view('menu.checkout');
-})->name('checkout');
+
 Route::get('/cart', function () {
    return view('menu.cart');
 })->name('cart');
@@ -78,8 +85,8 @@ Route::middleware(['auth', 'role:pelanggan'])->group(function () {
 
    Route::get('/profilepelanggan/update', [AccountController::class, 'update_profil'])->name('update_profil');
    Route::get('/ewallet/checkout_ewallet', [EWalletController::class, 'checkoutEwallet'])->name('checkout_ewallet');
-   Route::get('/lacakpesanandetil/{id}', [OrderController::class, 'lacak_pesanan_detil'])->name("lacak_pesanan_detil");
    Route::get('/lacakpesananku', [OrderController::class, 'lacak_pesanan_ku'])->name("lacak_pesanan");
+
 });
 
 

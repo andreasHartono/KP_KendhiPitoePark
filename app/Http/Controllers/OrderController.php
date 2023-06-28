@@ -5,19 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
-use App\Models\Cafe;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use PHPUnit\Util\Json;
-use Svg\Tag\Rect;
-use PDF;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
-use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\EscposImage;
-use Mike42\Escpos\CapabilityProfile;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class OrderController extends Controller
@@ -119,18 +113,17 @@ class OrderController extends Controller
    {
       $cart = session()->get("cart");
 
-
       if (Auth::user() == true) {
          $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => Auth::user()->id, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan];
       } else {
          $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan];
-      }
-
+      }      
 
       $cartJson = json_encode($cart);
+      
 
       return view('/transaction.verifikasipembayaran', compact('cartJson'));
-   }
+   }   
 
    public function checkout(Request $request)
    {
@@ -263,10 +256,11 @@ class OrderController extends Controller
 
       if ($date == date('Y-m-d')) {
          $tanggal = "hari ini";
-      }
-
-      if (!$allSoldMenu) {
-         return redirect()->route('rekap_pegawai');
+      }      
+    
+      if(!$allSoldMenu)
+      {         
+         return redirect()->route('rekap_pegawai')->withErrors(['Tidak ada data penjualan menu anda hari ini']);
       }
 
       return view('kasir.pdfrekappenjualan', compact(['orderData', 'allSoldMenu', 'tanggal']));
@@ -346,17 +340,14 @@ class OrderController extends Controller
       return view('pelanggan.lacakpesanan', compact('userOrder'));
    }
 
-   public function lacak_pesanan_tamu(Request $request)
+   public function lacak_pesanan_by_nama_dan_meja(Request $request)
    {
       $orderId = $request['nomororder'];
       $userOrder = DB::table('orders')
          ->select("*")
          ->where([["id", "=", $orderId], ["id_pelanggan", "=", 99]])
          ->orderBy("created_at", "desc")
-         ->get();
-
-      dd($orderId, $userOrder);
-
+         ->get();              
       return view('pelanggan.lacakpesanantamu', compact('userOrder'));
    }
 
@@ -382,12 +373,21 @@ class OrderController extends Controller
 
    public function lacak_pesanan_detil($id)
    {
+      // if(isset($request['orderId']))
+      // {
+      //    $id = $request['orderId'];
+      // }      
 
       $dataOrder = DB::table('orders')
          ->select("*")
          ->where("id", "=", $id)
          ->orderBy("created_at", "desc")
          ->get();
+
+      if(count($dataOrder) == 0)
+      {
+         return '<h5>Pesanan yang dicari tidak ada.</h5>';
+      }
 
       $detilOrder = DB::table('order_details')
          ->select('cafes.name as nama_menu', 'cafes.price', DB::raw('SUM(order_details.jumlah) as jumlah'))
