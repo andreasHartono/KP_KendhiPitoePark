@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('order_id', 10)->nullable();
             $table->text('keterangan');//->nullable();
             $table->enum('status_order', ['Done','Processing','Canceled','Cart']);
             $table->timestamp("created_at")->useCurrent();
@@ -35,7 +36,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('id_pegawai_kasir')->nullable();                       
             $table->foreign('id_pegawai_kasir')->references('id')->on('users'); 
 
-            $table->unsignedBigInteger('id_pelanggan');                       
+            $table->unsignedBigInteger('id_pelanggan')->nullable();                       
             $table->foreign('id_pelanggan')->references('id')->on('users'); 
             // $table->string('nama_pelanggan', 50)->nullable();
              

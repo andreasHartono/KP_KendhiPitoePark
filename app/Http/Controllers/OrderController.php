@@ -112,12 +112,49 @@ class OrderController extends Controller
    public function goToQR(Request $request)
    {
       $cart = session()->get("cart");
+      $arrAlp = array('A','B','C','D','E','F','G','H','I','J','K','L');
+      $month = date('n');
+      $day = date('j');
+
+      $lastNoAntri = Order::where('created_at', "like", "%" . date("Y-m-d") . "%")
+            ->orderBy('created_at', 'desc')
+            ->take(1)
+            ->get('no_antrian');
+
+      $noAntri = 1;
+      if (!is_null($lastNoAntri[0]->no_antrian)) 
+      {
+         $noAntri = $lastNoAntri[0]->no_antrian + 1;
+      }
+
+      $orderId = $arrAlp[$month].$day.$noAntri.$request->no_meja;
+     
 
       if (Auth::user() == true) {
-         $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => Auth::user()->id, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan];
+         $id_pelanggan = Auth::user()->id;
+         $nama_pelanggan = Auth::user()->name;
+
+         $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => $id_pelanggan, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan, 'order_id' => $orderId];
       } else {
-         $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan];
+         $id_pelanggan = 99;        
+         $nama_pelanggan = $request->nama_customer;
+
+         $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan, 'order_id' => $orderId, 'real_order_id'];
       }      
+
+      session()->put("pelanggan", $cart['pelanggan']);
+
+      $orders = new Order();
+      $orders->status_order = "Konfirmasi Pembayaran";
+      $orders->keterangan = $request->catatan_tambahan;
+      $orders->meja_id = $request->no_meja;
+      $orders->id_pelanggan = $id_pelanggan;
+      $orders->nama_pelanggan = $nama_pelanggan;
+      $orders->total_price = 0;
+      $orders->no_antrian = $noAntri;
+      $orders->jenis_pembayaran = "Cash";   
+      $orders->order_id = $orderId;  
+      $orders->save();
 
       $cartJson = json_encode($cart);
       
@@ -137,28 +174,15 @@ class OrderController extends Controller
          session()->put("msg", $msg);
          return redirect()->route('index');
       } else {
-
-         $orders = new Order();
-         $orders->status_order = "Processing";
-         $orders->keterangan = $pelanggan->keterangan;
-         $orders->meja_id = $pelanggan->no_meja;
-         $orders->id_pelanggan = $pelanggan->id;
-         $orders->nama_pelanggan = $pelanggan->name;
-         $orders->total_price = 0;
-
-         $lastNoAntri = Order::where('created_at', "like", "%" . date("Y-m-d") . "%")
-            ->orderBy('created_at', 'desc')
-            ->take(1)
-            ->get('no_antrian');
-         $noAntri = 1;
-         if (!is_null($lastNoAntri[0]->no_antrian)) {
-            $noAntri = $lastNoAntri[0]->no_antrian + 1;
-         }
-
-         $orders->no_antrian = $noAntri;
-         $orders->jenis_pembayaran = "Cash";
+         
+         $orders = DB::table("orders")
+         ->select('*')
+         ->where('order_id','=',$pelanggan->order_id)
+         ->get();        
+         
+         
+         $orders = Order::find($orders[0]->id);
          $orders->id_pegawai_kasir = Auth::user()->id;
-
          $orders->save();
          $totalPrice = 0;
 

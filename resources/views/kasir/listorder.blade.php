@@ -18,9 +18,9 @@ List Order
 @section('content')
 <div class="container-fluid">
     <div class="row col-lg-12">
-      @if(session('success'))
-         {{ session('sucess') }}
-      @endif
+        @if(session('success'))
+        {{ session('sucess') }}
+        @endif
         <div class="card" style="width: 100%;">
             <div class="card-header">
                 <h3>Daftar Pesanan Makanan & Minuman Hari ini</b></h3>
@@ -53,14 +53,22 @@ List Order
                                             <option value="Processing" class="bg-warning" selected>Processing</option>
                                             <option value="Done" class="bg-success">Done</option>
                                             <option value="Canceled" class="bg-danger">Canceled</option>
+                                            <option value="Canceled" class="bg-danger">Konfirmasi Pembayaran</option>
                                             @elseif($ord->status_order == 'Done')
                                             <option value="Processing" class="bg-warning">Processing</option>
                                             <option value="Done" class="bg-success" selected>Done</option>
                                             <option value="Canceled" class="bg-danger">Canceled</option>
-                                            @else
+                                            <option value="Canceled" class="bg-danger">Konfirmasi Pembayaran</option>
+                                            @elseif($ord->status_order == 'Canceled')
                                             <option value="Processing" class="bg-warning">Processing</option>
                                             <option value="Done" class="bg-success">Done</option>
                                             <option value="Canceled" class="bg-danger" selected>Canceled</option>
+                                            <option value="Canceled" class="bg-danger">Konfirmasi Pembayaran</option>
+                                            @else
+                                            <option value="Processing" class="bg-warning">Processing</option>
+                                            <option value="Done" class="bg-success">Done</option>
+                                            <option value="Canceled" class="bg-danger">Canceled</option>
+                                            <option value="Canceled" class="bg-danger" selected>Konfirmasi Pembayaran</option>
                                             @endif
                                         </select>
 

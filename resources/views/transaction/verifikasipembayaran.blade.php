@@ -3,6 +3,10 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
+                @php
+                $pelanggan = session()->get("pelanggan");                
+                @endphp
+            <h4 class="card-title heading-6">Order Id &nbsp;&nbsp;&nbsp; : {{ $pelanggan['order_id'] }} </h4><br>
                 <h4 class="card-title heading-6">No Meja &nbsp;&nbsp;&nbsp; : {{ $_POST['no_meja'] }} </h4><br>
                 @auth
                        <h4 class="card-title heading-6">Nama Customer : {{ Auth::user()->name }} </h4><br>
