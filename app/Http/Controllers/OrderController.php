@@ -24,11 +24,15 @@ class OrderController extends Controller
    public function index()
    {
       //$order = Order::orderBy("created_at", "desc")->get();
-      $order = DB::table('orders')
-         ->select("*")
-         ->orderBy('created_at', 'desc')
-         ->get();
-      return view('kasir.listorder', compact('order'));
+      if (Auth::user()) {
+         $order = DB::table('orders')
+            ->select("*")
+            ->orderBy('created_at', 'desc')
+            ->get();
+         return view('kasir.listorder', compact('order'));
+      } else {
+         return redirect()->route("index");
+      }
    }
 
    /**
@@ -112,35 +116,34 @@ class OrderController extends Controller
    public function goToQR(Request $request)
    {
       $cart = session()->get("cart");
-      $arrAlp = array('A','B','C','D','E','F','G','H','I','J','K','L');
+      $arrAlp = array('','A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L');
       $month = date('n');
       $day = date('j');
 
       $lastNoAntri = Order::where('created_at', "like", "%" . date("Y-m-d") . "%")
-            ->orderBy('created_at', 'desc')
-            ->take(1)
-            ->get('no_antrian');
+         ->orderBy('created_at', 'desc')
+         ->take(1)
+         ->get('no_antrian');
 
       $noAntri = 1;
-      if (!is_null($lastNoAntri[0]->no_antrian)) 
-      {
+      if (!is_null($lastNoAntri[0]->no_antrian)) {
          $noAntri = $lastNoAntri[0]->no_antrian + 1;
       }
 
-      $orderId = $arrAlp[$month].$day.$noAntri.$request->no_meja;
-     
+      $orderId = $arrAlp[$month] . $day . $noAntri . $request->no_meja;
+
 
       if (Auth::user() == true) {
          $id_pelanggan = Auth::user()->id;
          $nama_pelanggan = Auth::user()->name;
 
-         $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => $id_pelanggan, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan, 'order_id' => $orderId];
+         $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => $id_pelanggan, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan, 'order_id' => $orderId,'real_order_id'=>0];
       } else {
-         $id_pelanggan = 99;        
+         $id_pelanggan = null;
          $nama_pelanggan = $request->nama_customer;
 
-         $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan, 'order_id' => $orderId, 'real_order_id'];
-      }      
+         $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan, 'order_id' => $orderId, 'real_order_id'=>0];
+      }
 
       session()->put("pelanggan", $cart['pelanggan']);
 
@@ -152,15 +155,16 @@ class OrderController extends Controller
       $orders->nama_pelanggan = $nama_pelanggan;
       $orders->total_price = 0;
       $orders->no_antrian = $noAntri;
-      $orders->jenis_pembayaran = "Cash";   
-      $orders->order_id = $orderId;  
+      $orders->jenis_pembayaran = "Cash";
+      $orders->order_id = $orderId;
       $orders->save();
 
+      $cart['pelanggan']['real_order_id'] = $orders->id;    
       $cartJson = json_encode($cart);
-      
+
 
       return view('/transaction.verifikasipembayaran', compact('cartJson'));
-   }   
+   }
 
    public function checkout(Request $request)
    {
@@ -174,15 +178,15 @@ class OrderController extends Controller
          session()->put("msg", $msg);
          return redirect()->route('index');
       } else {
-         
+
          $orders = DB::table("orders")
-         ->select('*')
-         ->where('order_id','=',$pelanggan->order_id)
-         ->get();        
-         
-         
+            ->select('*')
+            ->where('order_id', '=', $pelanggan->order_id)
+            ->get();
+
          $orders = Order::find($orders[0]->id);
          $orders->id_pegawai_kasir = Auth::user()->id;
+         $orders->status = "Processing";
          $orders->save();
          $totalPrice = 0;
 
@@ -195,7 +199,7 @@ class OrderController extends Controller
             $od->save();
             $totalPrice += ($value->quantity * $value->price);
          }
-         $orders = Order::find($orders->id);
+         // $orders = Order::find($pelanggan->real_order_id);
          $orders->total_price = $totalPrice;
          $orders->save();
          $cart = null;
@@ -280,10 +284,9 @@ class OrderController extends Controller
 
       if ($date == date('Y-m-d')) {
          $tanggal = "hari ini";
-      }      
-    
-      if(!$allSoldMenu)
-      {         
+      }
+
+      if (!$allSoldMenu) {
          return redirect()->route('rekap_pegawai')->withErrors(['Tidak ada data penjualan menu anda hari ini']);
       }
 
@@ -371,7 +374,7 @@ class OrderController extends Controller
          ->select("*")
          ->where([["id", "=", $orderId], ["id_pelanggan", "=", 99]])
          ->orderBy("created_at", "desc")
-         ->get();              
+         ->get();
       return view('pelanggan.lacakpesanantamu', compact('userOrder'));
    }
 
@@ -408,8 +411,7 @@ class OrderController extends Controller
          ->orderBy("created_at", "desc")
          ->get();
 
-      if(count($dataOrder) == 0)
-      {
+      if (count($dataOrder) == 0) {
          return '<h5>Pesanan yang dicari tidak ada.</h5>';
       }
 
@@ -465,10 +467,10 @@ class OrderController extends Controller
       $print->setEmphasis(false);
       foreach ($detilOrder as $do) {
          $print->setJustification(Printer::JUSTIFY_LEFT);
-         $print->text($do->nama_menu. "\n");
-         $print->text($do->jumlah. " x ".$do->price);
+         $print->text($do->nama_menu . "\n");
+         $print->text($do->jumlah . " x " . $do->price);
          $print->setJustification(Printer::JUSTIFY_RIGHT);
-         $print->text(str_repeat(" ",23). 'Rp.' . number_format($do->jumlah * $do->price) . "\n");
+         $print->text(str_repeat(" ", 23) . 'Rp.' . number_format($do->jumlah * $do->price) . "\n");
       }
       $print->setJustification(Printer::JUSTIFY_CENTER);
       $print->text("\n==========================================\n");
@@ -525,7 +527,7 @@ class OrderController extends Controller
       $print->setEmphasis(false);
       foreach ($detilOrder as $do) {
          $print->setJustification(Printer::JUSTIFY_LEFT);
-         $print->text($do->jumlah . "   x   " .$do->nama_menu. "\n");
+         $print->text($do->jumlah . "   x   " . $do->nama_menu . "\n");
       }
       $print->setJustification(Printer::JUSTIFY_CENTER);
       $print->text("\n==========================================\n");
@@ -537,6 +539,6 @@ class OrderController extends Controller
       $print->text("Kendhi Pitoe Park");
       $print->feed(4);
       $print->close();
-      return redirect()->back()->with('success',Alert::success('Success Notification', 'Berhasil Print Nota Dapur'));
+      return redirect()->back()->with('success', Alert::success('Success Notification', 'Berhasil Print Nota Dapur'));
    }
 }

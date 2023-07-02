@@ -56,7 +56,7 @@ $total = 0;
                         <input type="hidden" name="idMenu" id="idmenu" value="{{ $cafe->id }}">
 
                         @if ($cafe->status == true)
-                        <button onclick="addToCart('{{ $cafe->id }}')" id="btnaddcart" class="btn btn-success">
+                        <button onclick="addToCart('{{ $cafe->id }}'); " id="btnaddcart" class="btn btn-success">
                             <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}" alt="">
                             Pesan Sekarang
                         </button>
@@ -87,9 +87,10 @@ $total = 0;
             },
             success: function(response) {
                 $('#msg-notif').html('<div class="alert alert-success" role="alert"><b>' + response['msg'] +
-                    '</b></div>');
+                    '</b></div>');                
             }
         })
     }
+    
 </script>
 @endsection

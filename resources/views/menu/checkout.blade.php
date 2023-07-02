@@ -47,12 +47,12 @@
 
                             @guest
                                 <input type="text" class="form-control" placeholder="Tulis Nama Anda" name="nama_customer"
-                                    id="nama_customer">
+                                    id="nama_customer" required>
                             @endguest
                             <p>Tambah Catatan : &nbsp;&nbsp;<input type="text" class="form-control"
                                     placeholder="Catatan tambahan" name="catatan_tambahan" id="catatan_tambahan"></p>
                             <p>Nomor Meja : &nbsp;&nbsp;<input type="number" class="form-control" value="1"
-                                    name="no_meja" id="no_meja" min='1' max={{ $noMejaMax }}></p>
+                                    name="no_meja" id="no_meja" min='1' max={{ $noMejaMax }} required></p>
                             <!-- Kalo nomer meja = 0, kasik javascript keluarin input tanya lokasi -->
                             <div class="card-body card-body-1">
                                 <h5 class="card-title">Metode Pembayaran</h5>

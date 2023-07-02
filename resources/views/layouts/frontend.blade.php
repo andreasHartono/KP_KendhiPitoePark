@@ -90,19 +90,24 @@
                             </div>
                             <!-- desktop logo Ends -->
                         </div>
+                        
                         <div class="col-3">
                             <!-- navbar cart start -->
+                            
                             <div class="navbar-cart">
+                           
                                 <a class="icon-btn primary-icon-text icon-text-btn" href="javascript:void(0)">
                                     <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}" alt="Icon">
                                     @if (session('cart'))
                                     <span class="icon-text text-style-1">{{ count(session('cart')) }}</span>
                                     @endif
                                 </a>
-                                <div class="navbar-cart-dropdown">
+
+                                <div class="navbar-cart-dropdown" >
                                     <div class="checkout-style-2">
                                         <div class="checkout-header d-flex justify-content-between">
                                             <h6 class="title">Daftar Pesanan Sementara</h6>
+                                            
                                         </div>
                                         @if (session('cart'))
                                         <div class="checkout-table">
@@ -263,7 +268,7 @@
                                                                     </button>
                                                                 </div> -->
                                                                 <b>
-                                                                {{ $details['quantity'] }}
+                                                                    {{ $details['quantity'] }}
                                                                 </b>
                                                             </td>
                                                             <td class="checkout-price">
@@ -367,6 +372,13 @@
     </script>
     <!--====== Main js ======-->
     <script src="{{ asset('template/assets/js/main.js') }}"></script>
+    <script>
+        
+        function refreshCart(){
+            $("#cart_nav").load(window.location.href + "#cart_nav");
+        }
+    </script>
+
 </body>
 
 </html>

@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('order_id', 10)->nullable();
-            $table->text('keterangan');//->nullable();
+            $table->text('keterangan')->nullable();
             $table->enum('status_order', ['Done','Processing','Canceled','Cart']);
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
