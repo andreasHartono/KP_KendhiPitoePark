@@ -367,12 +367,12 @@ class OrderController extends Controller
       return view('pelanggan.lacakpesanan', compact('userOrder'));
    }
 
-   public function lacak_pesanan_by_nama_dan_meja(Request $request)
+   public function lacak_pesanan_by_nomororder(Request $request)
    {
       $orderId = $request['nomororder'];
       $userOrder = DB::table('orders')
          ->select("*")
-         ->where([["id", "=", $orderId], ["id_pelanggan", "=", 99]])
+         ->where([["order_id", "=", $orderId],['created_at','LIKE','%'.date('Y-m-d').'%']])
          ->orderBy("created_at", "desc")
          ->get();
       return view('pelanggan.lacakpesanantamu', compact('userOrder'));

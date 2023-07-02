@@ -64,13 +64,13 @@
         <div id="msg-notif"></div>
         
        
-        <form class="search-container w-100" action="{{ route('lacak_pesanan_by_nama_dan_meja')}}">
+        <form class="search-container w-100" action="{{ route('lacak_pesanan_by_nomororder')}}">
             @csrf
-            <label for="nomororder" class="">Nama Pelanggan :</label>
-            <input id="nomororder" type="text" class="form-control" name="input_nama" value="" autofocus style="width: 75%;">
-            <br>
+            <label for="nomororder" class="">Order ID :</label>
+            <input id="nomororder" name='nomororder' type="text" class="form-control" value="" autofocus style="width: 75%;">
+            <!-- <br>
             <label for="nomororder" class="">Nomor Meja :</label>
-            <input id="nomororder" type="text" class="form-control" name="input_meja" value="" autofocus style="width: 75%;">
+            <input id="nomororder" type="text" class="form-control" name="input_meja" value="" autofocus style="width: 75%;"> -->
 
             <input type="submit" class="btn btn-success" id="carilacak" style="width: 100px;font-size:16px;" type="button" value="Cari">
                 
@@ -93,7 +93,7 @@
         <h5 class="card-title">Tanggal Pemesanan : {{ $order->created_at }}</h5>
     </div>
     <div class="card-body">
-        <b>Id Pemesanan </b> : {{ $order->id }}<br>
+        <b>Id Pemesanan </b> : {{ $order->order_id }}<br>
         <b>Nomor Antrian </b> : Nomor {{ $order->no_antrian }}<br>
         <b>Status Order </b> : {{ $order->status_order }}<br>
         <b>Pembayaran </b> : {{ $order->jenis_pembayaran }}<br>
