@@ -22,6 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    @laravelPWA
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -93,12 +94,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('data_menu') }}" class="nav-link">
+                                <i class="nav-icon fas fa-wallet text-info"></i>
+                                <p>Data Menu</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('rekap_pegawai') }}" class="nav-link">
                                 <i class="nav-icon far fa-folder-open text-success"></i>
                                 <p>Rekap Makanan-Ku</p>
                             </a>
                         </li>
-
                         @can('pegawai')
                             <li class="nav-item">
                                 <a href="{{ route('ewallet.index') }}" class="nav-link">
@@ -125,6 +131,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <a href="{{ route('data_pegawai') }}" class="nav-link">
                                     <i class="nav-icon far fa-user text-primary"></i>
                                     <p>Data Pegawai</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('data_kategori') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-wallet text-danger"></i>
+                                    <p>Data Kategori Menu</p>
                                 </a>
                             </li>
                             <li class="nav-item">

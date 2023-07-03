@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css') }}">
+    @laravelPWA
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">

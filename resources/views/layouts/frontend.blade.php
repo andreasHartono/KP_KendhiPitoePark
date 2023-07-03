@@ -37,14 +37,16 @@
     <!--====== Style CSS ======-->
     <link rel="stylesheet" href="{{ asset('template/assets/css/style.css') }}">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     @yield('css')
+    @laravelPWA
 </head>
 
 <body>
     @php
-    $total = 0;
-    $total1 = 0;
+        $total = 0;
+        $total1 = 0;
     @endphp
     @include('sweetalert::alert')
 
@@ -86,85 +88,90 @@
                         <div class="col-6">
                             <!-- desktop logo Start -->
                             <div class="mobile-logo text-center">
-                                <a href="{{ route('index') }}"><img width="110px" height="110px" src="{{ asset('template/assets/images/pitoe.png') }}" alt="Logo"></a>
+                                <a href="{{ route('index') }}"><img width="110px" height="110px"
+                                        src="{{ asset('template/assets/images/pitoe.png') }}" alt="Logo"></a>
                             </div>
                             <!-- desktop logo Ends -->
                         </div>
-                        
+
                         <div class="col-3">
                             <!-- navbar cart start -->
-                            
+
                             <div class="navbar-cart">
-                           
+
                                 <a class="icon-btn primary-icon-text icon-text-btn" href="javascript:void(0)">
-                                    <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}" alt="Icon">
+                                    <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}"
+                                        alt="Icon">
                                     @if (session('cart'))
-                                    <span class="icon-text text-style-1">{{ count(session('cart')) }}</span>
+                                        <span class="icon-text text-style-1">{{ count(session('cart')) }}</span>
                                     @endif
                                 </a>
 
-                                <div class="navbar-cart-dropdown" >
+                                <div class="navbar-cart-dropdown">
                                     <div class="checkout-style-2">
                                         <div class="checkout-header d-flex justify-content-between">
                                             <h6 class="title">Daftar Pesanan Sementara</h6>
-                                            
+
                                         </div>
                                         @if (session('cart'))
-                                        <div class="checkout-table">
-                                            <table class="table">
-                                                <tbody>
-                                                    @foreach (session('cart') as $id => $details)
-                                                    @php
-                                                    $total1 += $details['price'] * $details['quantity'];
-                                                    @endphp
-                                                    <tr>
-                                                        <td class="checkout-product">
-                                                            <div class="product-cart d-flex">
-                                                                <div class="product-content media-body">
-                                                                    <h5 class="title">{{ $details['name'] }}
-                                                                    </h5>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td class="checkout-price">
-                                                            <p class="price">
-                                                                Rp.{{ number_format($details['price']) }}</p>
-                                                        </td>
-                                                        <td class="checkout-quantity">
-                                                            <div class="product-quantity d-inline-flex">
-                                                                {{-- <button type="button" id="sub"
+                                            <div class="checkout-table">
+                                                <table class="table">
+                                                    <tbody>
+                                                        @foreach (session('cart') as $id => $details)
+                                                            @php
+                                                                $total1 += $details['price'] * $details['quantity'];
+                                                            @endphp
+                                                            <tr>
+                                                                <td class="checkout-product">
+                                                                    <div class="product-cart d-flex">
+                                                                        <div class="product-content media-body">
+                                                                            <h5 class="title">{{ $details['name'] }}
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="checkout-price">
+                                                                    <p class="price">
+                                                                        Rp.{{ number_format($details['price']) }}</p>
+                                                                </td>
+                                                                <td class="checkout-quantity">
+                                                                    <div class="product-quantity d-inline-flex">
+                                                                        {{-- <button type="button" id="sub"
                                                                             class="sub">
                                                                             <i class="mdi mdi-minus"></i>
                                                                         </button> --}}
-                                                                <input type="text" value="{{ $details['quantity'] }}">
-                                                                {{-- <button type="button" id="add"
+                                                                        <input type="text"
+                                                                            value="{{ $details['quantity'] }}">
+                                                                        {{-- <button type="button" id="add"
                                                                             class="add">
                                                                             <i class="mdi mdi-plus"></i>
                                                                         </button> --}}
-                                                            </div>
-                                                        </td>
-                                                        <td class="checkout-price">
-                                                            <p class="price">
-                                                                Rp.{{ number_format($details['price'] * $details['quantity']) }}
-                                                            </p>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="checkout-price">
+                                                                    <p class="price">
+                                                                        Rp.{{ number_format($details['price'] * $details['quantity']) }}
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
-                                        <div class="checkout-footer">
-                                            <div class="checkout-sub-total d-flex justify-content-between">
-                                                <p class="value">Grand Total :</p>
-                                                <p class="price">Rp.{{ number_format($total1) }}</p>
+                                            <div class="checkout-footer">
+                                                <div class="checkout-sub-total d-flex justify-content-between">
+                                                    <p class="value">Grand Total :</p>
+                                                    <p class="price">Rp.{{ number_format($total1) }}</p>
+                                                </div>
+                                                <div class="checkout-btn">
+                                                    <a href="{{ route('cart') }}"
+                                                        class="main-btn primary-btn-border">View
+                                                        Cart</a>
+                                                    <a href="{{ route('checkout') }}"
+                                                        class="main-btn primary-btn">Checkout</a>
+                                                </div>
                                             </div>
-                                            <div class="checkout-btn">
-                                                <a href="{{ route('cart') }}" class="main-btn primary-btn-border">View
-                                                    Cart</a>
-                                                <a href="{{ route('checkout') }}" class="main-btn primary-btn">Checkout</a>
-                                            </div>
-                                        </div>
                                         @endif
                                     </div>
                                 </div>
@@ -190,32 +197,35 @@
                         <nav class="main-navbar d-lg-flex justify-content-between align-items-center">
                             <!-- desktop logo Start -->
                             <div class="desktop-logo d-none d-lg-block">
-                                <a href="{{ route('index') }}"><img width="110px" height="110px" src="{{ asset('template/assets/images/pitoe.png') }}" alt="Logo"></a>
+                                <a href="{{ route('index') }}"><img width="110px" height="110px"
+                                        src="{{ asset('template/assets/images/pitoe.png') }}" alt="Logo"></a>
                             </div>
                             <!-- desktop logo Ends -->
                             <!-- navbar menu Start -->
                             <div class="navbar-menu">
                                 <ul class="main-menu">
                                     @guest
-                                    <li><a class="btn btn-success" href=" {{ route('login') }}"><img src="{{ asset('template/assets/images/person-circle.svg') }}" alt="Icon">&nbsp;&nbsp;Silahkan
-                                            Login atau Register</a></li>
-                                    <li><a href="{{ route('lacak_pesanan_tamu')}}">Lacak Pesanan</a></li>
+                                        <li><a class="btn btn-success" href=" {{ route('login') }}"><img
+                                                    src="{{ asset('template/assets/images/person-circle.svg') }}"
+                                                    alt="Icon">&nbsp;&nbsp;Silahkan
+                                                Login atau Register</a></li>
+                                        <li><a href="{{ route('lacak_pesanan_tamu') }}">Lacak Pesanan</a></li>
                                     @endguest
                                     @auth
-                                    <li><a href="{{ route('index') }}">Menu</a></li>
+                                        <li><a href="{{ route('index') }}">Menu</a></li>
 
-                                    <li><a href="{{ route('lacak_pesanan') }}">Lacak Pesanan saya</a></li>
-                                    <li><a href="{{ route('pelanggan_topup') }}">Kendhi Pitoe E-Wallet</a></li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">{{ Auth::user()->name }}</a>
-                                        <!-- sub menu Start -->
-                                        <ul class="sub-menu">
-                                            <li><b>Selamat Datang di Kendhi Pitoe, {{ Auth::user()->name }}<b></li>
-                                            <li><a href="{{ route('profil_pelanggan') }}">Profil</a></li>
-                                            <li><a href="{{ route('logout') }}">Logout</a></li>
-                                        </ul>
-                                        <!-- sub menu Ends -->
-                                    </li>
+                                        <li><a href="{{ route('lacak_pesanan') }}">Lacak Pesanan saya</a></li>
+                                        <li><a href="{{ route('pelanggan_topup') }}">Kendhi Pitoe E-Wallet</a></li>
+                                        <li class="menu-item-has-children">
+                                            <a href="#">{{ Auth::user()->name }}</a>
+                                            <!-- sub menu Start -->
+                                            <ul class="sub-menu">
+                                                <li><b>Selamat Datang di Kendhi Pitoe, {{ Auth::user()->name }}<b></li>
+                                                <li><a href="{{ route('profil_pelanggan') }}">Profil</a></li>
+                                                <li><a href="{{ route('logout') }}">Logout</a></li>
+                                            </ul>
+                                            <!-- sub menu Ends -->
+                                        </li>
                                     @endauth
                                 </ul>
                             </div>
@@ -224,9 +234,10 @@
                                 <!-- navbar cart start -->
                                 <div class="navbar-cart">
                                     <a class="icon-btn primary-icon-text icon-text-btn" href="javascript:void(0)">
-                                        <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}" alt="Icon">
+                                        <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}"
+                                            alt="Icon">
                                         @if (session('cart'))
-                                        <span class="icon-text text-style-1">{{ count(session('cart')) }}</span>
+                                            <span class="icon-text text-style-1">{{ count(session('cart')) }}</span>
                                         @endif
                                     </a>
                                     <div class="navbar-cart-dropdown">
@@ -235,30 +246,30 @@
                                                 <h6 class="title">Daftar Pesanan Sementara</h6>
                                             </div>
                                             @if (session('cart'))
-                                            <div class="checkout-table" id="cart_place">
-                                                <table class="table">
-                                                    <tbody>
-                                                        @foreach (session('cart') as $id => $details)
-                                                        @php
-                                                        $total += $details['price'] * $details['quantity'];
-                                                        @endphp
-                                                        <tr>
-                                                            <td class="checkout-product">
-                                                                <div class="product-cart d-flex">
-                                                                    <div class="product-content media-body">
-                                                                        <h5 class="title">
-                                                                            {{ $details['name'] }}
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td class="checkout-price">
-                                                                <p class="price">
-                                                                    Rp.{{ number_format($details['price']) }}
-                                                                </p>
-                                                            </td>
-                                                            <td class="checkout-quantity">
-                                                                <!-- <div class="product-quantity d-inline-flex">
+                                                <div class="checkout-table" id="cart_place">
+                                                    <table class="table">
+                                                        <tbody>
+                                                            @foreach (session('cart') as $id => $details)
+                                                                @php
+                                                                    $total += $details['price'] * $details['quantity'];
+                                                                @endphp
+                                                                <tr>
+                                                                    <td class="checkout-product">
+                                                                        <div class="product-cart d-flex">
+                                                                            <div class="product-content media-body">
+                                                                                <h5 class="title">
+                                                                                    {{ $details['name'] }}
+                                                                                </h5>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="checkout-price">
+                                                                        <p class="price">
+                                                                            Rp.{{ number_format($details['price']) }}
+                                                                        </p>
+                                                                    </td>
+                                                                    <td class="checkout-quantity">
+                                                                        <!-- <div class="product-quantity d-inline-flex">
                                                                     <button type="button" id="sub" class="sub">
                                                                         <i class="mdi mdi-minus"></i>
                                                                     </button>
@@ -267,32 +278,34 @@
                                                                         <i class="mdi mdi-plus"></i>
                                                                     </button>
                                                                 </div> -->
-                                                                <b>
-                                                                    {{ $details['quantity'] }}
-                                                                </b>
-                                                            </td>
-                                                            <td class="checkout-price">
-                                                                <p class="price">
-                                                                    Rp.{{ number_format($details['price'] * $details['quantity']) }}
-                                                                </p>
-                                                            </td>
-                                                        </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                                        <b>
+                                                                            {{ $details['quantity'] }}
+                                                                        </b>
+                                                                    </td>
+                                                                    <td class="checkout-price">
+                                                                        <p class="price">
+                                                                            Rp.{{ number_format($details['price'] * $details['quantity']) }}
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
 
-                                            <div class="checkout-footer">
-                                                <div class="checkout-sub-total d-flex justify-content-between">
-                                                    <p class="value">Grand Total:</p>
-                                                    <p class="price">Rp.{{ number_format($total) }}</p>
+                                                <div class="checkout-footer">
+                                                    <div class="checkout-sub-total d-flex justify-content-between">
+                                                        <p class="value">Grand Total:</p>
+                                                        <p class="price">Rp.{{ number_format($total) }}</p>
+                                                    </div>
+                                                    <div class="checkout-btn">
+                                                        <a href="{{ route('cart') }}"
+                                                            class="main-btn primary-btn-border">View
+                                                            Cart</a>
+                                                        <a href="{{ route('checkout') }}"
+                                                            class="main-btn primary-btn">Checkout</a>
+                                                    </div>
                                                 </div>
-                                                <div class="checkout-btn">
-                                                    <a href="{{ route('cart') }}" class="main-btn primary-btn-border">View
-                                                        Cart</a>
-                                                    <a href="{{ route('checkout') }}" class="main-btn primary-btn">Checkout</a>
-                                                </div>
-                                            </div>
                                             @endif
                                         </div>
                                     </div>
@@ -324,7 +337,8 @@
                     <div class="col-lg-5 col-md-7 col-sm-10">
                         <div class="footer-logo text-center">
                             <a href="/">
-                                <img height="150px" width="150px" src="{{ asset('template/assets/images/pitoe.png') }}" alt="logo footer">
+                                <img height="150px" width="150px"
+                                    src="{{ asset('template/assets/images/pitoe.png') }}" alt="logo footer">
                             </a>
                         </div>
                     </div>
@@ -332,7 +346,9 @@
             </div>
 
             <div class="footer-copyright text-center">
-                <p>Developed by Kendhi Pitoe Park Universitas Surabaya & <a href="https://graygrids.com/" rel="nofollow" target="_blank">GrayGrids</a>. Basesd on <a href="https://ecommercehtml.com/" rel="nofollow" target="_blank">eCommerceHTML</a>
+                <p>Developed by Kendhi Pitoe Park Universitas Surabaya & <a href="https://graygrids.com/"
+                        rel="nofollow" target="_blank">GrayGrids</a>. Basesd on <a href="https://ecommercehtml.com/"
+                        rel="nofollow" target="_blank">eCommerceHTML</a>
                 </p>
             </div>
     </section>
@@ -368,14 +384,27 @@
 
     <!--====== Main js ======-->
     <script src="{{ asset('template/assets/js/count-up.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
     </script>
     <!--====== Main js ======-->
     <script src="{{ asset('template/assets/js/main.js') }}"></script>
     <script>
-        
-        function refreshCart(){
+        function refreshCart() {
             $("#cart_nav").load(window.location.href + "#cart_nav");
+        }
+
+        // Initialize the service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register({{ public_path('/serviceworker.js') }}, {
+                scope: '.'
+            }).then(function(registration) {
+                // Registration was successful
+                console.log('Laravel PWA: ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+                // registration failed :(
+                console.log('Laravel PWA: ServiceWorker registration failed: ', err);
+            });
         }
     </script>
 

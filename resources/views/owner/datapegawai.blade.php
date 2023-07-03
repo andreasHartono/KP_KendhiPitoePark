@@ -30,7 +30,7 @@
                                 <th>Nama Kasir</th>
                                 <th>No Telepon</th>
                                 <th>Alamat</th>
-                                <th>Detail Kasir</th>
+                                {{-- <th>Detail Kasir</th> --}}
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -39,10 +39,10 @@
                                 <td>Agus</td>
                                 <td>09412419241</td>
                                 <td>Selotapak</td>
-                                <td><button class="btn btn-success" data-toggle="modal" data-target="#modal-lg">
-                                        Lihat Detail Pegawai</button></td>
-                                <td><button class="btn btn-danger" data-toggle="modal" data-target="#modal-lg">
-                                        Suspend Akun</button></td>
+                                {{-- <td><button class="btn btn-success" data-toggle="modal" data-target="#modal-lg">
+                                        Lihat Detail Pegawai</button></td> --}}
+                                {{-- <td><button class="btn btn-danger" data-toggle="modal" data-target="#modal-lg">
+                                        Suspend Akun</button></td> --}}
                             </tr>
                         </tbody>
                     </table>
@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modal-lg">
+    {{-- <div class="modal fade" id="modal-lg">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -93,6 +93,6 @@
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div>
+    </div> --}}
     <!-- /.modal -->
 @endsection

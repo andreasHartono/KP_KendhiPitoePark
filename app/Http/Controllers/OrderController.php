@@ -458,6 +458,7 @@ class OrderController extends Controller
       $print->text("\n==========================================\n");
       $print->setJustification(Printer::JUSTIFY_LEFT);
       $print->setEmphasis(true);
+      $print->text("ORDER ID : " . $dataOrder->order_id . "\n");
       $print->text("No Meja : " . $dataOrder->meja_id . "\n");
       $print->text("Nama Pelanggan : " . $dataOrder->nama_pelanggan . "\n");
       $print->text("Nama Kasir : " . $dataOrder->nama_kasir . "\n");
@@ -518,6 +519,7 @@ class OrderController extends Controller
       $print->text("\n==========================================\n");
       $print->setJustification(Printer::JUSTIFY_LEFT);
       $print->setEmphasis(true);
+      $print->text("ORDER ID : " . $dataOrder->order_id . "\n");
       $print->text("No Meja : " . $dataOrder->meja_id . "\n");
       $print->text("Nama Pelanggan : " . $dataOrder->nama_pelanggan . "\n");
       $print->text("Nama Kasir : " . $dataOrder->nama_kasir . "\n");

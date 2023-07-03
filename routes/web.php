@@ -121,7 +121,8 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
    Route::get('/rekappenjualanpegawai', [OrderController::class, 'rekap_penjualan_pegawai'])->name('rekap_pegawai');
    Route::get('/printrekappenjualanpegawai/{date}', [OrderController::class, 'print_rekap_penjualan_pegawai'])->name('print_rekap_pegawai');
    Route::get('/order/ganti_status_order', [OrderController::class, 'ganti_status_order'])->name('ganti_status_order');
-   
+   Route::get('/datamenupegawai', [CafeController::class, 'indexAdmin'])->name('data_menu');
+   Route::get('/datakategori', [CategoryFoodController::class, 'indexAdmin'])->name('data_kategori');
 
    Route::get('/ewallet/isiewallet', [EWalletController::class, 'isiEwallet'])->name('isi_ewallet');
    Route::get('/rekaptotal', [OrderController::class, 'report_penjualan'])->name('report_penjualan');
