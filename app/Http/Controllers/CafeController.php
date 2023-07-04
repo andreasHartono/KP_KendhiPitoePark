@@ -17,9 +17,10 @@ class CafeController extends Controller
     */
    public function index()
    {
+      // $idMeja = Crypt::decrypt($meja);
       $cafes = Cafe::all();
       $title = 'Semua Menu';
-      return view('menu.index', compact("cafes", "title"));
+      return view('menu.index', compact("cafes", "title","idMeja"));
    }
 
    /**

@@ -56,7 +56,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="#" class="brand-link">
+            <a href="{{ route('pegawai') }}" class="brand-link">
                 <img src="{{ asset('template/assets/images/pitoe.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Kendhi Pitoe</span>
@@ -74,31 +74,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <li class="nav-header">MENU</li>
-                        <li class="nav-item">
-                            <a href="{{ route('profil_owner') }}" class="nav-link">
-                                <i class="nav-icon fas fa-person-booth"></i>
-                                <p class="text">Profil</p>
-                            </a>
-                        </li>
+                        <li class="nav-header">Fitur Utama</li>
                         <li class="nav-item">
                             <a href="{{ route('scan_kasir') }}" class="nav-link">
                                 <i class="nav-icon fas fa-qrcode text-info"></i>
                                 <p>Scan Pembayaran</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('order.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-columns text-primary"></i>
-                                <p>Data Pesanan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('data_menu') }}" class="nav-link">
-                                <i class="nav-icon fas fa-wallet text-info"></i>
-                                <p>Data Menu</p>
-                            </a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a href="{{ route('rekap_pegawai') }}" class="nav-link">
                                 <i class="nav-icon far fa-folder-open text-success"></i>
@@ -126,7 +109,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <p>KENDHI PITOE Wallet</p>
                                 </a>
                             </li>
-
+                        @endcan
+                        <li class="nav-header">Data Master</li>
+                        <li class="nav-item">
+                            <a href="{{ route('order.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-columns text-primary"></i>
+                                <p>Data Pesanan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('data_menu') }}" class="nav-link">
+                                <i class="nav-icon fas fa-wallet text-info"></i>
+                                <p>Data Menu</p>
+                            </a>
+                        </li>
+                        @can('owner')
                             <li class="nav-item">
                                 <a href="{{ route('data_pegawai') }}" class="nav-link">
                                     <i class="nav-icon far fa-user text-primary"></i>
@@ -146,8 +143,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </a>
                             </li>
                         @endcan
-
-
+                        <li class="nav-header">Data Profil</li>
+                        <li class="nav-item">
+                            <a href="{{ route('profil_owner') }}" class="nav-link">
+                                <i class="nav-icon fas fa-person-booth"></i>
+                                <p class="text">Profil</p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

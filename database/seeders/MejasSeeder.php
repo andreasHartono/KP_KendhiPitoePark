@@ -15,9 +15,9 @@ class MejasSeeder extends Seeder
     public function run()
     {
         $mejas = [
-            ['no_meja' => '1','link' => 'www.google1.com',"meja_hash" => "t"], 
-            ['no_meja' => '2','link' => 'www.google2.com',"meja_hash" => "t"], 
-            ['no_meja' => '3','link' => 'www.google3.com',"meja_hash" => "t"],        
+            ['no_meja' => '1','link' => '1',"meja_hash" => "t"], 
+            ['no_meja' => '2','link' => '2',"meja_hash" => "t"], 
+            ['no_meja' => '3','link' => '3',"meja_hash" => "t"],        
                
         ];
 

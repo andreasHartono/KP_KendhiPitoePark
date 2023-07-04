@@ -28,7 +28,6 @@ $total = 0;
                 <div id="msg-notif">
                     @if($errors->any())
                     <div class="alert alert-danger" role="alert"><b>{{$errors->first()}}</b></div>
-
                     @endif
                 </div>
                 <input type="hidden" name="idmeja" id="idmeja" value="1">

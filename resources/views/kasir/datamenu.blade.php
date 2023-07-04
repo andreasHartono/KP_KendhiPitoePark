@@ -24,8 +24,8 @@
         @endif
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title"><b>Tabel Daftar Menu</b></h3><br>
-                <a class='btn btn-success' href="{{ route('cafes.create') }}">Tambah Menu Baru</a>
+                <h3 class="float-left"><b>Tabel Daftar Menu</b></h3>
+                <a class='btn btn-success btn-large float-right' href="{{ route('cafes.create') }}">Tambah Menu Baru</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

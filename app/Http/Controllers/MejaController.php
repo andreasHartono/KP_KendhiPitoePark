@@ -6,6 +6,7 @@ use App\Models\Meja;
 use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -27,9 +28,9 @@ class MejaController extends Controller
    {
       $idMeja = $id;
       $meja = Meja::findOrFail($id);
-      $meja->link = md5($id);
+      $meja->link = Crypt::encrypt($id);
       $meja->save();
-      $qrcode = QrCode::size(300)
+      $qrcode = QrCode::size(500)
          ->format('png')
          ->merge(public_path('images/pitoe.png'), 0.5, true)
          ->errorCorrection('M')
@@ -45,9 +46,10 @@ class MejaController extends Controller
    public function generateSignedUrl(string $hash)
    {
       $mejaModel = Meja::where('link', $hash)->firstOrFail();
-      $hashCode = md5(random_bytes(8));
-      session(['hash' => $hashCode, 'meja' => $mejaModel]);
-      return redirect(route('order.index', ['hash' => $hashCode]));
+      // $hashCode = Crypt::encrypt(random_bytes(8));
+      session(['meja' => $mejaModel]);
+      // session(['hash' => $hashCode, 'meja' => $mejaModel]);
+      return redirect(route('cafes.index', ['meja' => $mejaModel]));
    }
 
    public function meja_number()

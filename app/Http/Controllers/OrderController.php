@@ -186,7 +186,7 @@ class OrderController extends Controller
 
          $orders = Order::find($orders[0]->id);
          $orders->id_pegawai_kasir = Auth::user()->id;
-         $orders->status = "Processing";
+         $orders->status_order = "Processing";
          $orders->save();
          $totalPrice = 0;
 
@@ -458,7 +458,7 @@ class OrderController extends Controller
       $print->text("\n==========================================\n");
       $print->setJustification(Printer::JUSTIFY_LEFT);
       $print->setEmphasis(true);
-      $print->text("ORDER ID : " . $dataOrder->order_id . "\n");
+      $print->text("No Nota : " . $dataOrder->order_id . "\n");
       $print->text("No Meja : " . $dataOrder->meja_id . "\n");
       $print->text("Nama Pelanggan : " . $dataOrder->nama_pelanggan . "\n");
       $print->text("Nama Kasir : " . $dataOrder->nama_kasir . "\n");
@@ -519,7 +519,7 @@ class OrderController extends Controller
       $print->text("\n==========================================\n");
       $print->setJustification(Printer::JUSTIFY_LEFT);
       $print->setEmphasis(true);
-      $print->text("ORDER ID : " . $dataOrder->order_id . "\n");
+      $print->text("No Nota : " . $dataOrder->order_id . "\n");
       $print->text("No Meja : " . $dataOrder->meja_id . "\n");
       $print->text("Nama Pelanggan : " . $dataOrder->nama_pelanggan . "\n");
       $print->text("Nama Kasir : " . $dataOrder->nama_kasir . "\n");

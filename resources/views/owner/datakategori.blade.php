@@ -24,8 +24,9 @@
         @endif
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title"><b>Tabel Daftar Menu</b></h3><br>
-                <a class='btn btn-success' href="#modal-create" data-toggle='modal' class="btn btn-success">Tambah Menu
+                <h3 class="float-left"><b>Tabel Daftar Kategori Menu</b></h3>
+                <a class='btn btn-success float-right' href="#modal-create" data-toggle='modal'
+                    class="btn btn-success">Tambah Kategori Menu
                     Baru</a>
             </div>
             <!-- /.card-header -->
@@ -33,7 +34,7 @@
                 <table class="table table-hover" id="example1">
                     <thead>
                         <tr>
-                            <th>ID Kategori Menu</th>
+                            <th>#</th>
                             <th>Nama Kategori Menu</th>
                             <th>Aksi</th>
                         </tr>
@@ -44,15 +45,18 @@
                                 <td>{{ $dataKategori->id }}</td>
                                 <td>{{ $dataKategori->name }}</td>
                                 <td>
-                                    <a href="{{ route('categories.edit', ['category' => $dataKategori->id]) }}" class="btn btn-warning btn-sm">
+                                    <a href="{{ route('categories.edit', ['category' => $dataKategori->id]) }}"
+                                        class="btn btn-warning btn-sm">
                                         Ubah Kategori Menu</a><br><br>
-                                    <form action="{{ route('categories.destroy', ['category' => $dataKategori->id]) }}"
-                                        method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" value="Hapus Kategori Menu" class="btn btn-danger btn-sm"
-                                            onclick="if(!confirm('Apakah anda yakin mau kategori menu ini ? Pastikan data kategori tidak terpakai di salah satu atau banyak menu')) return false;">
-                                    </form>
+                                    @if ($dataKategori->id != 1 && $dataKategori->id != 2 && $dataKategori->id != 3)
+                                        <form action="{{ route('categories.destroy', ['category' => $dataKategori->id]) }}"
+                                            method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="submit" value="Hapus Kategori Menu" class="btn btn-danger btn-sm"
+                                                onclick="if(!confirm('Apakah anda yakin mau kategori menu ini ? Pastikan data kategori tidak terpakai di salah satu atau banyak menu')) return false;">
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

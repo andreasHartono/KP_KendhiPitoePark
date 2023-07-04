@@ -31,6 +31,7 @@ List Order
                         <thead>
                             <tr>
                                 <th>Nomor Order</th>
+                                <th>Nomor Nota</th>
                                 <th>Waktu Pemesanan</th>
                                 <th>Nomor Meja</th>
                                 <th>Status Pesanan</th>
@@ -43,6 +44,7 @@ List Order
                             @foreach ($order as $ord)
                             <tr>
                                 <td>{{ $ord->id }}</td>
+                                <td>{{ $ord->order_id }}</td>
                                 <td>{{ $ord->created_at }}</td>
                                 <td>{{ $ord->meja_id }}</td>
                                 <td>

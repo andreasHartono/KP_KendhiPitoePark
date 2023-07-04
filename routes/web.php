@@ -44,7 +44,7 @@ Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
 Route::get('/register', [AccountController::class, 'indexRegister'])->name('register');
 Route::post('/register_detail', [AccountController::class, 'create']);
 Route::get('/', [CafeController::class, 'index'])->name("index");
-
+Route::get('/kendhipitoe/{hash}', [MejaController::class, 'generateSignedUrl'])->name('meja.generateUrl'); // jadi default
 
 
 Route::get('add-to-cart', [CafeController::class, 'addToCart'])->name('addToCart');
@@ -130,7 +130,7 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
    Route::get('/qrcodemeja', [MejaController::class, 'index'])->name('meja.index');
    Route::post('/buatlinkmeja', [MejaController::class, 'store'])->name('meja.store');
    Route::get('generateqrcode/{id}', [MejaController::class, 'generate'])->name('meja.generate');
-   Route::get('/kendhipitoe/{hash}', [MejaController::class, 'generateSignedUrl'])->name('meja.generateUrl');
+   
 });
 
 
