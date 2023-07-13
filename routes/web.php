@@ -32,8 +32,8 @@ Route::get('/lacakpesanantamu', function(){
 })->name("lacak_pesanan_tamu");
 
 
-Route::get('/notaorder/{id}', [OrderController::class,'nota_pelanggan'])->name("nota_pelanggan");
-Route::get('/notaorderdapur/{id}', [OrderController::class,'nota_dapur'])->name("nota_dapur");
+Route::get('/notaorder/{id}', [OrderController::class,'cetak_nota_pelanggan'])->name("nota_pelanggan");
+Route::get('/notaorderdapur/{id}', [OrderController::class,'cetak_nota_dapur'])->name("nota_dapur");
 Route::get('/lacakpesanantamudetil', [OrderController::class, 'lacak_pesanan_by_nomororder'])->name("lacak_pesanan_by_nomororder");
 Route::get('/lacakpesanandetil/{id}', [OrderController::class, 'lacak_pesanan_detil'])->name("lacak_pesanan_detil");
 

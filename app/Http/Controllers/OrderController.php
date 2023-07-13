@@ -449,9 +449,9 @@ class OrderController extends Controller
       $connector = new WindowsPrintConnector("TM-P20");
       $print = new Printer($connector);
       $print->setJustification(Printer::JUSTIFY_CENTER);
+      $print->setEmphasis(true);
       $img = EscposImage::load(public_path('images/pitoe12.png'));
       $print->graphics($img);
-      $print->setEmphasis(true);
       $print->text("Kendhi Pitoe Park\n");
       $print->text("Kali Jaten, Selotapak, Kec. Trawas, \nKabupaten Mojokerto, Jawa Timur\n");
       $print->setEmphasis(false);
