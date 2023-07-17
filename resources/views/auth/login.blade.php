@@ -47,16 +47,16 @@
                 </form>
 
                 <div class="social-auth-links text-center mt-2 mb-3">
-                    <a href="#" class="btn btn-block btn-danger">
+                    <!-- <a href="#" class="btn btn-block btn-danger">
                         <i class="fab fa-google-plus mr-2"></i> Login Without Email
-                    </a>
+                    </a> -->
                     <a href="{{ route('index')}}" class="btn btn-block btn-outline-success">
                         Continue As Guest
                     </a>
                 </div>
                 <!-- /.social-auth-links -->
                 <p class="mb-0">
-                    <a href="{{ url('register')}}" class="btn btn-block btn-outline-secondary">Register a new membership</a>
+                    <a href="{{ url('register')}}" class="btn btn-block btn-outline-secondary">Register New Member</a>
                 </p>
             </div>
             <!-- /.card-body -->

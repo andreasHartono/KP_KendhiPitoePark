@@ -20,11 +20,12 @@
         <form class="form-inline" action="{{ route('meja.store') }}" method="POST">
             @csrf
             <div class="form-group mb-2">
-                <input type="text" class="form-control" name="no_meja" placeholder="Masukkan No Meja">
+                <label for="">Nomor Meja : </label><input type="text" class="form-control" name="no_meja" placeholder="Masukkan No Meja" required>
             </div>
-            <div class="form-group mb-2 ml-1">
-                <input type="text" class="form-control" name="link" placeholder="Masukkan Link Meja">
-            </div>
+            <br>
+            <!-- <div class="form-group mb-2 ml-1">
+                <label for=""></label><input type="text" class="form-control" name="link" placeholder="Masukkan Link Meja">
+            </div> -->
             <button type="submit" class="btn btn-primary ml-1 mb-2">Tambah Meja</button>
         </form><br>
         <div class="card">
@@ -32,23 +33,28 @@
                 <h3 class="card-title"><b>Data Meja dan Membuat QR Code Meja</b></h3>
             </div>
             <div class="card-body">
-                <table id="example1"class="table table-hover">
+                <table id="example1" class="table ">
                     <thead>
                         <tr>
                             <th scope="col">No.Meja</th>
                             <th scope="col">Link</th>
                             <th scope="col">Generate dan Print QR code Meja</th>
+                            <th scope="col">QR Code</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($mejas as $meja)
                             <tr>
-                                <td>{{ $meja->no_meja }}</td>
-                                <td>{{ route('meja.generateUrl', ['hash' => $meja->link]) }} </td>
+                                <td>Meja Nomer : {{ $meja->no_meja }}</td>
+                                <td> {{ $meja->link }} </td>
                                 <td>
-                                    <a href="{{ route('meja.generate', ['id' => $meja->id]) }}"
+                                    <a href="{{ route('meja.generateUrl', ['idEncrypt' => $meja->no_meja_encrypt]) }}"
                                         class="btn btn-success">Generate & Print
                                         QR Code Meja</a>
+                                </td>                                
+                                <td>
+                                    {{ QrCode::size(250)->generate($meja->link) }}
+
                                 </td>
                             </tr>
                         @endforeach

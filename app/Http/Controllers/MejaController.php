@@ -26,47 +26,85 @@ class MejaController extends Controller
 
    public function generate($id)
    {
-      $idMeja = $id;
-      $meja = Meja::findOrFail($id);
-      $meja->link = Crypt::encrypt($id);
-      $meja->save();
-      $qrcode = QrCode::size(500)
-         ->format('png')
-         ->merge(public_path('images/pitoe.png'), 0.5, true)
-         ->errorCorrection('M')
-         ->generate(route('meja.generateUrl', ['hash' => $meja->link]));
+      // Store a string into the variable which
+      // need to be Encrypted
+      // $url = "http://127.0.0.1:8000/kendhipitoe/";
+      // $simple_string = $id;  
+      // $ciphering = "AES-128-CTR";
+      // //$iv_length = openssl_cipher_iv_length($ciphering);
+      // $options = 0;
+      // // Non-NULL Initialization Vector for encryption
+      // $encryption_iv = '1234567891011121';
+      // // Store the encryption key
+      // $encryption_key = "KendhiPitoe";
+      // // Use openssl_encrypt() function to encrypt the data
+      // $encryption = openssl_encrypt(
+      //    $simple_string,
+      //    $ciphering,
+      //    $encryption_key,
+      //    $options,
+      //    $encryption_iv
+      // );      
 
-      $pdf = PDF::loadView('owner.printqrcode', ['qrcode' => $qrcode])->setOptions(['defaultFont' => 'sans-serif']);
-      $name = 'qrcode-meja ' . $idMeja . '.pdf';
-      Alert::success('Success Notification', 'Berhasil membuat QR Code dengan nomor meja ' . $idMeja);
-      return $pdf->stream($name);
-      //return view('owner.qrcodemeja', compact('qrcode','idMeja'));
+      // $urlQrMeja = $url.$encryption;
+
+      // $idMeja = $id;
+      // $meja = Meja::findOrFail($id);
+      // $meja->link = $urlQrMeja;
+      // $meja->save();
+      // $qrcode = QrCode::size(500)
+      //    ->format('png')
+      //    ->merge(public_path('images/pitoe.png'), 0.5, true)
+      //    ->errorCorrection('M')
+      //    ->generate(route('meja.generateUrl', ['hash' => $meja->link]));
+
+      
+
+      // $pdf = PDF::loadView('owner.printqrcode', ['qrcode' => $qrcode])->setOptions(['defaultFont' => 'sans-serif']);
+      // $name = 'qrcode-meja ' . $idMeja . '.pdf';
+      // Alert::success('Success Notification', 'Berhasil membuat QR Code dengan nomor meja ' . $idMeja);
+      // return $pdf->stream($name);
+      // return view('owner.qrcodemeja', compact('urlQrMeja'));
    }
 
-   public function generateSignedUrl(string $hash)
+   public function generateSignedUrl(string $idEncrypt)
    {
-      $mejaModel = Meja::where('link', $hash)->firstOrFail();
+      
+      // $ciphering = "AES-128-CTR";
+      // $options = 0;
+      // $encryption_iv = '1234567891011121';
+      // $encryption_key = "KendhiPitoe";
+      // $decryption = openssl_decrypt(
+      //    $idEncrypt,
+      //    $ciphering,
+      //    $encryption_key,
+      //    $options,
+      //    $encryption_iv
+      // );
+      $url = "http://127.0.0.1:8000/kendhipitoe/".$idEncrypt;
+      
+      $mejaModel = Meja::where('link', '=' , $url)->get();      
       // $hashCode = Crypt::encrypt(random_bytes(8));
-      session(['meja' => $mejaModel]);
+      session(['meja' => $mejaModel[0]->no_meja]);
+
       // session(['hash' => $hashCode, 'meja' => $mejaModel]);
-      return redirect(route('cafes.index', ['meja' => $mejaModel]));
+      return redirect(route('index'));
    }
 
    public function meja_number()
    {
       $noMeja = DB::table('mejas')
-                  ->select('no_meja')
-                  ->orderByDesc("no_meja")
-                  ->limit(1)
-                  ->get();
-      $noMejaMax = $noMeja[0]->no_meja;    
-      
+         ->select('no_meja')
+         ->orderByDesc("no_meja")
+         ->limit(1)
+         ->get();
+      $noMejaMax = $noMeja[0]->no_meja;
+
       $cart = session()->get('cart');
-      if(count($cart) == 0)
-      {
+      if (count($cart) == 0) {
          return redirect()->route('index')->withErrors(['Tidak ada menu pada keranjang. Mohon pilih menu untuk dimasukkan ke keranjang.']);;
       }
-      return view ('menu.checkout',compact(['noMejaMax']));
+      return view('menu.checkout', compact(['noMejaMax']));
    }
 
    /**
@@ -87,11 +125,32 @@ class MejaController extends Controller
     */
    public function store(Request $request)
    {
+      $url = "http://127.0.0.1:8000/kendhipitoe/";
+      $no_meja = $request->no_meja;  
+      $ciphering = "AES-128-CTR";
+      //$iv_length = openssl_cipher_iv_length($ciphering);
+      $options = 0;
+      // Non-NULL Initialization Vector for encryption
+      $encryption_iv = '1234567891011121';
+      // Store the encryption key
+      $encryption_key = "KendhiPitoe";
+      // Use openssl_encrypt() function to encrypt the data
+      $encryption = openssl_encrypt(
+         $no_meja,
+         $ciphering,
+         $encryption_key,
+         $options,
+         $encryption_iv
+      );      
+
+      $urlQrMeja = $url.$encryption;
+
       $meja = new Meja;
-      $meja->no_meja = $request->no_meja;
-      $meja->link = $request->link;
+      $meja->no_meja = $no_meja;
+      $meja->no_meja_encrypt = $encryption;
+      $meja->link = $urlQrMeja;
       $meja->save();
-      return redirect()->back()->with('success', Alert::success('Success Notification', 'Berhasil membuat meja baru dengan nomor meja '.$request->no_meja));
+      return redirect()->back()->with('success', Alert::success('Success Notification', 'Berhasil membuat meja baru dengan nomor meja ' . $request->no_meja));
    }
 
    /**

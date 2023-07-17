@@ -23,10 +23,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/tes', function(){
-   return view('kasir.pdfrekappenjualan');
-})->name("nasd");
-
 Route::get('/lacakpesanantamu', function(){
    return view('pelanggan.lacakpesanantamu');
 })->name("lacak_pesanan_tamu");
@@ -44,7 +40,7 @@ Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
 Route::get('/register', [AccountController::class, 'indexRegister'])->name('register');
 Route::post('/register_detail', [AccountController::class, 'create']);
 Route::get('/', [CafeController::class, 'index'])->name("index");
-Route::get('/kendhipitoe/{hash}', [MejaController::class, 'generateSignedUrl'])->name('meja.generateUrl'); // jadi default
+Route::get('/kendhipitoe/{idEncrypt}', [MejaController::class, 'generateSignedUrl'])->name('meja.generateUrl'); // jadi default
 
 
 Route::get('add-to-cart', [CafeController::class, 'addToCart'])->name('addToCart');
@@ -129,7 +125,7 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
    Route::get('/rekaptotaldetil', [OrderController::class, 'report_penjualan_detil'])->name('report_penjualan_detil');
    Route::get('/qrcodemeja', [MejaController::class, 'index'])->name('meja.index');
    Route::post('/buatlinkmeja', [MejaController::class, 'store'])->name('meja.store');
-   Route::get('generateqrcode/{id}', [MejaController::class, 'generate'])->name('meja.generate');
+   //Route::get('generateqrcodemeja/{id}', [MejaController::class, 'generate'])->name('meja.generate');
    
 });
 

@@ -22,8 +22,9 @@
             <div class="col-12">
                 <div class="card">
                   <div class="card-body d-flex justify-content-center">
-                     <img src="data:image/png;base64,{!! base64_encode($qrcode) !!}" />
-                     {{-- {!! $qrcode !!} --}}
+                     <!-- <img src="data:image/png;base64,{!! base64_encode($qrcode) !!}" />
+                     {{-- {!! $qrcode !!} --}} -->
+                     {{ QrCode::size(400)->generate($urlQrMeja) }}
                   </div>
                     <div class="card-footer">
                         {{-- <a href="{{ route('meja.print',['qrcode' => $qrcode]) }}" class="btn btn-success btn-block">Print QR Code Meja</a> --}}

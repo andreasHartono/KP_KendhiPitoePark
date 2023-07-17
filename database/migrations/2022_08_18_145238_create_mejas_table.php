@@ -16,8 +16,8 @@ class CreateMejasTable extends Migration
         Schema::create('mejas', function (Blueprint $table) {
             $table->id();
             $table->string('no_meja', 255);
-            $table->string('link', 255);
-            $table->string('meja_hash', 255)->nullable();
+            $table->string('link', 255)->nullable();
+            $table->string('no_meja_encrypt', 255)->nullable();
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
             
