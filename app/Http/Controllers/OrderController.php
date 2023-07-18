@@ -130,27 +130,30 @@ class OrderController extends Controller
          $noAntri = $lastNoAntri[0]->no_antrian + 1;
       }
 
-      $orderId = $arrAlp[$month] . $day . $noAntri . $request->no_meja;
+      $noMeja = session('meja');//$request->no_meja;
+
+      $orderId = $arrAlp[$month] . $day . $noAntri . $noMeja;
 
 
       if (Auth::user() == true) {
          $id_pelanggan = Auth::user()->id;
          $nama_pelanggan = Auth::user()->name;
 
-         $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => $id_pelanggan, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan, 'order_id' => $orderId,'real_order_id'=>0];
+         $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => $id_pelanggan, 'no_meja' => $noMeja, 'keterangan' => $request->catatan_tambahan, 'order_id' => $orderId,'real_order_id'=>0];
       } else {
          $id_pelanggan = null;
          $nama_pelanggan = $request->nama_customer;
 
-         $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99, 'no_meja' => $request->no_meja, 'keterangan' => $request->catatan_tambahan, 'order_id' => $orderId, 'real_order_id'=>0];
+         $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99, 'no_meja' => $noMeja, 'keterangan' => $request->catatan_tambahan, 'order_id' => $orderId, 'real_order_id'=>0];
       }
-
+      
+      
       session()->put("pelanggan", $cart['pelanggan']);
-
+      
       $orders = new Order();
       $orders->status_order = "Konfirmasi Pembayaran";
       $orders->keterangan = $request->catatan_tambahan;
-      $orders->meja_id = $request->no_meja;
+      $orders->meja_id = $noMeja;
       $orders->id_pelanggan = $id_pelanggan;
       $orders->nama_pelanggan = $nama_pelanggan;
       $orders->total_price = 0;
@@ -158,7 +161,7 @@ class OrderController extends Controller
       $orders->jenis_pembayaran = "Cash";
       $orders->order_id = $orderId;
       $orders->save();
-
+     
       $cart['pelanggan']['real_order_id'] = $orders->id;    
       $cartJson = json_encode($cart);
 

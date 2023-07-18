@@ -51,14 +51,15 @@
                             @endguest
                             <p>Tambah Catatan : &nbsp;&nbsp;<input type="text" class="form-control"
                                     placeholder="Catatan tambahan" name="catatan_tambahan" id="catatan_tambahan"></p>
-                            <p>Nomor Meja : &nbsp;&nbsp;<input type="number" class="form-control" value="1"
-                                    name="no_meja" id="no_meja" min='1' max={{ $noMejaMax }} required></p>
+                            <p>Nomor Meja : &nbsp;&nbsp;<input type="number" class="form-control" value="{{ session('meja') }}"
+                                    name="no_meja" id="no_meja" min='1' max={{ $noMejaMax }}  required disabled></p>
+                                  
                             <!-- Kalo nomer meja = 0, kasik javascript keluarin input tanya lokasi -->
                             <div class="card-body card-body-1">
                                 <h5 class="card-title">Metode Pembayaran</h5>
                                 <div class="d-grid gap-2">
                                     <a class=" btn btn-success btn-block" href="{{ route('checkout_ewallet') }}">E-WALLET KENDHI PITOE</a>
-                                    <input class="btn btn-outline-success btn-block" type="submit" value="TUNAI">
+                                    <input onclick="alertMeja()" class="btn btn-outline-success btn-block" type="submit" value="TUNAI">
                                 </div>
                         </form>
                     {{-- </div> --}}
@@ -69,6 +70,11 @@
 @endsection
 @section('javascript')
 <script>
+
+    function alertMeja(){
+        alert('Pastikan meja yang Anda tempati sekarang sesuai dengan nomor meja yang tertera.');
+    }
+
     $.ajax({
             type: 'GET',
             url: "{{ route('removeFromCart') }}",
