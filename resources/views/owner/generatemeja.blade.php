@@ -47,11 +47,11 @@
                             <tr>
                                 <td>Meja Nomer : {{ $meja->no_meja }}</td>
                                 <td> {{ $meja->link }} </td>
-                                <td>
+                                {{-- <td>
                                     <a href="{{ route('meja.generateUrl', ['idEncrypt' => $meja->no_meja_encrypt]) }}"
                                         class="btn btn-success">Generate & Print
                                         QR Code Meja</a>
-                                </td>                                
+                                </td>                                 --}}
                                 <td>
                                     {{ QrCode::size(250)->generate($meja->link) }}
 
