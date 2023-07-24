@@ -73,7 +73,9 @@
     </div>
 </div> -->
 
-
+@if (\Session::has('success'))
+<div class="alert alert-success" role="alert"><b> {!! \Session::get('success') !!}</b></div>   
+@endif
 @if (count($userOrder) != 0)
 
 
@@ -83,8 +85,8 @@
         <h5 class="card-title">Tanggal Pemesanan : {{ $order->created_at }}</h5>
     </div>
     <div class="card-body">
-        <b>Id Pemesanan </b> : {{ $order->id }}<br>
-        <b>Nomor Antrian </b> : Nomor {{ $order->no_antrian }}<br>
+        <b>Id Pemesanan </b> : {{ $order->order_id }}<br>
+        <b>Nomor Antrian </b> : {{ $order->no_antrian }}<br>
         <b>Status Order </b> : {{ $order->status_order }}<br>
         <b>Pembayaran </b> : {{ $order->jenis_pembayaran }}<br>
         <b>Total Harga </b> : <b>Rp. {{ $order->total_price }}</b><br>

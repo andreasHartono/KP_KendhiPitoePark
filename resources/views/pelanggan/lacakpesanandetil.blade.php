@@ -7,7 +7,7 @@
         <div class="card-body">
             <h4 class="card-title heading-6">No Meja &nbsp;&nbsp;&nbsp; : {{ $dataOrder->meja_id }} </h4>
             <h4 class="card-title heading-6">Nama Customer : {{ $dataOrder->nama_pelanggan }}</h4>          
-            <h4 class="card-title heading-6">ID Transaksi : {{ $dataOrder->id }}</h4>           
+            <h4 class="card-title heading-6">ID Transaksi : {{ $dataOrder->order_id }}</h4>           
             @if( $dataOrder->status_order == 'Processing' )
             <h4 class="card-title heading-6">Status Pesanan : <span class="text-warning"> {{ $dataOrder->status_order }}</span></h4>
 

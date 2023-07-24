@@ -20,14 +20,14 @@ class EWalletController extends Controller
    public function index()
    {
       $rekapVoucherTopUp = DB::table('log_vouchers')
-      ->select('log_vouchers.*', 'kasir.name as nama_kasir', 'pelanggan.name as nama_pelanggan', 'pelanggan.phone as telpon_pelanggan')
-      ->leftJoin('users as kasir','kasir.id','=','log_vouchers.id_pembuat')
-      ->leftJoin('users as pelanggan','pelanggan.id','=','log_vouchers.id_pembeli')
-      ->get();
-      
+         ->select('log_vouchers.*', 'kasir.name as nama_kasir', 'pelanggan.name as nama_pelanggan', 'pelanggan.phone as telpon_pelanggan')
+         ->leftJoin('users as kasir', 'kasir.id', '=', 'log_vouchers.id_pembuat')
+         ->leftJoin('users as pelanggan', 'pelanggan.id', '=', 'log_vouchers.id_pembeli')
+         ->get();
+
       return view('kasir.ewallet', compact('rekapVoucherTopUp'));
    }
-   
+
    /**
     * Show the form for creating a new resource.
     *
@@ -54,7 +54,7 @@ class EWalletController extends Controller
       $voucherTopUp = new Ewallet;
       $voucherTopUp->id_pembuat = $id_pembuat;
       $voucherTopUp->kode_voucher = $kodeRand;
-      $voucherTopUp->jumlah = $nominal;      
+      $voucherTopUp->jumlah = $nominal;
       $voucherTopUp->save();
 
       return $kodeRand;
@@ -145,49 +145,67 @@ class EWalletController extends Controller
          $cart = session()->get('cart');
 
          if (is_null($cart)) {
-            $msg = "Keranjang masih kosong.";
-            session()->put("msg", $msg);
-            return redirect()->route('index');
+            return redirect()->route('index')->withErrors(['Keranjang anda masih kosong.']);
          } else {
 
             $totalPrice = 0;
             foreach ($cart as $value) {
-               $totalPrice += ($value->quantity * $value->price);
+               $totalPrice += $value['quantity'] * $value['price'];
             }
 
             if ($userEmoney < $totalPrice) {
                $kekurangan = $totalPrice - $userEmoney;
-               return redirect()->route('pelanggan_topup', Compact(['msg' => "E-Wallet anda tidak mencukupi. Anda kekurangan Rp." . $kekurangan . " untuk bertransaksi menggunakan E-Wallet."]));
+               return redirect()->route('checkout')->withErrors(['msg' => "E-Wallet anda tidak mencukupi. Anda kekurangan Rp." . $kekurangan . " untuk bertransaksi menggunakan E-Wallet."]);
             } else {
-               $orders = new Order();
-               $orders->keterangan = "Belum ada";
-               $orders->status_order = "Processing";
-               $orders->meja_id = "1";
-               $orders->total_price = 0;
-               $orders->no_order = 9;
-               $orders->jenis_pembayaran = "Cash";
-               $orders->id_pegawai_kasir = Auth::user()->id;
+               $arrAlp = array('', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L');
+               $month = date('n');
+               $day = date('j');
 
-               // $orders->save();
+               $lastNoAntri = Order::where('created_at', "like", "%" . date("Y-m-d") . "%")
+                  ->orderBy('created_at', 'desc')
+                  ->take(1)
+                  ->get('no_antrian');
+
+               $noAntri = 1;
+               if (!is_null($lastNoAntri[0]->no_antrian)) {
+                  $noAntri = $lastNoAntri[0]->no_antrian + 1;
+               }
+
+               $noMeja = session('meja'); //$request->no_meja;
+
+               $orderId = $arrAlp[$month] . $day . $noAntri . $noMeja;
+
+               $orders = new Order();
+               $orders->keterangan = "-";
+               $orders->status_order = "Processing";
+               $orders->meja_id = $noMeja;              
+               $orders->no_antrian = $noAntri;
+               $orders->jenis_pembayaran = "E-Wallet";
+               $orders->id_pelanggan = Auth::user()->id;
+               $orders->nama_pelanggan = Auth::user()->name;
+               $orders->order_id =  $orderId;
+               $orders->total_price = $totalPrice;
+               $orders->save();
 
 
                foreach ($cart as $value) {
 
                   $od = new OrderDetails();
-                  //  $od->order_id = $orders->id;
-                  $od->cafe_id = $value->id;
-                  $od->jumlah = $value->quantity;
+                  $od->order_id = $orders->id;
+                  $od->cafe_id = $value['id'];
+                  $od->jumlah = $value['quantity'];
                   $od->save();
-                  $totalPrice += ($value->quantity * $value->price);
                }
-               $orders = Order::find($orders->id);
-               $orders->total_price = $totalPrice;
-               $orders->save();
+               $user = User::find(Auth::user()->id);         
+               $user->emoney -= $totalPrice;               
+               $user->save();
                $cart = null;
-               session()->put("scanCartOrder", $cart);
-               return redirect()->route('scan_kasir');
+               session()->put("cart", $cart);
+               return redirect()->route('lacak_pesanan')->with('success', 'Berhasil melakukan pemesanan dengan order id : '.$orderId);   ;
             }
          }
+      } else {
+         return redirect()->route('checkout')->withErrors(['Anda tidak memiliki saldo pada E-wallet Kendhi Pitoe anda.']);
       }
    }
 }
