@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pegawai;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -119,5 +120,12 @@ class AccountController extends Controller
       $msg = "Data profil berhasil diubah";
 
       return view('pelanggan.profilpelanggan', compact("msg"));
+   }
+
+   public function data_pegawai()
+   {
+      $pegawai = Pegawai::where('jabatan',"!=","pelanggan")->get(); 
+        
+      return view('owner.datapegawai', compact("pegawai"));   
    }
 }

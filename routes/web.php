@@ -8,6 +8,7 @@ use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\EWalletController;
 use App\Http\Controllers\MejaController;
+use App\Http\Controllers\PegawaiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -94,9 +95,8 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
       return view('kasir.selamatdatang');
    })->name('pegawai');
 
-   Route::get('/datapegawai', function () {
-      return view('owner.datapegawai');
-   })->name("data_pegawai");
+   Route::get('/datapegawai', [AccountController::class, 'data_pegawai'])->name('data_pegawai');
+      
 
    Route::get('/logewallet', function () {
       return view('owner.ewallet');
@@ -137,6 +137,6 @@ Route::resources([
    'categories' => CategoryFoodController::class,
    'order' => OrderController::class,
    'orderdetails' => OrderDetailsController::class,
-   'ewallet' => EWalletController::class
+   'ewallet' => EWalletController::class,   
 
 ]);
