@@ -33,13 +33,14 @@
                 <h3 class="card-title"><b>Data Meja dan Membuat QR Code Meja</b></h3>
             </div>
             <div class="card-body">
-                <table id="example1" class="table table-hover">
+                <table class="table table-hover" id="example1" >
                     <thead>
                         <tr>
                             <th scope="col">No.Meja</th>
                             <th scope="col">Link</th>
-                            <th scope="col">Generate dan Print QR code Meja</th>
+                            <!-- <th scope="col">Generate dan Print QR code Meja</th> -->
                             <th scope="col">QR Code</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,6 +57,7 @@
                                     {{ QrCode::size(250)->generate($meja->link) }}
 
                                 </td>
+                                <td></td>
                             </tr>
                         @endforeach
                     </tbody>
