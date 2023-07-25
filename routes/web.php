@@ -99,7 +99,7 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
    Route::get('/createdatapegawai', function () {
       return view('owner.tambahdatapegawai');
    })->name('create_data_pegawai');
-   
+
    Route::get('/storeedatapegawai', [AccountController::class, 'store_data_pegawai'])->name('store_data_pegawai');
      
 
@@ -143,5 +143,6 @@ Route::resources([
    'order' => OrderController::class,
    'orderdetails' => OrderDetailsController::class,
    'ewallet' => EWalletController::class,   
+   'meja' =>MejaController::class
 
 ]);

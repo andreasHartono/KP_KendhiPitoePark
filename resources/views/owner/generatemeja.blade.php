@@ -57,7 +57,16 @@
                                     {{ QrCode::size(250)->generate($meja->link) }}
 
                                 </td>
-                                <td></td>
+                                <td>
+                                @can('owner')
+                                            <form action="{{ route('meja.destroy', ['meja' => $meja->id]) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="submit" value="Hapus Meja" class="btn btn-danger btn-sm"
+                                                onclick="if(!confirm('Apakah anda yakin mau menghapus meja ini? Pastikan anda benar benar yakin untuk hapus data ini')) return false;">
+                                            </form>
+                                        @endcan
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
