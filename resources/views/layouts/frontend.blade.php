@@ -158,8 +158,8 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-
-                                            <div class="checkout-footer">
+                                        @endif
+                                        <div class="checkout-footer">
                                                 <div class="checkout-sub-total d-flex justify-content-between">
                                                     <p class="value">Grand Total :</p>
                                                     <p class="price">Rp.{{ number_format($total1) }}</p>
@@ -172,7 +172,6 @@
                                                         class="main-btn primary-btn">Checkout</a>
                                                 </div>
                                             </div>
-                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -294,6 +293,7 @@
                                                     </table>
                                                 </div>
 
+                                                @endif
                                                 <div class="checkout-footer">
                                                     <div class="checkout-sub-total d-flex justify-content-between">
                                                         <p class="value">Grand Total:</p>
@@ -307,7 +307,6 @@
                                                             class="main-btn primary-btn">Checkout</a>
                                                     </div>
                                                 </div>
-                                            @endif
                                         </div>
                                     </div>
                                 </div>
