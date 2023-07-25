@@ -34,6 +34,7 @@ Pemilik
                             <th>Alamat</th>                                                 
                             <th>Jabatan</th>
                             <th>Tanggal Akun Dibuat</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,6 +45,14 @@ Pemilik
                             <td>{{ $pg->address}}</td>
                             <td>{{ $pg->jabatan}}</td>
                             <td>{{ $pg->created_at}}</td>
+                            <td>
+                            <form action="{{ route('destroy_data_pegawai', ['id' => $pg->id]) }}" method="get">
+                                @csrf                                                
+                                <input type="submit" value="Hapus Pegawai" class="btn btn-danger btn-sm"
+                                onclick="if(!confirm('Apakah anda yakin mau menghapus pegawai ini? Pastikan anda benar benar yakin untuk hapus data ini')) return false;">
+                            </form>
+                                
+                            </td>
                             {{-- <td><button class="btn btn-success" data-toggle="modal" data-target="#modal-lg">
                                         Lihat Detail Pegawai</button></td> --}}
                             {{-- <td><button class="btn btn-danger" data-toggle="modal" data-target="#modal-lg">

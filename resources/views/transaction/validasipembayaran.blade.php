@@ -29,7 +29,7 @@
                             <td>
                                 <p>Rp.{{ number_format($item->price) }}</p>
                             </td>
-                            <td><input type="text" value="{{ $item->quantity }}"></td>
+                            <td><input disabled type="text" value="{{ $item->quantity }}"></td>
                             <td>
                                 <p>Rp.{{ number_format($item->price * $item->quantity) }}</p>
                             </td>

@@ -101,7 +101,8 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
    })->name('create_data_pegawai');
 
    Route::get('/storeedatapegawai', [AccountController::class, 'store_data_pegawai'])->name('store_data_pegawai');
-     
+   Route::get('/destroydatapegawai/{id}', [AccountController::class, 'destroy_data_pegawai'])->name('destroy_data_pegawai');
+      
 
    Route::get('/logewallet', function () {
       return view('owner.ewallet');
