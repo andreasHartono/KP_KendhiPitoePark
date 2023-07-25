@@ -21,6 +21,8 @@ Pemilik
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title"><b>Data Pegawai</b></h3>
+                <a class='btn btn-success btn-large float-right' href="{{ route('create_data_pegawai') }}">Tambah Pegawai Baru</a>
+            </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -31,6 +33,7 @@ Pemilik
                             <th>No Telepon</th>
                             <th>Alamat</th>                                                 
                             <th>Jabatan</th>
+                            <th>Tanggal Akun Dibuat</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,6 +43,7 @@ Pemilik
                             <td>{{ $pg->phone }}</td>
                             <td>{{ $pg->address}}</td>
                             <td>{{ $pg->jabatan}}</td>
+                            <td>{{ $pg->created_at}}</td>
                             {{-- <td><button class="btn btn-success" data-toggle="modal" data-target="#modal-lg">
                                         Lihat Detail Pegawai</button></td> --}}
                             {{-- <td><button class="btn btn-danger" data-toggle="modal" data-target="#modal-lg">

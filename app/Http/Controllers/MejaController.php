@@ -193,8 +193,17 @@ class MejaController extends Controller
     * @param  \App\Models\Meja  $meja
     * @return \Illuminate\Http\Response
     */
-   public function destroy(Meja $meja)
+   public function destroy($id)
    {
-      //
+      try {
+         $meja = Meja::find($id);
+         $noMeja = $meja->no_meja;
+         $meja->delete();
+         return redirect()->route('data_menu')->with('success', Alert::success('Success Notification', 'Berhasil Hapus data Meja nomor ' . $noMeja));
+      } catch (\PDOException $e)
+      {
+         return redirect()->route('data_menu')->with('error', Alert::danger('Error Notification', 'Data gagal dihapus. Silahkan hubungi admin'));
+      }
+      
    }
 }

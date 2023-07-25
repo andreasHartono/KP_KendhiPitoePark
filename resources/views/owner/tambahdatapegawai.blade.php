@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 @section('title')
-    TAMBAH MENU
+    TAMBAH PEGAWAI
 @endsection
 @section('content-header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0"> Kendi Pitoe Cafe | <small>Ubah Data Menu</small></h1>
+            <h1 class="m-0"> Kendi Pitoe Cafe | <small>Tambah Pegawai Baru</small></h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="#">Ubah Data Menu</a></li>
+                <li class="breadcrumb-item"><a href="#">Tambah Pegawai Baru</a></li>
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -23,53 +23,48 @@
                 <!-- jquery validation -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Ubah Data Menu</h3>
+                        <h3 class="card-title">Tambah Data Pegawai Baru</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form id="quickForm" role="form" enctype="multipart/form-data" method="POST"
-                        action="{{ route('cafes.update',['cafe'=> $cafes[0]->id]) }}">
+                    <form id="quickForm" role="form" method="GET"
+                        action="{{ route('store_data_pegawai') }}">
                         @csrf
-                        @method("PUT")
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="exampleInputName">Nama Menu</label>
-                                <input type="text" name="name" class="form-control" id="exampleInputName"
-                                    placeholder="Contoh: Nasi Ayam Goreng" value="{{ $cafes[0]->name }}">
+                                <label for="exampleInputName">Nama Pegawai</label>
+                                <input type="text" name="nama" class="form-control" id="exampleInputName"
+                                    placeholder="Contoh: Budi Santoso" required>
+                            </div>                           
+                            <div class="form-group">
+                                <label for="exampleInputHarga">No. Telepon Pegawai</label>
+                                <input type="number" name="notelepon" class="form-control" id="exampleInputHarga"
+                                    placeholder="Contoh: 081--------" required>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputFile">Foto Menu</label><br>
-                                <img id="img" src="{{ asset('storage/menu_images/'.$cafes[0]->image) }}" alt="foto menu" height="150" width="150" class="img-responsive">    
-                                <input type="file" name="image" class="" id="exampleInputFile" >
-                                
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputHarga">Harga</label>
-                                <input type="number" name="price" class="form-control" id="exampleInputHarga"
-                                    placeholder="Contoh: 10000" value="{{ $cafes[0]->price }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleStatus">Status Stok</label>
-                                <select class="form-control" name="status" id="exampleStatus">
-                                    <option value="true" {{ ($cafes[0]->status == 'true') ? 'selected' : ''}}>Tersedia</option>
-                                    <option value="false" {{ ($cafes[0]->status == 'false') ? 'selected' : ''}}>Kosong atau Habis</option>
+                                <label for="exampleStatus">Jabatan</label>
+                                <select class="form-control" name="jabatan" id="exampleStatus">
+                                    <option value="owner">Owner</option>
+                                    <option value="pegawai">Pegawai</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="exampleKategori">Kategori</label>
-                                <select class="form-control" name="category_id" id="exampleKategori">
-                                    @foreach ($dataKategori as $data)
-                                        <option value="{{ $data->id }}" {{ ($cafes[0]->category_id == $data->id) ? 'selected' : ''}}>{{ $data->name }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="exampleInputHarga">Alamat Pegawai</label>
+                                <input type="text" name="alamat" class="form-control" id="exampleInputHarga"
+                                    placeholder="Contoh: Jalan Sultan No.1" required>
                             </div>
                             <div class="form-group">
-                                <label for="exampleDescription">Deskripsi Menu</label>
-                                <div class="col-md-9">
-                                    <textarea name="description" class="form-control" id="exampleDescription" rows="3"
-                                        placeholder="isi deskripsi menu">{{ $cafes[0]->description }}</textarea>
-                                </div>
+                                <label for="exampleInputHarga">Username Pegawai</label>
+                                <input type="text" name="username" class="form-control" id="exampleInputHarga"
+                                    placeholder="Contoh: budisantoso" required>
                             </div>
+                            <div class="form-group">
+                                <label for="exampleInputHarga">Password Pegawai</label>
+                                <input type="text" name="password" class="form-control" id="exampleInputHarga"
+                                    placeholder="Contoh: password123" required>
+                            </div>
+                           
+                            
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
@@ -94,13 +89,6 @@
     <script src="{{ asset('admin/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('admin/plugins/jquery-validation/additional-methods.min.js') }}"></script>
     <script>
-         let img = document.getElementById('img');
-         let input = document.getElementById('exampleInputFile');
-
-         input.onchange = (e) => {
-            if(input.files[0])
-            img.src = URL.createObjectURL(input.files[0]);
-         }
         $(function() {
             $.validator.setDefaults({
                 submitHandler: function() {
@@ -130,22 +118,22 @@
                 },
                 messages: {
                     name: {
-                        required: "Silahkan masukkan nama menu dengan benar dan tidak boleh dikosongi",
+                        required: "Silahkan masukkan nama Pegawai dengan benar dan tidak boleh dikosongi",
                     },
                     price: {
-                        required: "Silahkan masukkan harga menu dengan benar dan tidak boleh dikosongi",
+                        required: "Silahkan masukkan harga Pegawai dengan benar dan tidak boleh dikosongi",
                     },
                     status: {
-                        required: "Silahkan pilih status ketersediaan stok menu dengan benar dan tidak boleh dikosongi",
+                        required: "Silahkan pilih status ketersediaan stok Pegawai dengan benar dan tidak boleh dikosongi",
                     },
                     kategori: {
-                        required: "Silahkan pilih jenis kategori menu dengan benar dan tidak boleh dikosongi",
+                        required: "Silahkan pilih jenis kategori Pegawai dengan benar dan tidak boleh dikosongi",
                     },
                     image: {
-                        required: "Silahkan masukkan foto menu dengan benar dan tidak boleh dikosongi",
+                        required: "Silahkan masukkan foto Pegawai dengan benar dan tidak boleh dikosongi",
                     },
                     deskripsi: {
-                        required: "Silahkan masukkan deskripsi menu dengan benar dan tidak boleh dikosongi",
+                        required: "Silahkan masukkan deskripsi Pegawai dengan benar dan tidak boleh dikosongi",
                     },
                 },
                 errorElement: 'span',

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CafeController extends Controller
 {
@@ -160,18 +161,28 @@ class CafeController extends Controller
     */
    public function update(Request $request, $id)
    {
+      $destination_path = 'public/menu_images/';     
       $cafe = Cafe::find($id);
-      $destinationPath = 'images';
-      $myimage = $request->image->getClientOriginalName();
-      $request->image->move(public_path($destinationPath), $myimage);
-      $cafe->name = $request->get('name');
-      $cafe->image = $myimage;
+      if(!is_null($request->image))
+      {
+         $oldImageName = $cafe->image;
+         Storage::delete($destination_path.$oldImageName);  
+         $imageName = strtolower(str_replace(' ', '', $request->get('name'))).".jpg"; 
+         $request->image->storeAs($destination_path,$imageName);    
+         $cafe->image = $imageName;
+      }                
+     
+      
+      $cafe->name = $request->get('name');      
       $cafe->price = $request->get('price');
       $cafe->status = $request->get('status');
       $cafe->category_id = $request->get('category_id');
       $cafe->description = $request->get('description');
       $cafe->save();
-      return redirect()->route('data_menu')->with('success', Alert::success('Success Notification', 'Berhasil Ubah data Menu dengan ID Menu '.$id));
+      return redirect()->route('data_menu')->with('success', Alert::success('Success Notification', 'Berhasil Ubah data Menu '.$cafe->name));
+      
+     
+      
    }
 
    /**

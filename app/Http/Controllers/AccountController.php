@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AccountController extends Controller
 {
@@ -124,8 +125,27 @@ class AccountController extends Controller
 
    public function data_pegawai()
    {
-      $pegawai = Pegawai::where('jabatan',"!=","pelanggan")->get(); 
-      
+      $pegawai = Pegawai::where('jabatan',"!=","pelanggan")->get();       
       return view('owner.datapegawai', compact("pegawai"));   
    }
+
+   public function store_data_pegawai(Request $request)
+   {
+      $user = new User();
+      $user->name = $request->get('nama');
+      $user->phone = $request->get('notelepon');
+      $user->address = $request->get('alamat');
+      $user->jabatan = $request->get('jabatan');
+      $user->username = $request->get('username');
+      $user->password = Hash::make($request->get('password'));
+      $user->save();      
+      return redirect()->route("data_pegawai")->with('success', Alert::success('Success Notification', 'Berhasil Tambah Pegawai Baru dengan Nama : '.$user->name));;  
+   }
+
+   public function update_data_pegawai()
+   {
+
+   }
+
+   
 }

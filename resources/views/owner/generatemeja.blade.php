@@ -33,7 +33,7 @@
                 <h3 class="card-title"><b>Data Meja dan Membuat QR Code Meja</b></h3>
             </div>
             <div class="card-body">
-                <table id="example1" class="table ">
+                <table id="example1" class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">No.Meja</th>

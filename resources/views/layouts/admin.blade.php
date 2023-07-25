@@ -74,6 +74,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
+                        <li class="nav-header">Halaman Pemesanan Pelanggan</li>
+                        <li class="nav-item">
+                            <a href="{{ route('index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-shopping-cart text-info"></i>
+                                <p>Halaman Pemesanan Pelanggan</p>
+                            </a>
+                        </li>
                         <li class="nav-header">Fitur Utama</li>
                         <li class="nav-item">
                             <a href="{{ route('scan_kasir') }}" class="nav-link">
