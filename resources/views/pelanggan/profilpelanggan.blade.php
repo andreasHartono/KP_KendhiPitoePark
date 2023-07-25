@@ -15,9 +15,9 @@
         </div>
     </div><br>
     <div class="card-header p-2">
-        <ul class="nav nav-pills">
+        <!-- <ul class="nav nav-pills">
             <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
-        </ul>
+        </ul> -->
     </div><!-- /.card-header -->
     <div class="card-body">
         <div class="tab-content">
@@ -27,19 +27,19 @@
                         <div class="form-group row">
                             <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="inputNama" id="inputNama" placeholder="{{ Auth::user()->name }}">
+                                <input type="text" class="form-control" name="inputNama" id="inputNama" value="{{ Auth::user()->name }}">
                             </div>
                         </div><br>
                         <div class="form-group row">
                             <label for="inputEmail" class="col-sm-2 col-form-label">Nomor Telepon</label>
                             <div class="col-sm-10">
-                                <input type="tel" class="form-control" name="inputTelepon" id="inputTelepon" placeholder="{{ Auth::user()->phone }}">
+                                <input type="tel" class="form-control" name="inputTelepon" id="inputTelepon" value="{{ Auth::user()->phone }}">
                             </div>
                         </div><br>
                         <div class="form-group row">
                             <label for="inputAlamat" class="col-sm-2 col-form-label">Alamat</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" name="inputAlamat" id="inputAlamat" placeholder="{{ Auth::user()->address }}"></textarea>
+                                <input class="form-control" name="inputAlamat" id="inputAlamat" value="{{ Auth::user()->address }}">
                             </div>
                         </div><br>
                         <div class="form-group row">

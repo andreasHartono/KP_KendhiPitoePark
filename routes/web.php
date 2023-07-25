@@ -83,7 +83,7 @@ Route::middleware(['auth', 'role:pelanggan'])->group(function () {
    Route::get('/profilepelanggan/update', [AccountController::class, 'update_profil'])->name('update_profil');
    Route::get('/ewallet/checkout_ewallet', [EWalletController::class, 'checkoutEwallet'])->name('checkout_ewallet');
    Route::get('/lacakpesananku', [OrderController::class, 'lacak_pesanan_ku'])->name("lacak_pesanan");
-
+   Route::get('/ewallet/isiewallet', [EWalletController::class, 'isiEwallet'])->name('isi_ewallet');
 });
 
 
@@ -126,7 +126,7 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
    Route::get('/datamenupegawai', [CafeController::class, 'indexAdmin'])->name('data_menu');
    Route::get('/datakategori', [CategoryFoodController::class, 'indexAdmin'])->name('data_kategori');
 
-   Route::get('/ewallet/isiewallet', [EWalletController::class, 'isiEwallet'])->name('isi_ewallet');
+  
    Route::get('/rekaptotal', [OrderController::class, 'report_penjualan'])->name('report_penjualan');
    Route::get('/rekaptotaldetil', [OrderController::class, 'report_penjualan_detil'])->name('report_penjualan_detil');
    Route::get('/qrcodemeja', [MejaController::class, 'index'])->name('meja.index');

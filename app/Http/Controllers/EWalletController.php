@@ -118,7 +118,7 @@ class EWalletController extends Controller
 
    public function isiEwallet(Request $request)
    {
-      $kode = $request['kode'];
+      $kode = $request['kode'];      
 
       $voucherTopUp = Ewallet::where([['kode_voucher', "=", $kode]])->get()[0];
 
@@ -130,8 +130,7 @@ class EWalletController extends Controller
             $voucher = EWallet::find($id);
             $voucher->id_pembeli = Auth::user()->id;
             $voucher->terpakai = now();
-            $voucher->save();
-            
+            $voucher->save();            
 
             $user = User::find(Auth::user()->id);
             $user->emoney += $nominal;

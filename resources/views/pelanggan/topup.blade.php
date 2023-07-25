@@ -12,10 +12,12 @@
             <h4 class="card-title">TOP UP KENDHI PITOE WALLET</h4><br>
             <!-- <form action="" method="GET" class="was-validated"> -->
             <div class="mb-3">
-                <input id="kodeVoucher" type="text" class="form-control" placeholder="Kode Voucher, misal XIASA1212"><br>
-                {{-- <div class="invalid-feedback"></div>    --}}
-                <button id="kirimKode" class="btn btn-success btn-block">Masukkan Kode Voucher</button><br>
-                {{-- <input type="submit" value="Masukkan Kode" class="btn btn-success btn-block"> --}}
+                
+                <input id="kodeVoucher" type="text" class="form-control" name="kode" placeholder="Kode Voucher, misal XIASA1212"><br>
+                <button id="kirimKode" class="btn btn-success btn-block">Masukkan Kode Voucher</button><br>                
+                
+                <!-- {{-- <div class="invalid-feedback"></div>    --}}                
+                {{-- <input type="submit" value="Masukkan Kode" class="btn btn-success btn-block"> --}} -->
                 <label class="form-label text-danger">
                     *Jika ingin melakukan Top Up Kendhi Pitoe Wallet, silahkan membeli kode top up di kasir
                 </label>
@@ -40,7 +42,7 @@
             },
             success: function(response) {
                 if (response['message'] != "OK") {
-                    console.log(response);               
+                       
                     alert(response['message']);
                 }
                 else {

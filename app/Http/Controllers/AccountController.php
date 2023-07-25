@@ -107,6 +107,7 @@ class AccountController extends Controller
    public function update_profil(Request $request)
    {
       
+      
       $nama = $request['inputNama'];
       $telp = $request['inputTelepon'];
       $alamat = $request['inputAlamat'];      
@@ -116,11 +117,9 @@ class AccountController extends Controller
       $user->name = $nama;
       $user->phone = $telp;
       $user->address = $alamat;
-      $user->save();
+      $user->save();      
 
-      $msg = "Data profil berhasil diubah";
-
-      return view('pelanggan.profilpelanggan', compact("msg"));
+      return redirect()->route('profil_pelanggan')->with('success', Alert::success('Success Notification', 'Berhasil Ubah Data Profil'));;
    }
 
    public function data_pegawai()
