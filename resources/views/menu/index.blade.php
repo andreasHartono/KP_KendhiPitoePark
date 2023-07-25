@@ -37,24 +37,25 @@ $total = 0;
         <div class="col-lg-6">
             <div class="card card-1">
                 <div class="card-body card-body-1">
-                    <img src="{{ asset('assets/images/menu/' . $cafe->image) }}" alt="menu" class="img-responsive">
+                    <img src="{{ asset('storage/menu_images/' . $cafe->image) }}" alt="menu" class="img-responsive">
                     <div class="text-section">
                         <h4 class="title title-1">{{ $cafe->name }}</h4>
                         <p class="card-text card-text-1">
                             {{ Str::limit(strtolower($cafe->description), 20) }}
                             <br> Ketersediaan:
-                            @if ($cafe->status == true)
-                            Tersedia
+                            @if($cafe->status == "true")
+                                <b style="color: green;">Tersedia</b>
                             @else
-                            Habis
+                                <b style="color: red;">Habis</b>
                             @endif
+                            &nbsp
                         </p>
                     </div>
                     <div class="cta-section">
                         <div class="price">Rp. {{ number_format($cafe->price) }}</div>
                         <input type="hidden" name="idMenu" id="idmenu" value="{{ $cafe->id }}">
 
-                        @if ($cafe->status == true)
+                        @if($cafe->status == "true")
                         <button onclick="addToCart('{{ $cafe->id }}'); " id="btnaddcart" class="btn btn-success">
                             <img src="{{ asset('template/assets/images/icon-svg/cart-9.svg') }}" alt="">
                             Pesan Sekarang

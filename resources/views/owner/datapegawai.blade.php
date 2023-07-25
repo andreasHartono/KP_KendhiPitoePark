@@ -27,19 +27,19 @@ Pemilik
                 <table id="example1" class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Nama Kasir</th>
+                            <th>Nama Pegawai</th>
                             <th>No Telepon</th>
-                            <th>Alamat</th>
-                            {{-- <th>Detail Kasir</th> --}}
-                            <th>Aksi</th>
+                            <th>Alamat</th>                                                 
+                            <th>Jabatan</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($pegawai as $pg)
                         <tr>
-                            <td>Agus</td>
-                            <td>09412419241</td>
-                            <td>Selotapak</td>
+                            <td>{{ $pg->name }}</td>
+                            <td>{{ $pg->phone }}</td>
+                            <td>{{ $pg->address}}</td>
+                            <td>{{ $pg->jabatan}}</td>
                             {{-- <td><button class="btn btn-success" data-toggle="modal" data-target="#modal-lg">
                                         Lihat Detail Pegawai</button></td> --}}
                             {{-- <td><button class="btn btn-danger" data-toggle="modal" data-target="#modal-lg">

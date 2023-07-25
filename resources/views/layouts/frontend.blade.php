@@ -222,6 +222,7 @@
                                             <ul class="sub-menu">
                                                 <li><b>Selamat Datang di Kendhi Pitoe, {{ Auth::user()->name }}<b></li>
                                                 <li><a href="{{ route('profil_pelanggan') }}">Profil</a></li>
+                                                <li><a href="{{ route('pegawai') }}">Halaman Pegawai</a></li>
                                                 <li><a href="{{ route('logout') }}">Logout</a></li>
                                             </ul>
                                             <!-- sub menu Ends -->

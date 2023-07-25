@@ -34,22 +34,23 @@
                             <div class="form-group">
                                 <label for="exampleInputName">Nama Menu</label>
                                 <input type="text" name="name" class="form-control" id="exampleInputName"
-                                    placeholder="Contoh: Nasi Ayam Goreng">
+                                    placeholder="Contoh: Nasi Ayam Goreng" required>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFile">Foto Menu</label>
-                                <div class="input-group">
+                                
+                                <input type="file" name="image" class="" id="exampleInputFile" required>
+                                <!-- <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" name="image" class="custom-file-input"
-                                            id="exampleInputFile">
+                                        <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
                                         <label class="custom-file-label" for="exampleInputFile">Pilih Foto Menu</label>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputHarga">Harga</label>
                                 <input type="number" name="price" class="form-control" id="exampleInputHarga"
-                                    placeholder="Contoh: 10000">
+                                    placeholder="Contoh: 10000" required>
                             </div>
                             <div class="form-group">
                                 <label for="exampleStatus">Status Stok</label>

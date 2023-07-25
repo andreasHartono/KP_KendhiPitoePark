@@ -90,13 +90,17 @@ class CafeController extends Controller
     * @return \Illuminate\Http\Response
     */
    public function store(Request $request)
-   {
-      $cafe = new Cafe();
-      $destinationPath = 'images';
-      $myimage = $request->image->getClientOriginalName();
-      $request->image->move(public_path($destinationPath), $myimage);
+   {      
+      $destination_path = 'public/menu_images/';
+      $imageName = strtolower(str_replace(' ', '', $request->get('name'))).".jpg";
+
+      $cafe = new Cafe();     
+      
+      $destination_path = 'public/menu_images/';      
+      $request->image->storeAs($destination_path,$imageName);    
+      
       $cafe->name = $request->get('name');
-      $cafe->image = $myimage;
+      $cafe->image = $imageName;
       $cafe->price = $request->get('price');
       $cafe->status = $request->get('status');
       $cafe->id_pemilik_menu = Auth::user()->id;
@@ -180,8 +184,9 @@ class CafeController extends Controller
    {
       try {
          $cafe = Cafe::find($id);
+         $namaMenu = $cafe->name;
          $cafe->delete();
-         return redirect()->route('data_menu')->with('success', Alert::success('Success Notification', 'Berhasil Hapus data Menu dengan ID Menu ' . $id));
+         return redirect()->route('data_menu')->with('success', Alert::success('Success Notification', 'Berhasil Hapus data Menu ' . $namaMenu));
       } catch (\PDOException $e)
       {
          return redirect()->route('data_menu')->with('error', Alert::danger('Error Notification', 'Data gagal dihapus. Silahkan hubungi admin'));

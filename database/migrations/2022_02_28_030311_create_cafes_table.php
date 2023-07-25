@@ -27,7 +27,7 @@ class CreateCafesTable extends Migration
             $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
             $table->string('action', 10)->nullable();
 
-            $table->string('description'); 
+            $table->string('description')->nullable(); 
                         
         });
     }

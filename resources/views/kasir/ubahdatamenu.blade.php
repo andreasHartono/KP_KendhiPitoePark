@@ -39,14 +39,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFile">Foto Menu</label><br>
-                                <img id="img" src="{{ asset('images/'.$cafes[0]->image) }}" alt="foto menu" height="150" width="150" class="img-responsive">
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" name="image" class="custom-file-input"
-                                            id="exampleInputFile">
-                                        <label class="custom-file-label" for="exampleInputFile">{{ $cafes[0]->image }}</label>
-                                    </div>
-                                </div>
+                                <img id="img" src="{{ asset('storage/menu_images/'.$cafes[0]->image) }}" alt="foto menu" height="150" width="150" class="img-responsive">    
+                                <input type="file" name="image" class="" id="exampleInputFile" required>
+                                
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputHarga">Harga</label>

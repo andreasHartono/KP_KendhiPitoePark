@@ -125,7 +125,7 @@ class AccountController extends Controller
    public function data_pegawai()
    {
       $pegawai = Pegawai::where('jabatan',"!=","pelanggan")->get(); 
-        
+      
       return view('owner.datapegawai', compact("pegawai"));   
    }
 }

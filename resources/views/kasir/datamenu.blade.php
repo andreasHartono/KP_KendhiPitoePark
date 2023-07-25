@@ -63,8 +63,8 @@
                                 @endcan
                                 <td>{{ $dataMenu->description }}</td>
                                 <td>{{ $dataMenu->nama_kategori }}</td>
-                                <td><img src="{{ asset('images/' . $dataMenu->image) }}" alt="foto menu"
-                                        class="img-responsive" height="150" width="150"></td>
+                                <td><img src="{{ asset('storage/menu_images/' . $dataMenu->image) }}" alt="foto menu"
+                                        class="img-responsive"  width="150"></td>
                                 <td>{{ $dataMenu->created_at }}</td>
                                 <td>{{ $dataMenu->updated_at }}</td>
                                 <td>
