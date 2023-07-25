@@ -272,9 +272,9 @@ class OrderController extends Controller
       return view('kasir.rekappenjualan', compact(['orderData', 'allSoldMenu', 'tanggal', "failMsg"]));
    }
 
-   public function print_rekap_penjualan_pegawai($date)
+   public function print_rekap_penjualan_pegawai(Request $request)
    {
-
+      $date = $request->date;
       $data = $this->get_all_order_bydate($date);
 
       $orderData = $data['orderData'];
@@ -294,11 +294,12 @@ class OrderController extends Controller
          return redirect()->route('rekap_pegawai')->withErrors(['Tidak ada data penjualan menu anda hari ini']);
       }
 
-      $mpdf = new Mpdf();
+      $mpdf = new Mpdf(['format' => 'A4']);
       $html = view('kasir.pdfrekappenjualan', compact(['orderData', 'allSoldMenu', 'tanggal']))->render();
       $mpdf->WriteHTML($html);
-      $mpdf->Output($tanggal . 'Rekap_Penjualan_Pegawai' . '.pdf', 'D');
-      // return view('kasir.pdfrekappenjualan', compact(['orderData', 'allSoldMenu', 'tanggal']);
+      $mpdf->Output('Rekap_Penjualan_Pegawai.pdf','D');
+      
+      // return view('kasir.pdfrekappenjualan', compact(['orderData', 'allSoldMenu', 'tanggal']));
       // return  redirect()->back()->with('success', Alert::success('Success Notification', 'Berhasil Print Rekap Penjualan Pelanggan'));;
    }
 

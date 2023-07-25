@@ -115,7 +115,7 @@ Route::middleware(['auth', 'role:pegawai'])->group(function () {
    Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('checkout_order');
    Route::get('/order/validasipembayaran', [OrderController::class, 'validasipembayaran'])->name('validasi_pembayaran');
    Route::get('/rekappenjualanpegawai', [OrderController::class, 'rekap_penjualan_pegawai'])->name('rekap_pegawai');
-   Route::get('/printrekappenjualanpegawai/{date}', [OrderController::class, 'print_rekap_penjualan_pegawai'])->name('print_rekap_pegawai');
+   Route::get('/printrekappenjualanpegawai/', [OrderController::class, 'print_rekap_penjualan_pegawai'])->name('print_rekap_pegawai');
    Route::get('/order/ganti_status_order', [OrderController::class, 'ganti_status_order'])->name('ganti_status_order');
    Route::get('/datamenupegawai', [CafeController::class, 'indexAdmin'])->name('data_menu');
    Route::get('/datakategori', [CategoryFoodController::class, 'indexAdmin'])->name('data_kategori');

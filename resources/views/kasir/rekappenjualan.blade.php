@@ -37,9 +37,10 @@
                 $date = date('Y-m-d');
             }
         @endphp
-        <a href="{{ route('print_rekap_pegawai', ['date' => $date]) }}" class="btn btn-success btn-sm ml-1 mb-2">
-            Print Rekapan
-        </a>
+        <form action="{{ route('print_rekap_pegawai') }}">
+            <input type="hidden" name="date" value="{{ $date }}">
+            <button type="submit" class="btn btn-success ml-1 mb-2">Print Rekapan</button>
+        </form>
     </div>
 
 
