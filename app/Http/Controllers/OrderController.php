@@ -13,6 +13,7 @@ use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\EscposImage;
 use RealRashid\SweetAlert\Facades\Alert;
+use Mpdf\Mpdf;
 
 class OrderController extends Controller
 {
@@ -116,7 +117,7 @@ class OrderController extends Controller
    public function goToQR(Request $request)
    {
       $cart = session()->get("cart");
-      $arrAlp = array('','A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L');
+      $arrAlp = array('', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L');
       $month = date('n');
       $day = date('j');
 
@@ -130,7 +131,7 @@ class OrderController extends Controller
          $noAntri = $lastNoAntri[0]->no_antrian + 1;
       }
 
-      $noMeja = session('meja');//$request->no_meja;
+      $noMeja = session('meja'); //$request->no_meja;
 
       $orderId = $arrAlp[$month] . $day . $noAntri . $noMeja;
 
@@ -139,17 +140,17 @@ class OrderController extends Controller
          $id_pelanggan = Auth::user()->id;
          $nama_pelanggan = Auth::user()->name;
 
-         $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => $id_pelanggan, 'no_meja' => $noMeja, 'keterangan' => $request->catatan_tambahan, 'order_id' => $orderId,'real_order_id'=>0];
+         $cart['pelanggan'] = ["name" => Auth::user()->name, "id" => $id_pelanggan, 'no_meja' => $noMeja, 'keterangan' => $request->catatan_tambahan, 'order_id' => $orderId, 'real_order_id' => 0];
       } else {
          $id_pelanggan = null;
          $nama_pelanggan = $request->nama_customer;
 
-         $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99, 'no_meja' => $noMeja, 'keterangan' => $request->catatan_tambahan, 'order_id' => $orderId, 'real_order_id'=>0];
+         $cart['pelanggan'] = ["name" => $request->nama_customer, "id" => 99, 'no_meja' => $noMeja, 'keterangan' => $request->catatan_tambahan, 'order_id' => $orderId, 'real_order_id' => 0];
       }
-      
-      
+
+
       session()->put("pelanggan", $cart['pelanggan']);
-      
+
       $orders = new Order();
       $orders->status_order = "Konfirmasi Pembayaran";
       $orders->keterangan = $request->catatan_tambahan;
@@ -161,8 +162,8 @@ class OrderController extends Controller
       $orders->jenis_pembayaran = "Cash";
       $orders->order_id = $orderId;
       $orders->save();
-     
-      $cart['pelanggan']['real_order_id'] = $orders->id;    
+
+      $cart['pelanggan']['real_order_id'] = $orders->id;
       $cartJson = json_encode($cart);
 
 
@@ -293,7 +294,12 @@ class OrderController extends Controller
          return redirect()->route('rekap_pegawai')->withErrors(['Tidak ada data penjualan menu anda hari ini']);
       }
 
-      return view('kasir.pdfrekappenjualan', compact(['orderData', 'allSoldMenu', 'tanggal']));
+      $mpdf = new Mpdf();
+      $html = view('kasir.pdfrekappenjualan', compact(['orderData', 'allSoldMenu', 'tanggal']))->render();
+      $mpdf->WriteHTML($html);
+      $mpdf->Output($tanggal . 'Rekap_Penjualan_Pegawai' . '.pdf', 'D');
+      // return view('kasir.pdfrekappenjualan', compact(['orderData', 'allSoldMenu', 'tanggal']);
+      // return  redirect()->back()->with('success', Alert::success('Success Notification', 'Berhasil Print Rekap Penjualan Pelanggan'));;
    }
 
    public function report_penjualan_detil(Request $request)
@@ -375,7 +381,7 @@ class OrderController extends Controller
       $orderId = $request['nomororder'];
       $userOrder = DB::table('orders')
          ->select("*")
-         ->where([["order_id", "=", $orderId],['created_at','LIKE','%'.date('Y-m-d').'%']])
+         ->where([["order_id", "=", $orderId], ['created_at', 'LIKE', '%' . date('Y-m-d') . '%']])
          ->orderBy("created_at", "desc")
          ->get();
       return view('pelanggan.lacakpesanantamu', compact('userOrder'));
