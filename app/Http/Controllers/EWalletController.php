@@ -26,6 +26,10 @@ class EWalletController extends Controller
          ->get();
 
       return view('kasir.ewallet', compact('rekapVoucherTopUp'));
+      
+      
+
+      
    }
 
    /**
@@ -116,25 +120,31 @@ class EWalletController extends Controller
    {
       $kode = $request['kode'];
 
-      $voucherTopUp = Ewallet::where([['kode_voucher', "=", $kode], ["terpakai", '=', null]])->get()[0];
+      $voucherTopUp = Ewallet::where([['kode_voucher', "=", $kode]])->get()[0];
 
       if ($voucherTopUp != null) {
-         $nominal = $voucherTopUp->jumlah;
-         $id = $voucherTopUp->id;
+         if (is_null($voucherTopUp->terpakai)) {
+            $nominal = $voucherTopUp->jumlah;
+            $id = $voucherTopUp->id;
 
-         $voucher = EWallet::find($id);
-         $voucher->id_pembeli = Auth::user()->id;
-         $voucher->terpakai = now();
-         $voucher->save();
+            $voucher = EWallet::find($id);
+            $voucher->id_pembeli = Auth::user()->id;
+            $voucher->terpakai = now();
+            $voucher->save();
+            
 
-         $user = User::find(Auth::user()->id);
-         $user->emoney += $nominal;
-         $user->save();
+            $user = User::find(Auth::user()->id);
+            $user->emoney += $nominal;
+            $user->save();
 
-         return ["message" => "OK", "emoney_now" => $user->emoney, "nominal" => $nominal];
+            return ["message" => "OK", "emoney_now" => $user->emoney, "nominal" => $nominal];
+         }
+         else{
+            return ["message" => "Kode sudah terpakai!", "nominal" => 0];
+         }
+      } else {
+         return ["message" => "Tidak ada kode voucher dengan kode : " . $kode . ""];
       }
-
-      return ["message" => "Kode sudah terpakai!", "nominal" => 0];
    }
 
    public function checkoutEwallet()
@@ -178,7 +188,7 @@ class EWalletController extends Controller
                $orders = new Order();
                $orders->keterangan = "-";
                $orders->status_order = "Processing";
-               $orders->meja_id = $noMeja;              
+               $orders->meja_id = $noMeja;
                $orders->no_antrian = $noAntri;
                $orders->jenis_pembayaran = "E-Wallet";
                $orders->id_pelanggan = Auth::user()->id;
@@ -196,12 +206,12 @@ class EWalletController extends Controller
                   $od->jumlah = $value['quantity'];
                   $od->save();
                }
-               $user = User::find(Auth::user()->id);         
-               $user->emoney -= $totalPrice;               
+               $user = User::find(Auth::user()->id);
+               $user->emoney -= $totalPrice;
                $user->save();
                $cart = null;
                session()->put("cart", $cart);
-               return redirect()->route('lacak_pesanan')->with('success', 'Berhasil melakukan pemesanan dengan order id : '.$orderId);   ;
+               return redirect()->route('lacak_pesanan')->with('success', 'Berhasil melakukan pemesanan dengan order id : ' . $orderId);;
             }
          }
       } else {

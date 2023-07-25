@@ -40,6 +40,7 @@
             },
             success: function(response) {
                 if (response['message'] != "OK") {
+                    console.log(response);               
                     alert(response['message']);
                 }
                 else {

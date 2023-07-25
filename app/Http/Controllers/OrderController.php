@@ -284,11 +284,11 @@ class OrderController extends Controller
       }
 
       $allSoldMenu = $this->get_all_ordermenu($date, Auth::user()->id);
-      $tanggal = "tanggal " . $date;
+      $tanggal = $date;
 
-      if ($date == date('Y-m-d')) {
-         $tanggal = "hari ini";
-      }
+      // if ($date == date('Y-m-d')) {
+      //    $tanggal = "hari ini";
+      // }
 
       if (!$allSoldMenu) {
          return redirect()->route('rekap_pegawai')->withErrors(['Tidak ada data penjualan menu anda hari ini']);

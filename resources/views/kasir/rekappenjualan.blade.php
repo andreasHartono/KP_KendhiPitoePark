@@ -35,7 +35,7 @@
             $date = $tanggal;
             if ($tanggal == 'hari ini') {
                 $date = date('Y-m-d');
-            }
+            }            
         @endphp
         <form action="{{ route('print_rekap_pegawai') }}">
             <input type="hidden" name="date" value="{{ $date }}">
