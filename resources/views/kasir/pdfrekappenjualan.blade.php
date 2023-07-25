@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html>
 
 <head>
@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <!--====== Favicon Icon ======-->
+  
     <link rel="shortcut icon" href="{{ asset('template/assets/images/pitoe.png') }}" type="image/png">
     <style type="text/css">
         body {
@@ -100,6 +100,150 @@
                     <td class="text-right" colspan=2>Rp. {{ number_format($grandTotal) }}</td>
                 </tr>
             </tfoot>
+    </div>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Print Rekapan Penjualan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 900px;
+            margin: 0 auto;
+            padding: 15px;
+            border: 1px solid black;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header p {
+            margin-bottom: -10px;
+        }
+
+        .info {
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        .info p {
+            margin-bottom: -5px;
+        }
+
+        .table {
+            width: 100%;
+        }
+
+        .tableSignature {
+            width: 90%;
+        }
+
+        .table th,
+        .table td {
+            padding: 3px;
+            text-align: left;
+        }
+
+        .tableMenu {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .td,
+        .th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        .trMenu:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="col-sm-1" style="display: table-cell; vertical-align: middle; width: 10%;">
+                <img src="{{ asset('images/pitoe.png') }}" height="150" width="150">
+            </div>
+            <p style="font-weight: bold;">KENDHI PITOE PARK</p>
+            <p style="font-weight: bold;">Kali Jaten, Selotapak, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur</p>
+        </div>
+        <div class="info">
+            <p style="text-align: center; font-weight: bold;">REKAP PENJUALAN MENU</p>
+
+        </div>
+        <table class="table">
+            <tr>
+                <th>Nama Pemilik Menu</th>
+                <th style="width: 5px;">:</th>
+                <th style="font-weight: normal;">{{ Auth::user()->name }}</th>
+            </tr>
+            <tr>
+                <th>Tanggal Penjualan</th>
+                <th>:</th>
+                <th style="font-weight: normal;">{{ $tanggal }}</th>
+            </tr>
+        </table>
+        <table class="tableMenu">
+            <thead style="display: table-row-group;">
+                <tr class="trMenu">
+                    <th class="th" style="text-align: center; font-weight: normal;"><b>Nama Menu</b></th>
+                    <th class="th"style="text-align: center; font-weight: normal;" width="15%"><b>Jumlah Menu Terjual</b></th>
+                    <th class="th" style="text-align: center; font-weight: normal;" width="15%"><b>Harga Satuan</b></th>
+                    <th class="th" style="text-align: center; font-weight: normal;" width="15%"><b>SubTotal Terjual</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($allSoldMenu as $menu)
+                    <tr class="trMenu">
+                        <td class="td" style="text-align: center;">{{ $menu->food_name }}</td>
+                        <td class="td" style="text-align: center;">{{ $menu->jumlah }}</td>
+                        <td class="td">Rp. {{ number_format($menu->price) }}</td>
+                        @php
+                            $subTotal = $menu->price * $menu->jumlah;
+                            $grandTotal += $subTotal;
+                        @endphp
+                        <td class="td">Rp. {{ number_format($subTotal) }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th class="th" style="text-align:right;" colspan=3><b>Grand Total</b></th>
+                    <td class="td" colspan=2>Rp. {{ number_format($grandTotal) }}</td>
+                </tr>
+            </tfoot>
+        </table>
+        <div style="margin-top: 30px;">
+            <table class="tableSignature">
+                <tr>
+                    <th style="text-align: center; font-weight: normal;">Nama Pegawai</th>
+                    <th style="text-align: center; font-weight: normal;">Pemilik</th>
+                </tr>
+                <tr>
+                    <th style="height: 70px;"></th>
+                </tr>
+                <tr>
+                    <th style="text-align: center; font-weight: normal;">({{ Auth::user()->name }})</th>
+                    <th style="text-align: center; font-weight: normal;">(Iwan Setya B.)</th>
+                </tr>
+            </table>
+        </div>
     </div>
 </body>
 

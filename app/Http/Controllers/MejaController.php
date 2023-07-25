@@ -199,7 +199,7 @@ class MejaController extends Controller
          $meja = Meja::find($id);
          $noMeja = $meja->no_meja;
          $meja->delete();
-         return redirect()->route('data_menu')->with('success', Alert::success('Success Notification', 'Berhasil Hapus data Meja nomor ' . $noMeja));
+         return redirect()->route('meja.index')->with('success', Alert::success('Success Notification', 'Berhasil Hapus data Meja nomor ' . $noMeja));
       } catch (\PDOException $e)
       {
          return redirect()->route('data_menu')->with('error', Alert::danger('Error Notification', 'Data gagal dihapus. Silahkan hubungi admin'));

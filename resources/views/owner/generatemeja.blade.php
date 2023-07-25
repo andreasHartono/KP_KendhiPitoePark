@@ -33,13 +33,14 @@
                 <h3 class="card-title"><b>Data Meja dan Membuat QR Code Meja</b></h3>
             </div>
             <div class="card-body">
-                <table id="example1" class="table table-hover">
+                <table class="table table-hover" id="example1" >
                     <thead>
                         <tr>
                             <th scope="col">No.Meja</th>
                             <th scope="col">Link</th>
-                            <th scope="col">Generate dan Print QR code Meja</th>
+                            <!-- <th scope="col">Generate dan Print QR code Meja</th> -->
                             <th scope="col">QR Code</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,6 +56,16 @@
                                 <td>
                                     {{ QrCode::size(250)->generate($meja->link) }}
 
+                                </td>
+                                <td>
+                                @can('owner')
+                                            <form action="{{ route('meja.destroy', ['meja' => $meja->id]) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="submit" value="Hapus Meja" class="btn btn-danger btn-sm"
+                                                onclick="if(!confirm('Apakah anda yakin mau menghapus meja ini? Pastikan anda benar benar yakin untuk hapus data ini')) return false;">
+                                            </form>
+                                        @endcan
                                 </td>
                             </tr>
                         @endforeach

@@ -142,9 +142,19 @@ class AccountController extends Controller
       return redirect()->route("data_pegawai")->with('success', Alert::success('Success Notification', 'Berhasil Tambah Pegawai Baru dengan Nama : '.$user->name));;  
    }
 
-   public function update_data_pegawai()
-   {
-
+   public function destroy_data_pegawai($id)
+   {      
+      
+      try {
+         $user = User::find($id);
+         $user->delete();
+         return redirect()->route("data_pegawai")->with('success', Alert::success('Success Notification', 'Berhasil Delete Pegawai dengan Nama : '.$user->name));;  
+         
+      } catch (\PDOException $e)
+      {
+         return redirect()->route('data_menu')->with('error', Alert::danger('Error Notification', 'Data gagal dihapus. Silahkan hubungi admin'));
+      }
+   
    }
 
    
