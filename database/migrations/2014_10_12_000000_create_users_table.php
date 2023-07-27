@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
          $table->string("jabatan")->default('pelanggan');
          $table->timestamp("created_at")->useCurrent();
          $table->timestamp("updated_at")->nullable()->useCurrentOnUpdate();
+         $table->string('ip_printer')->nullable();
         });
     }
 

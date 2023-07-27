@@ -298,7 +298,7 @@ class OrderController extends Controller
       // $html = view('kasir.pdfrekappenjualan', compact(['orderData', 'allSoldMenu', 'tanggal']))->render();
       // $mpdf->WriteHTML($html);
       // $mpdf->Output('Rekap_Penjualan_Pegawai.pdf','D');
-      
+
       return view('kasir.pdfrekappenjualan', compact(['orderData', 'allSoldMenu', 'tanggal']));
       return  redirect()->back()->with('success', Alert::success('Success Notification', 'Berhasil Print Rekap Penjualan Pelanggan'));;
    }
@@ -453,7 +453,8 @@ class OrderController extends Controller
          ->where('order_details.order_id', '=', $id)
          ->get();
       $dataOrder = $dataOrder[0];
-      //    return view('transaction.invoicedapur', compact(['dataOrder', 'detilOrder', 'imagePath']));
+      //    return view('transaction.invoicepelanggan', compact(['dataOrder', 'detilOrder', 'imagePath']));
+
       // $profile = CapabilityProfile::load("TM-P20");
       // $connector = new NetworkPrintConnector("IP Printer",9100);
       $connector = new WindowsPrintConnector("TM-P20");
@@ -501,11 +502,13 @@ class OrderController extends Controller
    public function cetak_nota_dapur($id)
    {
       $dataOrder = DB::table('orders')
-         ->select("orders.*", "users.name as nama_kasir")
+         ->select("orders.*", "users.name as nama_kasir", "mejas.no_meja as no_meja")
          ->join('users', 'orders.id_pegawai_kasir', '=', 'users.id')
+         ->join("mejas", 'orders.meja_id', '=', 'mejas.id')
          ->where("orders.id", "=", $id)
          ->orderBy("orders.created_at", "desc")
          ->get();
+      $dataOrder = $dataOrder[0];
 
       $detilOrder = DB::table('order_details')
          ->select('cafes.name as nama_menu', 'cafes.price', DB::raw('SUM(order_details.jumlah) as jumlah'))
@@ -513,44 +516,79 @@ class OrderController extends Controller
          ->groupBy('order_details.cafe_id')
          ->where('order_details.order_id', '=', $id)
          ->get();
-      $dataOrder = $dataOrder[0];
-      //    return view('transaction.invoicepelanggan', compact(['dataOrder', 'detilOrder', 'imagePath']));
-      // $profile = CapabilityProfile::load("TM-P20");
-      // $connector = new NetworkPrintConnector("IP Printer",9100);
-      $connector = new WindowsPrintConnector("TM-P20");
-      $print = new Printer($connector);
-      $print->setJustification(Printer::JUSTIFY_CENTER);
-      $print->setEmphasis(true);
-      $img = EscposImage::load(public_path('images/pitoe12.png'));
-      $print->graphics($img);
-      $print->text("Kendhi Pitoe Park\n");
-      $print->text("Kali Jaten, Selotapak, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur\n");
-      $print->setEmphasis(false);
-      $print->text("\n==========================================\n");
-      $print->setJustification(Printer::JUSTIFY_LEFT);
-      $print->setEmphasis(true);
-      $print->text("No Nota : " . $dataOrder->order_id . "\n");
-      $print->text("No Meja : " . $dataOrder->meja_id . "\n");
-      $print->text("Nama Pelanggan : " . $dataOrder->nama_pelanggan . "\n");
-      $print->text("Nama Kasir : " . $dataOrder->nama_kasir . "\n");
-      $print->text("Tanggal Transaksi : " . date('Y-m-d : H:i:s', strtotime($dataOrder->created_at)) . "\n");
-      $print->setEmphasis(false);
-      $print->text("\n==========================================\n");
-      $print->setEmphasis(false);
-      foreach ($detilOrder as $do) {
-         $print->setJustification(Printer::JUSTIFY_LEFT);
-         $print->text($do->jumlah . "   x   " . $do->nama_menu . "\n");
+
+      $dataDetil = DB::table('order_details as od')
+         ->select('c.name as menu_name', 'u.name as pemilik_name', DB::raw("SUM(od.jumlah) as jumlah"))
+         ->leftJoin('cafes as c', 'c.id', '=', 'od.cafe_id')
+         ->join('users as u', 'u.id', '=', 'c.id_pemilik_menu')
+         ->where('od.order_id', '=', $id)
+         ->groupBy('c.name')
+         ->orderBy('c.id_pemilik_menu', 'asc')
+         ->get();
+
+
+
+      $countPemilikMenu = 0;
+      $namaPemilikSekarang = "";
+      $arrOrderDetil = [];
+
+      foreach ($dataDetil as $value) {
+         if ($namaPemilikSekarang != $value->pemilik_name) {
+            $namaPemilikSekarang = $value->pemilik_name;
+            $arrOrderDetil[$namaPemilikSekarang] = [];
+            $countPemilikMenu++;
+         }
+         array_push($arrOrderDetil[$namaPemilikSekarang], ["menu_name" => $value->menu_name, "jumlah" => $value->jumlah]);
       }
-      $print->setJustification(Printer::JUSTIFY_CENTER);
-      $print->text("\n==========================================\n");
-      $print->setJustification(Printer::JUSTIFY_CENTER);
-      $print->setEmphasis(true);
-      $print->setTextSize(1, 1);
-      $print->text("Matur Nuwun sampun\n");
-      $print->text("Rawuh ing\n");
-      $print->text("Kendhi Pitoe Park");
-      $print->feed(4);
-      $print->close();
+
+
+      //dd($dataOrder, $dataDetil, $arrOrderDetil);
+
+      return view('transaction.invoicedapur_new', compact(['dataOrder', 'detilOrder', 'arrOrderDetil', 'imagePath']));
+
+      foreach ($arrOrderDetil as $nama_dapur => $pesanan) {        
+
+         $profile = CapabilityProfile::load("TM-P20");
+         $connector = new NetworkPrintConnector("IP Printer", 9100);
+         $connector = new WindowsPrintConnector("TM-P20");
+         $print = new Printer($connector);
+
+         $print->setJustification(Printer::JUSTIFY_CENTER);
+         $print->setEmphasis(true);
+         //$img = EscposImage::load(public_path('images/pitoe12.png'));
+         // $print->graphics($img);
+         // $print->text("Kendhi Pitoe Park\n");
+         // $print->text("Kali Jaten, Selotapak, Kec. Trawas, Kabupaten Mojokerto, Jawa Timur\n");
+         // $print->setEmphasis(false);
+         // $print->text("\n==========================================\n");
+         // $print->setJustification(Printer::JUSTIFY_LEFT);
+         // $print->setEmphasis(true);
+         $print->text("Dapur : " . $nama_dapur . "\n");
+         $print->setEmphasis(false);
+         $print->text("No Nota : " . $dataOrder->order_id . "\n");
+         $print->text("No Meja : " . $dataOrder->meja_id . "\n");
+         $print->text("Nama Pelanggan : " . $dataOrder->nama_pelanggan . "\n");
+         //$print->text("Nama Kasir : " . $dataOrder->nama_kasir . "\n");
+         $print->text("Tanggal : " . date('Y-m-d : H:i:s', strtotime($dataOrder->created_at)) . "\n");
+         $print->setEmphasis(false);
+         $print->text("\n==========================================\n");
+         $print->setEmphasis(false);
+
+         foreach ($pesanan as $pesan) {
+            $print->setJustification(Printer::JUSTIFY_LEFT);
+            $print->text($pesan->['jumlah'] . "   x   " . $pesan['nama_menu'] . "\n");
+         }
+         $print->setJustification(Printer::JUSTIFY_CENTER);
+         // $print->text("\n==========================================\n");
+         // $print->setJustification(Printer::JUSTIFY_CENTER);
+         // $print->setEmphasis(true);
+         // $print->setTextSize(1, 1);
+         // $print->text("Matur Nuwun sampun\n");
+         // $print->text("Rawuh ing\n");
+         // $print->text("Kendhi Pitoe Park");
+         $print->feed(4);
+         $print->close();
+      }
       return redirect()->back()->with('success', Alert::success('Success Notification', 'Berhasil Print Nota Dapur'));
    }
 }
