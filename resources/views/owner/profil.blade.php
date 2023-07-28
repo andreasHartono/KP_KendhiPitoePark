@@ -29,7 +29,7 @@
                 <div class="card-body box-profile">
                     <h3 class="profile-username text-center">Nama : {{ Auth::user()->name }}</h3>
                     <p class="text-muted text-center">Sebagai : {{ Auth::user()->jabatan }}</p>
-                    {{-- <form action="" class="form-horizontal">
+                    <form action="" class="form-horizontal">
                         <div class="form-group row">
                             <label for="inputPassword" class="col-sm-2 col-form-label">Ubah Password</label>
                             <div class="col-sm-10">
@@ -41,7 +41,7 @@
                                 <button type="submit" class="btn btn-block btn-warning">Ubah Password</button>
                             </div>
                         </div>
-                    </form> --}}
+                    </form>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-body">

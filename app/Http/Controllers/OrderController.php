@@ -298,7 +298,7 @@ class OrderController extends Controller
       // $html = view('kasir.pdfrekappenjualan', compact(['orderData', 'allSoldMenu', 'tanggal']))->render();
       // $mpdf->WriteHTML($html);
       // $mpdf->Output('Rekap_Penjualan_Pegawai.pdf','D');
-
+      
       return view('kasir.pdfrekappenjualan', compact(['orderData', 'allSoldMenu', 'tanggal']));
       return  redirect()->back()->with('success', Alert::success('Success Notification', 'Berhasil Print Rekap Penjualan Pelanggan'));;
    }
@@ -469,7 +469,6 @@ class OrderController extends Controller
       $print->setJustification(Printer::JUSTIFY_LEFT);
       $print->setEmphasis(true);
       $print->text("No Nota : " . $dataOrder->order_id . "\n");
-      $print->text("No Antrian : " . $dataOrder->no_antrian . "\n");
       $print->text("No Meja : " . $dataOrder->meja_id . "\n");
       $print->text("Nama Pelanggan : " . $dataOrder->nama_pelanggan . "\n");
       $print->text("Nama Kasir : " . $dataOrder->nama_kasir . "\n");
@@ -480,7 +479,7 @@ class OrderController extends Controller
       foreach ($detilOrder as $do) {
          $print->setJustification(Printer::JUSTIFY_LEFT);
          $print->text($do->nama_menu . "\n");
-         $print->text("x" . $do->jumlah . "@" . $do->price);
+         $print->text($do->jumlah . " x " . $do->price);
          $print->setJustification(Printer::JUSTIFY_RIGHT);
          $print->text(str_repeat(" ", 23) . 'Rp.' . number_format($do->jumlah * $do->price) . "\n");
       }
